@@ -1,0 +1,16 @@
+@import '../scss/theme';
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background-color: var(--background);
+  color: var(--font-color);
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 0;
+}

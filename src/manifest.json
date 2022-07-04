@@ -1,0 +1,52 @@
+{
+  "manifest_version": 2,
+  "version": "1.0",
+  "name": "AWS role switch",
+  "description": "Switch roles on aws",
+  "homepage_url": "https://github.com/janstuemmel/aws-role-switch",
+  "browser_action": {
+    "default_title": "AWS role switch",
+    "default_popup": "popup/popup.html",
+    "browser_style": true,
+    "default_icon": {
+      "128": "assets/icon.svg"
+    }
+  },
+  "permissions": [
+    "management",
+    "storage",
+    "activeTab",
+    "theme"
+  ],
+  "options_ui": {
+    "page": "options/options.html",
+    "browser_style": false
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*.console.aws.amazon.com/*",
+        "https://phd.aws.amazon.com/*",
+        "https://*.console.amazonaws-us-gov.com/*",
+        "https://*.console.amazonaws.cn/*",
+        "https://signin.aws.amazon.com/*"
+      ],
+      "all_frames": true,
+      "js": [
+        "content/content.ts"
+      ],
+      "run_at": "document_idle"
+    }
+  ],
+  "icons": {
+    "48": "assets/icon.svg",
+    "96": "assets/icon.svg",
+    "128": "assets/icon.svg"
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "aws-role-switch@janstuemmel.github.io",
+      "strict_min_version": "57.0"
+    }
+  }
+}

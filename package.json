@@ -1,0 +1,37 @@
+{
+  "name": "aws-role-switch",
+  "version": "1.0.0",
+  "scripts": {
+    "ext:run": "web-ext run -s dist",
+    "ext:build": "web-ext build -s dist",
+    "watch": "parcel watch src/manifest.json",
+    "build": "parcel build src/manifest.json --no-source-maps",
+    "clean": "rimraf dist web-ext-artifacts",
+    "bundle": "run-s clean build ext:build",
+    "start": "run-p watch ext:run"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@codemirror/language": "^6.2.0",
+    "@codemirror/legacy-modes": "^6.1.0",
+    "@uiw/react-codemirror": "^4.10.4",
+    "minireset.css": "^0.0.7",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "webextension-polyfill": "^0.9.0"
+  },
+  "devDependencies": {
+    "@parcel/config-webextension": "^2.6.2",
+    "@parcel/transformer-sass": "^2.6.2",
+    "@types/react": "^17.0.47",
+    "@types/react-dom": "^17.0.17",
+    "@types/webextension-polyfill": "^0.9.0",
+    "npm-run-all": "^4.1.5",
+    "parcel": "^2.6.2",
+    "process": "^0.11.10",
+    "rimraf": "^3.0.2",
+    "web-ext": "^7.1.0"
+  }
+}

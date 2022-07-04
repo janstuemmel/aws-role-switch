@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "lib": [
+      "ES2017",
+      "DOM",
+    ],
+    "jsx": "react",
+    "module": "CommonJS",
+    "target": "es2017",
+    "esModuleInterop": true,
+    "resolveJsonModule": true
+  }
+}
