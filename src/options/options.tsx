@@ -3,7 +3,6 @@ import CodeMirror from '@uiw/react-codemirror'
 import { render } from 'react-dom'
 import { StreamLanguage } from '@codemirror/language'
 import { toml } from '@codemirror/legacy-modes/mode/toml'
-import 'minireset.css'
 
 const App = () => {
   return (
