@@ -1,4 +1,7 @@
 {
+  "ts-node": {
+    "files": true
+  },
   "compilerOptions": {
     "strict": true,
     "lib": [
@@ -10,5 +13,5 @@
     "target": "es2017",
     "esModuleInterop": true,
     "resolveJsonModule": true
-  }
+  },
 }
