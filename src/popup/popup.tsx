@@ -1,3 +1,3 @@
-import { getConfig } from '../common/storage'
+import { getConfig } from '../common/config'
 
 getConfig().then(console.log)

@@ -2,6 +2,7 @@
   "name": "aws-role-switch",
   "version": "1.0.0",
   "scripts": {
+    "test": "jest",
     "ext:run": "web-ext run -s dist",
     "ext:build": "web-ext build -s dist",
     "watch": "parcel watch src/manifest.json",
@@ -19,23 +20,29 @@
     "@codemirror/view": "^6.0.2",
     "@uiw/react-codemirror": "^4.10.4",
     "js-ini": "^1.5.1",
+    "lodash": "^4.17.21",
     "minireset.css": "^0.0.7",
-    "multi-ini": "^2.2.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "toml": "^3.0.0",
-    "webextension-polyfill": "^0.9.0"
+    "webextension-polyfill": "^0.9.0",
+    "zod": "^3.17.3"
   },
   "devDependencies": {
     "@parcel/config-webextension": "^2.6.2",
     "@parcel/transformer-sass": "^2.6.2",
+    "@types/jest": "^28.1.4",
+    "@types/lodash": "^4.14.182",
     "@types/react": "^17.0.47",
     "@types/react-dom": "^17.0.17",
     "@types/webextension-polyfill": "^0.9.0",
+    "jest": "^28.1.2",
     "npm-run-all": "^4.1.5",
     "parcel": "^2.6.2",
     "process": "^0.11.10",
     "rimraf": "^3.0.2",
+    "ts-jest": "^28.0.5",
+    "ts-node": "^10.8.2",
     "web-ext": "^7.1.0"
   }
 }

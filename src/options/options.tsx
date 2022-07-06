@@ -1,36 +1,20 @@
 import React, { useEffect, useState } from 'react'
-import CodeMirror from '@uiw/react-codemirror'
 import { render } from 'react-dom'
+import CodeMirror from '@uiw/react-codemirror'
 import { StreamLanguage } from '@codemirror/language'
 import { toml } from '@codemirror/legacy-modes/mode/toml'
-import { getConfig, setConfig } from '../common/storage'
-import { keymap } from '@codemirror/view'
+
+import { getConfig, setConfig } from '../common/config'
+import keymap from './keymap'
 
 const App = () => {
   const [configFile, setConfigFile] = useState<string | undefined>(undefined)
+  const onSave = () => setConfig(configFile || '')
+  const editorKeymap = keymap([{ key: 'Ctrl-s', fn: onSave }])
 
   useEffect(() => {
-    getConfig()
-      .then(({ configFile }) => setConfigFile(configFile))
+    getConfig().then(setConfigFile)
   }, [])
-
-  const onSave = () => {
-    setConfig(configFile || '', [])
-  }
-
-  const onChange = (val: string) => {
-    setConfigFile(val)
-  }
-
-  const editorKeymap = () => {
-    return keymap.of([{
-      key: 'Ctrl-s',
-      run() {
-        onSave()
-        return true
-      }
-    }])
-  }
 
   return (
     <div>
@@ -43,9 +27,9 @@ const App = () => {
       <CodeMirror
         minHeight="300px"
         theme="dark"
-        onChange={onChange}
+        onChange={(val) => setConfigFile(val)}
         value={configFile ? configFile : ''}
-        extensions={[StreamLanguage.define(toml), editorKeymap()]} />
+        extensions={[StreamLanguage.define(toml), editorKeymap]} />
     </div>
   )
 }
