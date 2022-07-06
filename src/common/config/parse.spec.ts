@@ -29,7 +29,7 @@ Object {
 `)
 })
 
-it('should parse file with comments', () => {
+it('should parse with newline between values', () => {
   const file = `
 [foo]
 bar = 1
