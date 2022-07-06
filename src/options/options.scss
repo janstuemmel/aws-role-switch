@@ -1,16 +1,22 @@
 @import '../scss/base';
 
-body {
-  margin: 0;
-  font-family: sans-serif;
-  background-color: var(--background);
-  color: var(--font-color);
+#options-ui {
+  &.wrapper {
+    display: flex;
+    overflow: hidden;
+    width: 100wh;
+    height: 100vh;
+  }
+  .editor {
+    flex: 1;
+  }
+  aside {
+    flex: 1;
+    padding: 0 var(--global-space);
+    overflow-y: scroll;
+  }
 }
 
-.header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  padding: 5px 0;
+.cm-focused {
+  outline: none !important
 }
