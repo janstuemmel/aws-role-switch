@@ -15,12 +15,18 @@
   "permissions": [
     "management",
     "storage",
-    "activeTab",
+    "tabs",
     "theme"
   ],
   "options_ui": {
     "page": "options/options.html",
-    "browser_style": false
+    "browser_style": false,
+    "open_in_tab": true
+  },
+  "background": {
+    "scripts": [
+      "background.ts"
+    ]
   },
   "content_scripts": [
     {
@@ -33,7 +39,7 @@
       ],
       "all_frames": true,
       "js": [
-        "content/content.ts"
+        "content.ts"
       ],
       "run_at": "document_idle"
     }
