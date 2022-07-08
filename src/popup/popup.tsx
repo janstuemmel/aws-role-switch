@@ -84,7 +84,7 @@ const App = () => {
         roles.length <= 0 ? (
           <NonIdealState
             className="empty-state"
-            description="You did not specify any aws role yet!" 
+            description="You did not specify any aws roles yet!" 
             action={<Button onClick={() => openOptions(window.close)} text="Open options page" icon="wrench" />}
             iconSize={NonIdealStateIconSize.SMALL}
           />
