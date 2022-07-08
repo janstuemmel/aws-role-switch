@@ -90,7 +90,6 @@ const App = () => {
           />
         ) : (
           <Menu className="menu">
-            {/* TODO: handle empty state */}
             {mapConfigStateToGroups(roles).map((group, gid) => (
               <div key={group.title+gid}>
                 <MenuSection title={group.title} />
