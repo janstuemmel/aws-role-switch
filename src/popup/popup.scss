@@ -16,9 +16,10 @@ body {
 }
 
 .wrapper {
-  width: 400px;
+  min-width: 450px;
+  max-width: 600px;
   min-height: 300px;
-  max-height: 500px;
+  max-height: 700px;
   overflow: hidden;
   display: flex;
   flex-direction: column;

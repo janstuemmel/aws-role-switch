@@ -1,4 +1,4 @@
-import { groupBy, keys } from "lodash"
+import { groupBy, keys, sortBy } from "lodash"
 import { runtime } from "webextension-polyfill"
 import { AWSConfigItemState } from "../types"
 
@@ -13,4 +13,5 @@ export const mapConfigStateToGroups = (config: AWSConfigItemState[]) => {
       title: key,
       children: groups[key]
     }))
+    .sort((a, b) => a.title < b.title ? -1 : 1)
 }

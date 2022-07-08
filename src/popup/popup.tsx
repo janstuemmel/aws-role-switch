@@ -53,7 +53,7 @@ const App = () => {
   }, [selectIdx, roles]);
 
   useKeydown((evt: KeyboardEvent) => {
-    if (selectIdxRef.current && evt.key === 'Enter') {
+    if (selectIdxRef.current !== null && evt.key === 'Enter') {
       // console.log(`Selected aws profile: ${rolesRef.current[selectIdxRef.current].title} ${selectIdxRef.current}`)
       window.close()
     }
@@ -72,6 +72,7 @@ const App = () => {
         <Button onClick={openOptions} icon="wrench" minimal={true}></Button>
       </ControlGroup>
       <Menu className="menu">
+        {/* TODO: handle empty state */}
         {mapConfigStateToGroups(roles).map((group, gid) => (
           <div key={group.title+gid}>
             {group.title == 'undefined' ? null : <MenuSection title={group.title} />}

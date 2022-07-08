@@ -42,7 +42,7 @@ export const useConfig = (): [ConfigItem[], string, Function, number|null] => {
   const [ config, setConfig ] = useState<ConfigItem[]>([]);
   const [ filtered, setFiltered ] = useState<ConfigItem[]>([]);
   const [ filter, setFilter ] = useState<string>('');
-  const [ selectIdx, setSelectList ] = useSelectIndex();
+  const [ selectIdx, setSelectList, setSelectIdx ] = useSelectIndex();
 
   useEffect(() => {
     getMappedConfig().then((c) => {
@@ -61,6 +61,14 @@ export const useConfig = (): [ConfigItem[], string, Function, number|null] => {
     // reset selected
     setSelectList(filtered)
   }, [filter]);
+
+  useEffect(() => {
+    // autoselect first element on search
+    // TODO: why does this work with a timeout only
+    setTimeout(() => {
+      setSelectIdx((idx: number) => filter === '' ? idx : 0)
+    }, 0)
+  }, [filter])
 
   useEffect(() => {
     // set item selected
