@@ -1,17 +1,19 @@
 @import "../scss/base";
 
 body {
+  width: 400px;
   @media (prefers-color-scheme: dark) {
     background: $dark-gray3;
   }
-  width: 400px;
 }
 
 #popup {
-  .wrapper {
+  &.wrapper {
     overflow: hidden;
     display: flex;
     flex-direction: column;
+    min-height: 300px;
+    max-height: 600px;
   }
   
   .header {
@@ -27,8 +29,6 @@ body {
   }
   
   .menu {
-    min-height: 300px;
-    max-height: 300px;
     overflow-y: scroll;
     border-radius: 0;
     padding: 0;
