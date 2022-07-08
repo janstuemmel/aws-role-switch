@@ -7,7 +7,7 @@ import {
 import { marked } from 'marked'
 import { getConfig } from '../common/config';
 
-import readme from 'url:../../README.md';
+import readme from 'url:../../docs/index.md';
 
 export const useDocs = () => {
   const [docs, setDocs] = useState('')

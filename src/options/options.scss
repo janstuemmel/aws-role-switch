@@ -60,6 +60,22 @@
       padding: 0 20px;
       flex: 1;
       overflow-y: scroll;
+
+      code {
+        padding: 1px 2px;
+        background: $light-gray2;
+        @media (prefers-color-scheme: dark) {
+          background: $dark-gray2;
+        }
+      }
+
+      pre {
+        padding: 10px;
+        background: $light-gray2;
+        @media (prefers-color-scheme: dark) {
+          background: $dark-gray2;
+        }
+      }
     }
   }
 }
