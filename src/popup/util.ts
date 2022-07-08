@@ -13,5 +13,7 @@ export const mapConfigStateToGroups = (config: AWSConfigItemState[]) => {
       title: key,
       children: groups[key]
     }))
-    .sort((a, b) => a.title < b.title ? -1 : 1)
+    // TODO: enable sorting again, does not work correctly with selecting
+    // also: ungrouped elements should always be on top (they have no header)
+    // .sort((a, b) => a.title < b.title ? -1 : 1)
 }
