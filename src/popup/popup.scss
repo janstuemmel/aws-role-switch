@@ -26,8 +26,22 @@ body {
       background-color: $dark-gray4;
       border-bottom: 1px solid $dark-gray3;
     }
+
+    .header-right {
+      display: flex;
+      justify-content: space-around;
+      gap: 10px;
+    }
   }
   
+  .empty-state {
+    flex: 1;
+
+    .bp4-non-ideal-state-text {
+      text-align: center;
+    }
+  }
+
   .menu {
     overflow-y: scroll;
     border-radius: 0;
@@ -41,7 +55,6 @@ body {
   .menu-divider {
     position: sticky;
     top: 0;
-    background: black;
     margin: 0;
     padding: 5px;
     font-size: 12px;

@@ -12,12 +12,14 @@ import {
   useDocs 
 } from './hooks'
 import { Alignment, Button, Navbar } from '@blueprintjs/core'
+import { createTab } from '../common/browser'
 
 const App = () => {
   const [configFile, setConfigFile] = useConfigFile()
   const docs = useDocs();
   const theme = useColorScheme()
 
+  const link = (url: string) => () => createTab(url)
   const onSave = () => setConfig(configFile || '')
   const editorKeymap = keymap([{ key: 'Ctrl-s', fn: onSave }])
 
@@ -40,12 +42,18 @@ const App = () => {
               <Navbar.Heading>AWS role switcher</Navbar.Heading>
             </Navbar.Group>
             <Navbar.Group align={Alignment.RIGHT}>
-              <Button className="bp4-minimal" text="Issues" />
-              <Button className="bp4-minimal" text="Github" />
-              <Button className="bp4-minimal" text="Homepage" />
+              <Button onClick={link('https://github.com/janstuemmel/aws-role-switch/issues')} minimal={true}>
+                Issues
+              </Button>
+              <Button onClick={link('https://github.com/janstuemmel/aws-role-switch')} minimal={true}>
+                Github
+              </Button>
+              <Button onClick={link('https://github.com/janstuemmel/aws-role-switch')} minimal={true}>
+                Homepage
+              </Button>
             </Navbar.Group>
           </Navbar>
-          <Button icon="floppy-disk" fill={true} large={true} style={{ marginTop: 10 }}>
+          <Button onClick={onSave} icon="floppy-disk" fill={true} large={true} style={{ marginTop: 10 }}>
             Save config (Ctrl-s)
           </Button>
         </header>

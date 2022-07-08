@@ -1,13 +1,14 @@
 import React, { FC, useEffect, useRef } from 'react';
 import { render } from 'react-dom';
 import validateColor from "validate-color";
-import { Button, ControlGroup, Icon, InputGroup, Menu, MenuItem } from "@blueprintjs/core";
+import { Button, ControlGroup, Icon, InputGroup, Menu, MenuItem, NonIdealState, NonIdealStateIconSize } from "@blueprintjs/core";
 import { useColorScheme, useKeydown } from '../common/hooks';
-import { mapConfigStateToGroups, openOptions } from './util';
+import { mapConfigStateToGroups } from './util';
 import { AWSConfigItemState } from '../types';
 import { useConfig } from './hooks/useConfig';
-import awsIconDark from '../assets/aws-dark.svg'
-import awsIconLight from '../assets/aws-light.svg'
+import { createTab } from '../common/browser';
+import { openOptions } from '../common/browser';
+import { AWSIcon } from '../common/components';
 
 const MenuSection: FC<{ title: string }> = ({ title }) => {
   return <div className="menu-divider">{title}</div>
@@ -71,22 +72,34 @@ const App = () => {
           leftIcon="filter"
           placeholder="Filter...."
           autoFocus={true} />
-        <div style={{ display: 'flex', justifyContent: 'space-around', gap: 10 }}>
-          <Button icon={
-            <img src={theme == 'dark' ? awsIconDark : awsIconLight} className="bp4-icon" />
-          } minimal={true}></Button>
-          <Button onClick={openOptions} icon="wrench" minimal={true}></Button>
+        <div className="header-right">
+          <Button 
+            onClick={() => createTab('https://console.aws.amazon.com/console', true, window.close)} 
+            icon={<AWSIcon theme={theme} />} 
+            minimal={true} />
+          <Button onClick={() => openOptions(window.close)} icon="wrench" minimal={true}></Button>
         </div>
       </ControlGroup>
-      <Menu className="menu">
-        {/* TODO: handle empty state */}
-        {mapConfigStateToGroups(roles).map((group, gid) => (
-          <div key={group.title+gid}>
-            {group.title == 'undefined' ? null : <MenuSection title={group.title} />}
-            {group.children.map((role, idx) => <RoleItem {...role} key={role.aws_account_id+idx} />)}
-          </div>
-        ))}
-      </Menu>
+      {
+        roles.length <= 0 ? (
+          <NonIdealState
+            className="empty-state"
+            description="You did not specify any aws role yet!" 
+            action={<Button onClick={() => openOptions(window.close)} text="Open options page" icon="wrench" />}
+            iconSize={NonIdealStateIconSize.SMALL}
+          />
+        ) : (
+          <Menu className="menu">
+            {/* TODO: handle empty state */}
+            {mapConfigStateToGroups(roles).map((group, gid) => (
+              <div key={group.title+gid}>
+                <MenuSection title={group.title} />
+                {group.children.map((role, idx) => <RoleItem {...role} key={role.aws_account_id+idx} />)}
+              </div>
+            ))}
+          </Menu>
+        )
+      }
     </div>
   )
 }
