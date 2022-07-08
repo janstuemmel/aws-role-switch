@@ -4,14 +4,11 @@ body {
   @media (prefers-color-scheme: dark) {
     background: $dark-gray3;
   }
+  width: 400px;
 }
 
 #popup {
   .wrapper {
-    min-width: 450px;
-    max-width: 600px;
-    min-height: 300px;
-    max-height: 700px;
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -30,6 +27,8 @@ body {
   }
   
   .menu {
+    min-height: 300px;
+    max-height: 300px;
     overflow-y: scroll;
     border-radius: 0;
     padding: 0;
