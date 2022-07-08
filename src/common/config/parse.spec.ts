@@ -8,7 +8,7 @@ bar = 1`
   expect(config).toMatchInlineSnapshot(`
 Object {
   "foo": Object {
-    "bar": 1,
+    "bar": "1",
   },
 }
 `)
@@ -23,7 +23,7 @@ bar = 1
   expect(config).toMatchInlineSnapshot(`
 Object {
   "foo": Object {
-    "bar": 1,
+    "bar": "1",
   },
 }
 `)
@@ -39,8 +39,8 @@ baz = 2`
   expect(config).toMatchInlineSnapshot(`
 Object {
   "foo": Object {
-    "bar": 1,
-    "baz": 2,
+    "bar": "1",
+    "baz": "2",
   },
 }
 `)
@@ -55,7 +55,7 @@ bar = 1`
   expect(config).toMatchInlineSnapshot(`
 Object {
   "foo": Object {
-    "bar": 1,
+    "bar": "1",
   },
 }
 `)
@@ -65,7 +65,7 @@ it('should get parse error', () => {
   const file = `
 helloooo
 [foo]
-bar = 1`
+bar = "1"`
   const errors = parseConfigError(file)
   expect(errors).toMatchInlineSnapshot(`
 Array [

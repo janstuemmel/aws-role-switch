@@ -4,88 +4,80 @@ import { mapConfig } from "./mapper";
 it('should map to default group', () => {
   const stored = {
     'foo': {
-      account: 'foo',
-      roleName: 'bar'
+      aws_account_id: 'foo',
+      role_name: 'bar'
     },
     'profile bar': {
-      account: 'foo',
-      roleName: 'bar'
+      aws_account_id: 'foo',
+      role_name: 'bar'
     },
-  }
+  } as StoredConfig
   const config = mapConfig(stored)
   expect(config).toMatchInlineSnapshot(`
-Object {
-  "default": Array [
-    Object {
-      "account": "foo",
-      "roleName": "bar",
-      "title": "foo",
-    },
-    Object {
-      "account": "foo",
-      "roleName": "bar",
-      "title": "bar",
-    },
-  ],
-}
+Array [
+  Object {
+    "aws_account_id": "foo",
+    "role_name": "bar",
+    "title": "foo",
+  },
+  Object {
+    "aws_account_id": "foo",
+    "role_name": "bar",
+    "title": "bar",
+  },
+]
 `)
 });
 
 it('should map to groups', () => {
   const stored = {
     'foo': {
-      account: 'foo',
-      roleName: 'bar'
+      aws_account_id: 'foo',
+      role_name: 'bar'
     },
     'bar': {
-      account: 'foo',
-      roleName: 'bar',
+      aws_account_id: 'foo',
+      role_name: 'bar',
       group: 'baz'
     },
   }
   const config = mapConfig(stored)
   expect(config).toMatchInlineSnapshot(`
-Object {
-  "baz": Array [
-    Object {
-      "account": "foo",
-      "group": "baz",
-      "roleName": "bar",
-      "title": "bar",
-    },
-  ],
-  "default": Array [
-    Object {
-      "account": "foo",
-      "roleName": "bar",
-      "title": "foo",
-    },
-  ],
-}
+Array [
+  Object {
+    "aws_account_id": "foo",
+    "role_name": "bar",
+    "title": "foo",
+  },
+  Object {
+    "aws_account_id": "foo",
+    "group": "baz",
+    "role_name": "bar",
+    "title": "bar",
+  },
+]
 `)
 });
 
 it('should omit entries with invalid values', () => {
   const stored = {
     'foo': {
-      account: 'foo',
+      aws_account_id: 'foo',
     },
     'bar': {
-      account: 'foo',
-      roleName: 'bar',
+      aws_account_id: 'foo',
+      role_name: 'bar',
     },
     'baz': 1337,
   }
   const config = mapConfig(stored as object as StoredConfig)
   expect(config).toMatchInlineSnapshot(`
-Object {
-  "default": Array [
-    Object {
-      "account": "foo",
-      "roleName": "bar",
-      "title": "bar",
-    },
-  ],
-}
+Array [
+  Object {
+    "aws_account_id": "foo",
+    "role_name": "bar",
+    "title": "bar",
+  },
+]
 `)
 });

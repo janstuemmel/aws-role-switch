@@ -9,10 +9,11 @@ function parse(config: string) {
   return parseIni(config, {
     comment: '#',
     nothrow: true,
+    autoTyping: false,
   }) as StoredConfig;
 }
 
-export function parseConfig(config: string) {
+export function parseConfig(config: string): StoredConfig {
   return omit(parse(config), $Errors) as StoredConfig;
 }
 

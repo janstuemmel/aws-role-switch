@@ -13,6 +13,7 @@
     "ext:build": "web-ext build -s dist"
   },
   "dependencies": {
+    "@blueprintjs/core": "^4.5.1",
     "@codemirror/language": "^6.2.0",
     "@codemirror/legacy-modes": "^6.1.0",
     "@codemirror/view": "^6.0.2",
@@ -21,9 +22,11 @@
     "lodash": "^4.17.21",
     "marked": "^4.0.17",
     "minireset.css": "^0.0.7",
+    "normalize.css": "^8.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "terminal.css": "^0.7.2",
+    "validate-color": "^2.2.1",
     "webextension-polyfill": "^0.9.0",
     "zod": "^3.17.3"
   },
