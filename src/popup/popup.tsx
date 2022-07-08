@@ -62,7 +62,7 @@ const App = () => {
   });
 
   return (
-    <div className={`wrapper bp4-${theme}`}>
+    <div id="popup" className={`wrapper bp4-${theme}`}>
       <ControlGroup className="header">
         <InputGroup 
           className="filter"

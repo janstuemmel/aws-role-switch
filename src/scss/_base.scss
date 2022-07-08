@@ -1,5 +1,16 @@
-@import 'minireset.css/minireset.sass';
-@import 'terminal.css/dist/terminal';
+@import "normalize.css/normalize";
+@import "@blueprintjs/core/lib/css/blueprint";
+@import "@blueprintjs/core/lib/scss/variables";
 
-@import './theme';
-@import './fixes';
+body {
+  background: $white;
+  @media (prefers-color-scheme: dark) {
+    background: $black;
+  }
+}
+
+// disables all focus outline on buttons
+:focus {
+  outline: none !important;
+  outline-offset: 0;
+}

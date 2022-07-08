@@ -1,63 +1,56 @@
-@import "normalize.css/normalize";
-@import "@blueprintjs/core/lib/css/blueprint";
-@import "@blueprintjs/core/lib/scss/variables";
+@import "../scss/base";
 
 body {
-  background: $white;
   @media (prefers-color-scheme: dark) {
     background: $dark-gray3;
   }
 }
 
-// disables all focus outline on buttons
-:focus {
-  outline: none !important;
-  outline-offset: 0;
-}
-
-.wrapper {
-  min-width: 450px;
-  max-width: 600px;
-  min-height: 300px;
-  max-height: 700px;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  background-color: $light-gray4;
-  border-bottom: 1px solid $light-gray2;
-  @media (prefers-color-scheme: dark) {
-    background-color: $dark-gray4;
-    border-bottom: 1px solid $dark-gray3;
+#popup {
+  .wrapper {
+    min-width: 450px;
+    max-width: 600px;
+    min-height: 300px;
+    max-height: 700px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
   }
-}
-
-.menu {
-  overflow-y: scroll;
-  border-radius: 0;
-  padding: 0;
-  margin-bottom: 5px;
-  li {
+  
+  .header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: $light-gray4;
+    border-bottom: 1px solid $light-gray2;
+    @media (prefers-color-scheme: dark) {
+      background-color: $dark-gray4;
+      border-bottom: 1px solid $dark-gray3;
+    }
+  }
+  
+  .menu {
+    overflow-y: scroll;
     border-radius: 0;
+    padding: 0;
+    margin-bottom: 5px;
+    li {
+      border-radius: 0;
+    }
   }
-}
-
-.menu-divider {
-  position: sticky;
-  top: 0;
-  background: black;
-  margin: 0;
-  padding: 5px;
-  font-size: 12px;
-  background-color: $light-gray4;
-  border-bottom: 1px solid $light-gray2;
-  @media (prefers-color-scheme: dark) {
-    background-color: $dark-gray4;
-    border-bottom: 1px solid $dark-gray3;
+  
+  .menu-divider {
+    position: sticky;
+    top: 0;
+    background: black;
+    margin: 0;
+    padding: 5px;
+    font-size: 12px;
+    background-color: $light-gray4;
+    border-bottom: 1px solid $light-gray2;
+    @media (prefers-color-scheme: dark) {
+      background-color: $dark-gray4;
+      border-bottom: 1px solid $dark-gray3;
+    }
   }
 }

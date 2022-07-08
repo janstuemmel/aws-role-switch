@@ -11,6 +11,7 @@ import {
   useConfigFile,
   useDocs 
 } from './hooks'
+import { Alignment, Button, Navbar } from '@blueprintjs/core'
 
 const App = () => {
   const [configFile, setConfigFile] = useConfigFile()
@@ -21,7 +22,7 @@ const App = () => {
   const editorKeymap = keymap([{ key: 'Ctrl-s', fn: onSave }])
 
   return (
-    <div id="options-ui" className="wrapper" data-color-mode="dark">
+    <div id="options-ui" className={`wrapper bp4-${theme}`}>
       <div className="editor">
         <CodeMirror
           height="100vh"
@@ -31,26 +32,26 @@ const App = () => {
           extensions={[StreamLanguage.define(toml), editorKeymap]} 
         />
       </div>
-      <aside className="">
-        <div className="terminal-nav">
-          <div className="terminal-logo">
-            <div className="logo">
-              <a href="#" className="no-style">AWS_Config</a>
-            </div>
-          </div>
-          <nav className="terminal-menu">
-            <ul>
-              <li><a className="menu-item" href="#">Issues</a></li>
-              <li><a className="menu-item" href="#">Github</a></li>
-              <li><a className="menu-item" href="#">Homepage</a></li>
-            </ul>
-          </nav>
-        </div>
-        <button className="btn btn-block">
-          Save config (Ctrl-s)
-        </button>
-        <hr />
-        <p dangerouslySetInnerHTML={{ __html: docs }} />
+      <div className="divider"></div>
+      <aside>
+        <header>
+          <Navbar>
+            <Navbar.Group align={Alignment.LEFT}>
+              <Navbar.Heading>AWS role switcher</Navbar.Heading>
+            </Navbar.Group>
+            <Navbar.Group align={Alignment.RIGHT}>
+              <Button className="bp4-minimal" text="Issues" />
+              <Button className="bp4-minimal" text="Github" />
+              <Button className="bp4-minimal" text="Homepage" />
+            </Navbar.Group>
+          </Navbar>
+          <Button icon="floppy-disk" fill={true} large={true} style={{ marginTop: 10 }}>
+            Save config (Ctrl-s)
+          </Button>
+        </header>
+        <main>
+          <p dangerouslySetInnerHTML={{ __html: docs }} />
+        </main>
       </aside>
     </div>
   )

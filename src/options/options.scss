@@ -1,22 +1,65 @@
-@import '../scss/base';
+@import "../scss/base";
 
 #options-ui {
+  max-width: 1400px;
+  min-width: 900px;
+  margin: 0 auto;
+  
+  border-right: 2px solid $light-gray1;
+  border-left: 2px solid $light-gray1;
+  
+  @media (prefers-color-scheme: dark) {
+    border-right: 2px solid $dark-gray1;
+    border-left: 2px solid $dark-gray1;
+  }
+  
+  .cm-focused {
+    outline: none !important
+  }
+
   &.wrapper {
     display: flex;
     overflow: hidden;
     width: 100wh;
     height: 100vh;
   }
+  
   .editor {
     flex: 1;
   }
+
+  .divider {
+    width: 2px;
+    background: $light-gray1;
+    @media (prefers-color-scheme: dark) {
+      background: $dark-gray1;
+    }
+  }
+
   aside {
     flex: 1;
-    padding: 0 var(--global-space);
-    overflow-y: scroll;
-  }
-}
+    display: flex;
+    flex-direction: column;
+    background: $light-gray4;
 
-.cm-focused {
-  outline: none !important
+    @media (prefers-color-scheme: dark) {
+      background: $dark-gray3;
+    }
+
+    header {
+      padding: 20px;
+      background: $light-gray2;
+      border-bottom: 2px solid $light-gray1;
+      @media (prefers-color-scheme: dark) {
+        background: $dark-gray2;
+        border-bottom: 2px solid $dark-gray1;
+      }
+    }
+
+    main {
+      padding: 0 20px;
+      flex: 1;
+      overflow-y: scroll;
+    }
+  }
 }
