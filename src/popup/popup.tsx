@@ -31,11 +31,7 @@ const RoleItem: FC<AWSConfigItemState> = ({ title, aws_account_id, color, select
       <MenuItem
         onClick={() => window.close()}
         selected={selected}
-        icon={
-          <Icon 
-            icon="full-circle" 
-            color={validateColor(color as string) ? color : undefined} 
-            />} 
+        icon={<Icon icon="full-circle" color={color} />} 
         text={title} 
         label={aws_account_id} />
     </div>

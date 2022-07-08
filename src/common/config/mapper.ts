@@ -1,6 +1,7 @@
-import { groupBy } from 'lodash';
+import validateColor from "validate-color";
 import {
   AWSConfig,
+  AWSConfigItem,
   StoredConfig,
   StoredConfigItem,
   StoredConfigItemSchema
@@ -8,6 +9,13 @@ import {
 
 function isValidEntry(configItem: StoredConfigItem) {
   return StoredConfigItemSchema.safeParse(configItem).success
+}
+
+function mapColor({ color = '', ...rest }: AWSConfigItem): AWSConfigItem {
+  return {
+    ...rest,
+    color: validateColor(color) ? color : undefined
+  }
 }
 
 function trimTitle(title: string) {
@@ -19,7 +27,7 @@ export function mapConfig(config: StoredConfig): AWSConfig {
     .filter(val => isValidEntry(config[val]))
     .map(key => ({ 
       title: trimTitle(key), 
-      ...config[key] 
+      ...config[key],
     }))
+    .map(mapColor)
 }
- 

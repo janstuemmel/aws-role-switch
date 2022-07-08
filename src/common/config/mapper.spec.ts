@@ -17,11 +17,13 @@ it('should map to default group', () => {
 Array [
   Object {
     "aws_account_id": "foo",
+    "color": undefined,
     "role_name": "bar",
     "title": "foo",
   },
   Object {
     "aws_account_id": "foo",
+    "color": undefined,
     "role_name": "bar",
     "title": "bar",
   },
@@ -46,11 +48,13 @@ it('should map to groups', () => {
 Array [
   Object {
     "aws_account_id": "foo",
+    "color": undefined,
     "role_name": "bar",
     "title": "foo",
   },
   Object {
     "aws_account_id": "foo",
+    "color": undefined,
     "group": "baz",
     "role_name": "bar",
     "title": "bar",
@@ -75,6 +79,7 @@ it('should omit entries with invalid values', () => {
 Array [
   Object {
     "aws_account_id": "foo",
+    "color": undefined,
     "role_name": "bar",
     "title": "bar",
   },
