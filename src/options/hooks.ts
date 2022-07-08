@@ -7,7 +7,6 @@ import {
 import { marked } from 'marked'
 import { getConfig } from '../common/config';
 
-// @ts-ignore
 import readme from 'url:../../README.md';
 
 export const useDocs = () => {

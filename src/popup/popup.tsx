@@ -6,6 +6,8 @@ import { useColorScheme, useKeydown } from '../common/hooks';
 import { mapConfigStateToGroups, openOptions } from './util';
 import { AWSConfigItemState } from '../types';
 import { useConfig } from './hooks/useConfig';
+import awsIconDark from '../assets/aws-dark.svg'
+import awsIconLight from '../assets/aws-light.svg'
 
 const MenuSection: FC<{ title: string }> = ({ title }) => {
   return <div className="menu-divider">{title}</div>
@@ -69,7 +71,12 @@ const App = () => {
           leftIcon="filter"
           placeholder="Filter...."
           autoFocus={true} />
-        <Button onClick={openOptions} icon="wrench" minimal={true}></Button>
+        <div style={{ display: 'flex', justifyContent: 'space-around', gap: 10 }}>
+          <Button icon={
+            <img src={theme == 'dark' ? awsIconDark : awsIconLight} className="bp4-icon" />
+          } minimal={true}></Button>
+          <Button onClick={openOptions} icon="wrench" minimal={true}></Button>
+        </div>
       </ControlGroup>
       <Menu className="menu">
         {/* TODO: handle empty state */}
