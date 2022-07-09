@@ -69,7 +69,7 @@ export const useConfig = (): [ConfigItem[], string, (f: string) => void, number|
     );
     
     // reset selected
-    setSelectList(filtered);
+    setSelectList(filter === '' ? config : filtered);
   }, [filter]);
 
   useEffect(() => {
