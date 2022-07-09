@@ -1,19 +1,18 @@
 import { addMessageListener } from '../common/browser';
 import { 
   AWSConfigItem,
-  SwitchRoleFormParams,
+  SwitchRoleForm,
   SwitchRoleParamsSchema
 } from '../types';
 
 const createSwitchRoleForm = (configItem: AWSConfigItem) => {
-  
-  // @ts-ignore
   // TODO: works only for firefox atm
   // https://stackoverflow.com/questions/12395722/can-the-window-object-be-modified-from-a-chrome-extension
   // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Sharing_objects_with_page_scripts
   // https://gist.github.com/devjin0617/3e8d72d94c1b9e69690717a219644c7a
-  const csrf = window.wrappedJSObject.AWSC.Auth.getMbtc() + ''; 
-  
+  const csrf = String(window.wrappedJSObject.AWSC.Auth.getMbtc()); 
+
+  // create switch role form args
   const params = SwitchRoleParamsSchema.parse({
     account: configItem.aws_account_id,
     roleName: configItem.role_name,
@@ -21,25 +20,28 @@ const createSwitchRoleForm = (configItem: AWSConfigItem) => {
     displayName: `${configItem.title} | ${configItem.aws_account_id}`.slice(0, 64),
     redirect_uri: location.href,
     csrf,
-  } as SwitchRoleFormParams);
+  } as SwitchRoleForm);
+
+  // create switch role form
   const form = document.createElement('form');
   form.style.display = 'none'
   form.setAttribute('method', 'POST')
   form.setAttribute('action', 'https://signin.aws.amazon.com/switchrole')
-  for (let param in params) {
-    const input = document.createElement('input');
-    input.name = param;
-    input.setAttribute('name', param);
-    // TODO
-    // @ts-ignore
-    input.setAttribute('value', params[param]);
-    form.appendChild(input);
+
+  for (let key in params) {
+    const value = params[key as keyof SwitchRoleForm]
+    if (value) {
+      const input = document.createElement('input');
+      input.setAttribute('name', key);
+      input.setAttribute('value', value);
+      form.appendChild(input);
+    }
   }
+
   return form;
 };
 
 addMessageListener((configItem: AWSConfigItem) => {
-  console.log(configItem)
   try {
     const form = createSwitchRoleForm(configItem);
     document.body.appendChild(form)

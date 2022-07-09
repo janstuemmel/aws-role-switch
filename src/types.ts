@@ -35,4 +35,4 @@ export const SwitchRoleParamsSchema = z.object({
   redirect_uri: z.string().default('https://console.aws.amazon.com/console'),
 });
 
-export type SwitchRoleFormParams = z.infer<typeof SwitchRoleParamsSchema>;
+export type SwitchRoleForm = z.infer<typeof SwitchRoleParamsSchema>;
