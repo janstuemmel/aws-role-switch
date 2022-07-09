@@ -8,7 +8,9 @@ import {
   Menu,
   MenuItem,
   NonIdealState,
-  NonIdealStateIconSize
+  NonIdealStateIconSize,
+  Position,
+  Toaster
 } from '@blueprintjs/core';
 import { tabs } from 'webextension-polyfill'; // TODO: remove
 
@@ -29,11 +31,26 @@ import {
 import { openOptions } from '../common/browser';
 import { AWSIcon } from '../common/components';
 
+const Notification = Toaster.create({
+  position: Position.BOTTOM,
+  maxToasts: 1,
+})
+
 const executeSwitch = async (configItem: AWSConfigItem) => {
   const tab = await getCurrentTab();
   if (tab.id) {
-    await tabs.sendMessage(tab.id, configItem);
-    window.close();
+    try {
+      await tabs.sendMessage(tab.id, configItem);
+      window.close();
+    } catch (err) {
+      console.error('Active tab is not an AWS console');
+      Notification.show({ 
+        message: 'Active tab is not an AWS console', 
+        intent: 'danger', 
+        timeout: 2000,
+        icon: 'warning-sign',
+      })
+    }
   }
 }
 
