@@ -24,12 +24,12 @@ const createSwitchRoleForm = (configItem: AWSConfigItem) => {
 
   // create switch role form
   const form = document.createElement('form');
-  form.style.display = 'none'
-  form.setAttribute('method', 'POST')
-  form.setAttribute('action', 'https://signin.aws.amazon.com/switchrole')
+  form.style.display = 'none';
+  form.setAttribute('method', 'POST');
+  form.setAttribute('action', 'https://signin.aws.amazon.com/switchrole');
 
-  for (let key in params) {
-    const value = params[key as keyof SwitchRoleForm]
+  for (const key in params) {
+    const value = params[key as keyof SwitchRoleForm];
     if (value) {
       const input = document.createElement('input');
       input.setAttribute('name', key);
@@ -44,9 +44,9 @@ const createSwitchRoleForm = (configItem: AWSConfigItem) => {
 addMessageListener((configItem: AWSConfigItem) => {
   try {
     const form = createSwitchRoleForm(configItem);
-    document.body.appendChild(form)
+    document.body.appendChild(form);
     form.submit();
   } catch(err) {
-    console.error(err)
+    console.error(err);
   }
 });

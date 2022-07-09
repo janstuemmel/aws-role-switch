@@ -5,6 +5,7 @@
   "browserslist": "> 0.5%, last 20 versions, not dead",
   "scripts": {
     "test": "jest",
+    "lint": "eslint . --cache",
     "start": "run-p watch ext:run",
     "clean": "rimraf dist web-ext-artifacts",
     "watch": "parcel watch src/manifest.json",
@@ -38,6 +39,12 @@
     "@types/react": "^17.0.47",
     "@types/react-dom": "^17.0.17",
     "@types/webextension-polyfill": "^0.9.0",
+    "@typescript-eslint/eslint-plugin": "^5.30.5",
+    "@typescript-eslint/parser": "^5.30.5",
+    "eslint": "^8.19.0",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-newline": "^1.5.0",
     "jest": "^28.1.2",
     "npm-run-all": "^4.1.5",
     "parcel": "^2.6.2",
@@ -45,6 +52,7 @@
     "rimraf": "^3.0.2",
     "ts-jest": "^28.0.5",
     "ts-node": "^10.8.2",
+    "typescript": "^4.7.4",
     "web-ext": "^7.1.0"
   }
 }

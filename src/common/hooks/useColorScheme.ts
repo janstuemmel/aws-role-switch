@@ -1,4 +1,7 @@
-import { useEffect, useState } from 'react';
+import {
+  useEffect,
+  useState,
+} from 'react';
 
 export const useColorScheme = () => {
   const matchesDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -9,7 +12,7 @@ export const useColorScheme = () => {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', listener);
     return () => {
       window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', listener);
-    }
+    };
   }, []);
 
   return theme;

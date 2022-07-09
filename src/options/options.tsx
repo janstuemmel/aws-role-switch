@@ -1,19 +1,31 @@
-import React, { useEffect, useState } from 'react'
-import { render } from 'react-dom'
-import CodeMirror from '@uiw/react-codemirror'
-import { StreamLanguage } from '@codemirror/language'
-import { toml } from '@codemirror/legacy-modes/mode/toml'
+import React,
+{
+  useEffect,
+  useState,
+} from 'react';
+import { render } from 'react-dom';
+import CodeMirror from '@uiw/react-codemirror';
+import { StreamLanguage } from '@codemirror/language';
+import { toml } from '@codemirror/legacy-modes/mode/toml';
+import {
+  Alignment,
+  Button,
+  Card,
+  FocusStyleManager,
+  Navbar,
+  Position,
+  ProgressBar,
+  Toaster,
+} from '@blueprintjs/core';
 
-import { setConfig } from '../common/config'
-import keymap from './keymap'
+import { setConfig } from '../common/config';
+import keymap from './keymap';
 import { 
   useColorScheme,
   useConfigFile,
   useDocs 
-} from './hooks'
-import { Alignment, Button, Card, FocusStyleManager, Label, Navbar, Position, ProgressBar, Toaster } from '@blueprintjs/core'
-import { createTab } from '../common/browser'
-import { storage } from 'webextension-polyfill'
+} from './hooks';
+import { createTab } from '../common/browser';
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
@@ -23,25 +35,22 @@ const Notification = Toaster.create({
 });
 
 const NavLink = ({ url, title }: { url: string, title: string }) => {
-  const link = (url: string) => () => createTab(url)
+  const link = (url: string) => () => createTab(url);
   return (
     <Button onClick={link(url)} minimal={true}>
       {title}
     </Button>
-  )
+  );
 };
 
 const App = () => {
-  const [configFile, setConfigFile] = useConfigFile()
-  const [size, setSize] = useState(0)
-  const [sizeBrowser, setSizeBrowser] = useState(0)
+  const [configFile, setConfigFile] = useConfigFile();
+  const [size, setSize] = useState(0);
   const docs = useDocs();
-  const theme = useColorScheme()
+  const theme = useColorScheme();
 
   useEffect(() => {
     setSize(new Blob([configFile]).size);
-    storage.sync.getBytesInUse('configFile').then(b => setSizeBrowser(b))
-    storage.sync.get().then(console.log)
   }, [configFile]);
 
   const onSave = async () => {
@@ -58,9 +67,9 @@ const App = () => {
         intent: 'danger',
       });
     }
-  }
-  const editorKeymap = keymap([{ key: 'Ctrl-s', fn: onSave }])
-  const syncSize = (size + 200) / 8192
+  };
+  const editorKeymap = keymap([{ key: 'Ctrl-s', fn: onSave }]);
+  const syncSize = (size + 200) / 8192;
 
   return (
     <div id="options-ui" className={`wrapper bp4-${theme}`}>
@@ -88,7 +97,12 @@ const App = () => {
           </Navbar>
           <Card style={{ marginTop: 10 }}>
             <p>Storage left</p>
-            <ProgressBar value={syncSize} animate={false} stripes={false} intent={ syncSize > 0.8 ? 'danger' : syncSize > 0.6 ? 'warning' : 'success' } />
+            <ProgressBar 
+              value={syncSize} 
+              animate={false} 
+              stripes={false} 
+              intent={syncSize > 0.8 ? 'danger' : syncSize > 0.6 ? 'warning' : 'success'} 
+            />
           </Card>
           <Button onClick={onSave} icon="floppy-disk" fill={true} large={true} style={{ marginTop: 10 }}>
             Save config (Ctrl-s)
@@ -99,7 +113,7 @@ const App = () => {
         </main>
       </aside>
     </div>
-  )
+  );
 };
 
 render(<App />, document.getElementById('root'));

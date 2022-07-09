@@ -1,5 +1,5 @@
 import { ColorTranslator } from "colortranslator";
-import validateColor from "validate-color";
+
 import {
   AWSConfig,
   AWSConfigItem,
@@ -9,14 +9,14 @@ import {
 } from "../../types";
 
 function isValidEntry(configItem: StoredConfigItem) {
-  return StoredConfigItemSchema.safeParse(configItem).success
+  return StoredConfigItemSchema.safeParse(configItem).success;
 }
 
 function getColorHEX(color: string) {
   try {
-    return ColorTranslator.toHEX(color)
+    return ColorTranslator.toHEX(color);
   } catch (_) {
-    return undefined
+    return undefined;
   }
 }
 
@@ -24,7 +24,7 @@ function mapColor({ color = '', ...rest }: AWSConfigItem): AWSConfigItem {
   return {
     ...rest,
     color: getColorHEX(color)
-  }
+  };
 }
 
 function trimTitle(title: string) {
@@ -38,5 +38,5 @@ export function mapConfig(config: StoredConfig): AWSConfig {
       title: trimTitle(key), 
       ...config[key],
     }))
-    .map(mapColor)
+    .map(mapColor);
 }

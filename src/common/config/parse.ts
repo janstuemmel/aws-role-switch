@@ -2,7 +2,11 @@ import {
   parse as parseIni,
   $Errors,
 } from 'js-ini';
-import { get, omit } from 'lodash';
+import {
+  get,
+  omit,
+} from 'lodash';
+
 import { StoredConfig } from '../../types';
 
 function parse(config: string) {

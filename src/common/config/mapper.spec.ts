@@ -11,8 +11,8 @@ it('should map to default group', () => {
       aws_account_id: 'foo',
       role_name: 'bar'
     },
-  } as StoredConfig
-  const config = mapConfig(stored)
+  } as StoredConfig;
+  const config = mapConfig(stored);
   expect(config).toMatchInlineSnapshot(`
 Array [
   Object {
@@ -28,7 +28,7 @@ Array [
     "title": "bar",
   },
 ]
-`)
+`);
 });
 
 it('should map to groups', () => {
@@ -42,8 +42,8 @@ it('should map to groups', () => {
       role_name: 'bar',
       group: 'baz'
     },
-  }
-  const config = mapConfig(stored)
+  };
+  const config = mapConfig(stored);
   expect(config).toMatchInlineSnapshot(`
 Array [
   Object {
@@ -60,7 +60,7 @@ Array [
     "title": "bar",
   },
 ]
-`)
+`);
 });
 
 it('should omit entries with invalid values', () => {
@@ -73,8 +73,8 @@ it('should omit entries with invalid values', () => {
       role_name: 'bar',
     },
     'baz': 1337,
-  }
-  const config = mapConfig(stored as object as StoredConfig)
+  };
+  const config = mapConfig(stored as object as StoredConfig);
   expect(config).toMatchInlineSnapshot(`
 Array [
   Object {
@@ -84,5 +84,5 @@ Array [
     "title": "bar",
   },
 ]
-`)
+`);
 });

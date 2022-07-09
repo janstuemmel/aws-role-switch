@@ -1,4 +1,9 @@
-import React, { FC, useEffect, useRef } from 'react';
+import React,
+{
+  FC,
+  useEffect,
+  useRef,
+} from 'react';
 import { render } from 'react-dom';
 import {
   Button,
@@ -42,7 +47,7 @@ const executeSwitch = async (configItem: AWSConfigItem) => {
       icon: 'warning-sign',
     });
   }
-}
+};
 
 const Notification = Toaster.create({
   position: Position.BOTTOM,
@@ -50,21 +55,21 @@ const Notification = Toaster.create({
 });
 
 const MenuSection: FC<{ title: string }> = ({ title }) => {
-  return <div className="menu-divider">{title}</div>
+  return <div className="menu-divider">{title}</div>;
 };
 
 const RoleItem: FC<AWSConfigItemState> = (configItemState) => {
-  const { title, aws_account_id, color, selected = false } = configItemState
-  const ref = useRef<HTMLDivElement>(null)
+  const { title, aws_account_id, color, selected = false } = configItemState;
+  const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (selected) {
       ref.current?.scrollIntoView({
         behavior: 'smooth',
         block: 'center',
-      })
+      });
     }
-  }, [selected])
+  }, [selected]);
 
   return (
     <div ref={ref}>
@@ -75,25 +80,25 @@ const RoleItem: FC<AWSConfigItemState> = (configItemState) => {
         text={title} 
         label={aws_account_id} />
     </div>
-  )
-}
+  );
+};
 
 const App = () => {
   const theme = useColorScheme();
   const [ roles, filter, setFilter, selectIdx ] = useConfig();
 
-  const selectIdxRef = useRef(selectIdx)
-  const rolesRef = useRef(roles)
+  const selectIdxRef = useRef(selectIdx);
+  const rolesRef = useRef(roles);
 
   // update refs to use them in document listeners
   useEffect(() => {
-    selectIdxRef.current = selectIdx
-    rolesRef.current = roles
+    selectIdxRef.current = selectIdx;
+    rolesRef.current = roles;
   }, [selectIdx, roles]);
 
   useKeydown(async (evt: KeyboardEvent) => {
     if (selectIdxRef.current !== null && evt.key === 'Enter') {
-      const configItem = rolesRef.current[selectIdxRef.current]
+      const configItem = rolesRef.current[selectIdxRef.current];
       if (configItem) {
         await executeSwitch(configItem);
       }
@@ -125,7 +130,8 @@ const App = () => {
             icon={filter !== '' ? 'search' : undefined}
             iconSize={NonIdealStateIconSize.SMALL}
             description={filter !== '' ? 'No items found' : 'You did not specify any aws roles yet!'} 
-            action={filter !== '' ? undefined : <Button onClick={() => openOptions(window.close)} text="Open options page" icon="wrench" />}
+            action={filter !== '' ? undefined : 
+              <Button onClick={() => openOptions(window.close)} text="Open options page" icon="wrench" />}
           />        
         ) : (
           <Menu className="menu">
@@ -139,7 +145,7 @@ const App = () => {
         )
       }
     </div>
-  )
-}
+  );
+};
 
 render(<App />, document.getElementById('root'));
