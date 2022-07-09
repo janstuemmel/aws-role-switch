@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import {
   Button,
   ControlGroup,
+  FocusStyleManager,
   Icon,
   InputGroup,
   Menu,
@@ -27,6 +28,8 @@ import { createTab } from '../common/browser';
 import { openOptions } from '../common/browser';
 import { AWSIcon } from '../common/components';
 import { sendToCurrentTab } from '../common/browser';
+
+FocusStyleManager.onlyShowFocusOnTabs();
 
 const executeSwitch = async (configItem: AWSConfigItem) => {
   try {

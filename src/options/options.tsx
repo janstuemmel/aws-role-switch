@@ -11,10 +11,11 @@ import {
   useConfigFile,
   useDocs 
 } from './hooks'
-import { Alignment, Button, Card, Label, Navbar, Position, ProgressBar, Toaster } from '@blueprintjs/core'
+import { Alignment, Button, Card, FocusStyleManager, Label, Navbar, Position, ProgressBar, Toaster } from '@blueprintjs/core'
 import { createTab } from '../common/browser'
 import { storage } from 'webextension-polyfill'
 
+FocusStyleManager.onlyShowFocusOnTabs();
 
 const Notification = Toaster.create({
   position: Position.BOTTOM_RIGHT,
