@@ -119,10 +119,11 @@ const App = () => {
         roles.length <= 0 ? (
           <NonIdealState
             className="empty-state"
-            description="You did not specify any aws roles yet!" 
-            action={<Button onClick={() => openOptions(window.close)} text="Open options page" icon="wrench" />}
+            icon={filter !== '' ? 'search' : undefined}
             iconSize={NonIdealStateIconSize.SMALL}
-          />
+            description={filter !== '' ? 'No items found' : 'You did not specify any aws roles yet!'} 
+            action={filter !== '' ? undefined : <Button onClick={() => openOptions(window.close)} text="Open options page" icon="wrench" />}
+          />        
         ) : (
           <Menu className="menu">
             {mapConfigStateToGroups(roles).map((group, gid) => (

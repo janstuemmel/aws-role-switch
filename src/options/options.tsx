@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { render } from 'react-dom'
 import CodeMirror from '@uiw/react-codemirror'
 import { StreamLanguage } from '@codemirror/language'
@@ -11,17 +11,55 @@ import {
   useConfigFile,
   useDocs 
 } from './hooks'
-import { Alignment, Button, Navbar } from '@blueprintjs/core'
+import { Alignment, Button, Card, Label, Navbar, Position, ProgressBar, Toaster } from '@blueprintjs/core'
 import { createTab } from '../common/browser'
+import { storage } from 'webextension-polyfill'
+
+
+const Notification = Toaster.create({
+  position: Position.BOTTOM_RIGHT,
+  maxToasts: 4,
+});
+
+const NavLink = ({ url, title }: { url: string, title: string }) => {
+  const link = (url: string) => () => createTab(url)
+  return (
+    <Button onClick={link(url)} minimal={true}>
+      {title}
+    </Button>
+  )
+};
 
 const App = () => {
   const [configFile, setConfigFile] = useConfigFile()
+  const [size, setSize] = useState(0)
+  const [sizeBrowser, setSizeBrowser] = useState(0)
   const docs = useDocs();
   const theme = useColorScheme()
 
-  const link = (url: string) => () => createTab(url)
-  const onSave = () => setConfig(configFile || '')
+  useEffect(() => {
+    setSize(new Blob([configFile]).size);
+    storage.sync.getBytesInUse('configFile').then(b => setSizeBrowser(b))
+    storage.sync.get().then(console.log)
+  }, [configFile]);
+
+  const onSave = async () => {
+    try {
+      await setConfig(configFile || '');
+      Notification.show({
+        icon: 'saved',
+        message: 'Config saved',
+        intent: 'success',
+      });
+    } catch (_) {
+      Notification.show({
+        message: 'Could not save config',
+        intent: 'danger',
+      });
+    }
+  }
   const editorKeymap = keymap([{ key: 'Ctrl-s', fn: onSave }])
+  const syncSize = (size + 200) / 8192
 
   return (
     <div id="options-ui" className={`wrapper bp4-${theme}`}>
@@ -34,7 +72,7 @@ const App = () => {
           extensions={[StreamLanguage.define(toml), editorKeymap]} 
         />
       </div>
-      <div className="divider"></div>
+      <div className="divider" />
       <aside>
         <header>
           <Navbar>
@@ -42,17 +80,15 @@ const App = () => {
               <Navbar.Heading>AWS role switcher</Navbar.Heading>
             </Navbar.Group>
             <Navbar.Group align={Alignment.RIGHT}>
-              <Button onClick={link('https://github.com/janstuemmel/aws-role-switch/issues')} minimal={true}>
-                Issues
-              </Button>
-              <Button onClick={link('https://github.com/janstuemmel/aws-role-switch')} minimal={true}>
-                Github
-              </Button>
-              <Button onClick={link('https://github.com/janstuemmel/aws-role-switch')} minimal={true}>
-                Homepage
-              </Button>
+              <NavLink url="https://github.com/janstuemmel/aws-role-switch/issues" title="Issues" />
+              <NavLink url="https://github.com/janstuemmel/aws-role-switch" title="Github" />
+              <NavLink url="https://github.com/janstuemmel/aws-role-switch/issues" title="Homepage" />
             </Navbar.Group>
           </Navbar>
+          <Card style={{ marginTop: 10 }}>
+            <p>Storage left</p>
+            <ProgressBar value={syncSize} animate={false} stripes={false} intent={ syncSize > 0.8 ? 'danger' : syncSize > 0.6 ? 'warning' : 'success' } />
+          </Card>
           <Button onClick={onSave} icon="floppy-disk" fill={true} large={true} style={{ marginTop: 10 }}>
             Save config (Ctrl-s)
           </Button>
@@ -63,6 +99,6 @@ const App = () => {
       </aside>
     </div>
   )
-}
+};
 
-render(<App />, document.getElementById('root'))
+render(<App />, document.getElementById('root'));
