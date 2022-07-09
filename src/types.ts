@@ -21,3 +21,18 @@ export type StoredConfigItem = z.infer<typeof StoredConfigItemSchema>
 
 export const StoredConfigSchema = z.record(StoredConfigItemSchema)
 export type StoredConfig = z.infer<typeof StoredConfigSchema> 
+
+export const SwitchRoleParamsSchema = z.object({
+  account: z.string(),
+  roleName: z.string(),
+  csrf: z.string(),
+  
+  color: z.string().optional(),
+  displayName: z.string().optional(),
+
+  action: z.string().default('switchFromBasis'),
+  mfaNeeded: z.string().default('0'),
+  redirect_uri: z.string().default('https://console.aws.amazon.com/console'),
+});
+
+export type SwitchRoleFormParams = z.infer<typeof SwitchRoleParamsSchema>;

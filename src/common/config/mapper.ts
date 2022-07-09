@@ -1,3 +1,4 @@
+import { ColorTranslator } from "colortranslator";
 import validateColor from "validate-color";
 import {
   AWSConfig,
@@ -11,10 +12,18 @@ function isValidEntry(configItem: StoredConfigItem) {
   return StoredConfigItemSchema.safeParse(configItem).success
 }
 
+function getColorHEX(color: string) {
+  try {
+    return ColorTranslator.toHEX(color)
+  } catch (_) {
+    return undefined
+  }
+}
+
 function mapColor({ color = '', ...rest }: AWSConfigItem): AWSConfigItem {
   return {
     ...rest,
-    color: validateColor(color) ? color : undefined
+    color: getColorHEX(color)
   }
 }
 

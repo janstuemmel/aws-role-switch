@@ -1,22 +1,50 @@
 import React, { FC, useEffect, useRef } from 'react';
 import { render } from 'react-dom';
-import validateColor from "validate-color";
-import { Button, ControlGroup, Icon, InputGroup, Menu, MenuItem, NonIdealState, NonIdealStateIconSize } from "@blueprintjs/core";
-import { useColorScheme, useKeydown } from '../common/hooks';
+import {
+  Button,
+  ControlGroup,
+  Icon,
+  InputGroup,
+  Menu,
+  MenuItem,
+  NonIdealState,
+  NonIdealStateIconSize
+} from '@blueprintjs/core';
+import { tabs } from 'webextension-polyfill'; // TODO: remove
+
+import { 
+  useColorScheme,
+  useKeydown,
+} from '../common/hooks';
 import { mapConfigStateToGroups } from './util';
-import { AWSConfigItemState } from '../types';
+import { 
+  AWSConfigItem,
+  AWSConfigItemState,
+} from '../types';
 import { useConfig } from './hooks/useConfig';
-import { createTab } from '../common/browser';
+import {
+  createTab,
+  getCurrentTab,
+} from '../common/browser';
 import { openOptions } from '../common/browser';
 import { AWSIcon } from '../common/components';
+
+const executeSwitch = async (configItem: AWSConfigItem) => {
+  const tab = await getCurrentTab();
+  if (tab.id) {
+    await tabs.sendMessage(tab.id, configItem);
+    window.close();
+  }
+}
 
 const MenuSection: FC<{ title: string }> = ({ title }) => {
   return <div className="menu-divider">{title}</div>
 };
 
-const RoleItem: FC<AWSConfigItemState> = ({ title, aws_account_id, color, selected = false }) => {
+const RoleItem: FC<AWSConfigItemState> = (configItemState) => {
+  const { title, aws_account_id, color, selected = false } = configItemState
   const ref = useRef<HTMLDivElement>(null)
-  
+
   useEffect(() => {
     if (selected) {
       ref.current?.scrollIntoView({
@@ -29,7 +57,7 @@ const RoleItem: FC<AWSConfigItemState> = ({ title, aws_account_id, color, select
   return (
     <div ref={ref}>
       <MenuItem
-        onClick={() => window.close()}
+        onClick={() => executeSwitch(configItemState)}
         selected={selected}
         icon={<Icon icon="full-circle" color={color} />} 
         text={title} 
@@ -51,10 +79,12 @@ const App = () => {
     rolesRef.current = roles
   }, [selectIdx, roles]);
 
-  useKeydown((evt: KeyboardEvent) => {
+  useKeydown(async (evt: KeyboardEvent) => {
     if (selectIdxRef.current !== null && evt.key === 'Enter') {
-      // console.log(`Selected aws profile: ${rolesRef.current[selectIdxRef.current].title} ${selectIdxRef.current}`)
-      window.close()
+      const configItem = rolesRef.current[selectIdxRef.current]
+      if (configItem) {
+        await executeSwitch(configItem);
+      }
     }
   });
 

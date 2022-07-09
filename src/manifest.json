@@ -23,7 +23,8 @@
     "management",
     "storage",
     "tabs",
-    "theme"
+    "theme",
+    "activeTab"
   ],
   "options_ui": {
     "page": "options/options.html",
@@ -41,12 +42,21 @@
         "https://*.console.aws.amazon.com/*",
         "https://phd.aws.amazon.com/*",
         "https://*.console.amazonaws-us-gov.com/*",
-        "https://*.console.amazonaws.cn/*",
+        "https://*.console.amazonaws.cn/*"
+      ],
+      "all_frames": true,
+      "js": [
+        "content/aws-console.ts"
+      ],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": [
         "https://signin.aws.amazon.com/*"
       ],
       "all_frames": true,
       "js": [
-        "content.ts"
+        "content/aws-signin.ts"
       ],
       "run_at": "document_idle"
     }
