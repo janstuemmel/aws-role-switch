@@ -2,6 +2,7 @@
   "name": "aws-role-switch",
   "version": "1.0.0",
   "license": "MIT",
+  "browserslist": "> 0.5%, last 20 versions, not dead",
   "scripts": {
     "test": "jest",
     "start": "run-p watch ext:run",
