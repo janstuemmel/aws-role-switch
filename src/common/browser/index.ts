@@ -1,2 +1,10 @@
-export { createTab, getCurrentTab } from './tabs';
-export { openOptions, addMessageListener } from './runtime';
+export {
+  createTab,
+  getCurrentTabId,
+  sendToCurrentTab,
+} from './tabs';
+
+export {
+  openOptions,
+  addMessageListener,
+} from './runtime';

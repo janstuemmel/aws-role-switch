@@ -12,7 +12,6 @@ import {
   Position,
   Toaster
 } from '@blueprintjs/core';
-import { tabs } from 'webextension-polyfill'; // TODO: remove
 
 import { 
   useColorScheme,
@@ -24,35 +23,28 @@ import {
   AWSConfigItemState,
 } from '../types';
 import { useConfig } from './hooks/useConfig';
-import {
-  createTab,
-  getCurrentTab,
-} from '../common/browser';
+import { createTab } from '../common/browser';
 import { openOptions } from '../common/browser';
 import { AWSIcon } from '../common/components';
+import { sendToCurrentTab } from '../common/browser';
+
+const executeSwitch = async (configItem: AWSConfigItem) => {
+  try {
+    await sendToCurrentTab(configItem, window.close);
+  } catch (_) {
+    Notification.show({ 
+      message: 'Active tab is not an AWS console', 
+      intent: 'danger', 
+      timeout: 2000,
+      icon: 'warning-sign',
+    });
+  }
+}
 
 const Notification = Toaster.create({
   position: Position.BOTTOM,
   maxToasts: 1,
-})
-
-const executeSwitch = async (configItem: AWSConfigItem) => {
-  const tab = await getCurrentTab();
-  if (tab.id) {
-    try {
-      await tabs.sendMessage(tab.id, configItem);
-      window.close();
-    } catch (err) {
-      console.error('Active tab is not an AWS console');
-      Notification.show({ 
-        message: 'Active tab is not an AWS console', 
-        intent: 'danger', 
-        timeout: 2000,
-        icon: 'warning-sign',
-      })
-    }
-  }
-}
+});
 
 const MenuSection: FC<{ title: string }> = ({ title }) => {
   return <div className="menu-divider">{title}</div>
