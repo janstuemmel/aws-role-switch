@@ -1,4 +1,7 @@
 node_modules
+
 dist
-.parcel-cache
 web-ext-artifacts
+
+.parcel-cache
+.eslintcache
