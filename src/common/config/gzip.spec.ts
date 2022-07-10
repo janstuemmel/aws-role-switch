@@ -1,21 +1,32 @@
-import Pako from "pako";
+import {
+  compressConfig,
+  decompressConfig,
+} from './gzip';
 
-it('', () => {
-  const text = 'hellohellohellohello';
-  
-  // set config
-  const compressed = Pako.deflate(text);
-  console.log(compressed);
-    
-  // const compressedString = new TextDecoder('utf-8').decode(compressed);
-  const compressedString = Buffer.from(compressed).toString('base64');
-  console.log(compressedString);
+it('should compress/decompress config', () => {
+  const config = `
+[foo]
+bar = 123456789101
+baz = Hello World
 
-  // get conffig
-  const buf = Buffer.from(compressedString, 'base64');
-  const compresstUInt8Array = Uint8Array.from(buf);
-  const uncompressed = Pako.inflate(compresstUInt8Array, { to: 'string' });
+[bar]
+bar = 123456789101
+baz = Hello World
 
-  console.log(buf.byteLength, Buffer.byteLength(compressedString, 'utf-8'));
-  console.log(uncompressed);
+[baz]
+bar = 123456789101
+baz = Hello World`;
+
+  // compress
+  const compressed = compressConfig(config);
+  expect(compressed).toEqual(expect.any(String));
+  expect(compressed)
+    .toMatchInlineSnapshot(
+      `"eJzjik7Lz4/lSkosUrBVMDQyNjE1M7ewNDQwBApVAYU8UnNy8hXC84tyUri4ooHKSFBbRZxaACjLJDI="`
+    );
+
+  // decompress
+  const decompressed = decompressConfig(compressed);
+  expect(decompressed).toEqual(expect.any(String));
+  expect(decompressed).toEqual(config);
 });

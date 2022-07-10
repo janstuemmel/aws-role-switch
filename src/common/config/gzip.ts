@@ -8,6 +8,5 @@ export const compressConfig = (configFile: string): string => {
 export const decompressConfig = (configFileCompressed: string) => {
   const buf = Buffer.from(configFileCompressed, 'base64');
   const compresstUInt8Array = Uint8Array.from(buf);
-  const uncompressed = Pako.inflate(compresstUInt8Array, { to: 'string' });
-  return uncompressed;
+  return Pako.inflate(compresstUInt8Array, { to: 'string' });
 };
