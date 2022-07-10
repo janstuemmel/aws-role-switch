@@ -130,3 +130,62 @@ Array [
 ]
 `);
 });
+
+
+it.only('should cort correctly', () => {
+  const stored = {
+    'foo': {
+      aws_account_id: 'foo',
+      role_name: 'bar',
+      group: 'b',
+    },
+    'foo2': {
+      aws_account_id: 'foo',
+      role_name: 'bar',
+      group: 'b',
+    },
+    'bar': {
+      aws_account_id: 'foo',
+      role_name: 'bar',
+      group: 'a',
+    },
+    'bar2': {
+      aws_account_id: 'foo',
+      role_name: 'bar',
+      group: undefined,
+    },
+  };
+  const config = mapConfig(stored as object as StoredConfig);
+  expect(config).toMatchInlineSnapshot(`
+Array [
+  Object {
+    "aws_account_id": "foo",
+    "color": undefined,
+    "group": undefined,
+    "role_name": "bar",
+    "title": "bar2",
+  },
+  Object {
+    "aws_account_id": "foo",
+    "color": undefined,
+    "group": "a",
+    "role_name": "bar",
+    "title": "bar",
+  },
+  Object {
+    "aws_account_id": "foo",
+    "color": undefined,
+    "group": "b",
+    "role_name": "bar",
+    "title": "foo",
+  },
+  Object {
+    "aws_account_id": "foo",
+    "color": undefined,
+    "group": "b",
+    "role_name": "bar",
+    "title": "foo2",
+  },
+]
+`);
+});
