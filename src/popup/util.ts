@@ -1,7 +1,5 @@
-import {
-  groupBy,
-  keys,
-} from 'lodash';
+import groupBy from 'lodash/groupBy';
+import keys from 'lodash/keys';
 
 import { AWSConfigItemState } from "../types";
 

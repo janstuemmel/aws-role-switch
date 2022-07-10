@@ -2,10 +2,9 @@ import {
   parse as parseIni,
   $Errors,
 } from 'js-ini';
-import {
-  get,
-  omit,
-} from 'lodash';
+import get from 'lodash/get';
+import omit from 'lodash/omit';
+
 
 import { StoredConfig } from '../../types';
 

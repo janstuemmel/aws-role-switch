@@ -5,19 +5,19 @@ import React,
   useRef,
 } from 'react';
 import { render } from 'react-dom';
+import { Button } from '@blueprintjs/core/lib/esnext/components/button/buttons';
+import { ControlGroup } from '@blueprintjs/core/lib/esnext/components/forms/controlGroup';
+import { InputGroup } from '@blueprintjs/core/lib/esnext/components/forms/inputGroup';
+import { FocusStyleManager } from '@blueprintjs/core/lib/esnext/accessibility/focusStyleManager';
+import { Icon } from '@blueprintjs/core/lib/esnext/components/icon/icon';
+import { Menu } from '@blueprintjs/core/lib/esnext/components/menu/menu';
+import { MenuItem } from '@blueprintjs/core/lib/esnext/components/menu/menuItem';
+import { Position } from '@blueprintjs/core/lib/esnext/common/position';
+import { Toaster } from '@blueprintjs/core/lib/esnext/components/toast/toaster';
 import {
-  Button,
-  ControlGroup,
-  FocusStyleManager,
-  Icon,
-  InputGroup,
-  Menu,
-  MenuItem,
   NonIdealState,
   NonIdealStateIconSize,
-  Position,
-  Toaster
-} from '@blueprintjs/core';
+} from '@blueprintjs/core/lib/esnext/components/non-ideal-state/nonIdealState';
 
 import { 
   useColorScheme,
