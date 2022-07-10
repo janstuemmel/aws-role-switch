@@ -49,15 +49,15 @@ Array [
   Object {
     "aws_account_id": "foo",
     "color": undefined,
-    "group": "baz",
     "role_name": "bar",
-    "title": "bar",
+    "title": "foo",
   },
   Object {
     "aws_account_id": "foo",
     "color": undefined,
+    "group": "baz",
     "role_name": "bar",
-    "title": "foo",
+    "title": "bar",
   },
 ]
 `);
@@ -86,6 +86,12 @@ Array [
   Object {
     "aws_account_id": "foo",
     "color": undefined,
+    "role_name": "ccc",
+    "title": "foo",
+  },
+  Object {
+    "aws_account_id": "foo",
+    "color": undefined,
     "group": "aaa",
     "role_name": "bar",
     "title": "bar",
@@ -96,12 +102,6 @@ Array [
     "group": "bbb",
     "role_name": "bar",
     "title": "baz",
-  },
-  Object {
-    "aws_account_id": "foo",
-    "color": undefined,
-    "role_name": "ccc",
-    "title": "foo",
   },
 ]
 `);
@@ -132,7 +132,7 @@ Array [
 });
 
 
-it.only('should cort correctly', () => {
+it('should cort correctly', () => {
   const stored = {
     'foo': {
       aws_account_id: 'foo',
