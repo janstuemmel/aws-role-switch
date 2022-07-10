@@ -4,10 +4,8 @@ import {
   $Errors,
 } from 'js-ini';
 import { IIniObject } from 'js-ini/lib/interfaces/ini-object';
-import {
-  get,
-  omit,
-} from 'lodash';
+import get from 'lodash/get';
+import omit from 'lodash/omit';
 
 import { StoredConfig } from '../../types';
 
