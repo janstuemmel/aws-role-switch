@@ -19,13 +19,13 @@ Array [
     "aws_account_id": "foo",
     "color": undefined,
     "role_name": "bar",
-    "title": "foo",
+    "title": "bar",
   },
   Object {
     "aws_account_id": "foo",
     "color": undefined,
     "role_name": "bar",
-    "title": "bar",
+    "title": "foo",
   },
 ]
 `);
@@ -49,15 +49,59 @@ Array [
   Object {
     "aws_account_id": "foo",
     "color": undefined,
+    "group": "baz",
     "role_name": "bar",
-    "title": "foo",
+    "title": "bar",
   },
   Object {
     "aws_account_id": "foo",
     "color": undefined,
-    "group": "baz",
+    "role_name": "bar",
+    "title": "foo",
+  },
+]
+`);
+});
+
+it('should sort by groups', () => {
+  const stored = {
+    'foo': {
+      aws_account_id: 'foo',
+      role_name: 'ccc'
+    },
+    'bar': {
+      aws_account_id: 'foo',
+      role_name: 'bar',
+      group: 'aaa'
+    },
+    'baz': {
+      aws_account_id: 'foo',
+      role_name: 'bar',
+      group: 'bbb'
+    },
+  };
+  const config = mapConfig(stored);
+  expect(config).toMatchInlineSnapshot(`
+Array [
+  Object {
+    "aws_account_id": "foo",
+    "color": undefined,
+    "group": "aaa",
     "role_name": "bar",
     "title": "bar",
+  },
+  Object {
+    "aws_account_id": "foo",
+    "color": undefined,
+    "group": "bbb",
+    "role_name": "bar",
+    "title": "baz",
+  },
+  Object {
+    "aws_account_id": "foo",
+    "color": undefined,
+    "role_name": "ccc",
+    "title": "foo",
   },
 ]
 `);

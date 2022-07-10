@@ -1,4 +1,5 @@
 import { ColorTranslator } from "colortranslator";
+import sortBy from "lodash/sortBy";
 
 import {
   AWSConfig,
@@ -32,11 +33,11 @@ function trimTitle(title: string) {
 }
 
 export function mapConfig(config: StoredConfig): AWSConfig {
-  return Object.keys(config)
+  return sortBy(Object.keys(config)
     .filter(val => isValidEntry(config[val]))
     .map(key => ({ 
       title: trimTitle(key), 
       ...config[key],
     }))
-    .map(mapColor);
+    .map(mapColor), ['group', 'title']);
 }

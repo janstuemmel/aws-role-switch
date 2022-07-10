@@ -1,10 +1,11 @@
 import {
+  stringify as stringifyIni,
   parse as parseIni,
   $Errors,
 } from 'js-ini';
+import { IIniObject } from 'js-ini/lib/interfaces/ini-object';
 import get from 'lodash/get';
 import omit from 'lodash/omit';
-
 
 import { StoredConfig } from '../../types';
 
@@ -22,4 +23,12 @@ export function parseConfig(config: string): StoredConfig {
 
 export function parseConfigError(config: string) {
   return get(parse(config), $Errors);
+}
+
+export function stringifyConfig(data: IIniObject) {
+  return stringifyIni(data, {
+    blankLine: true,
+    spaceAfter: true,
+    spaceBefore: true,
+  });
 }

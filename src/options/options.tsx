@@ -25,7 +25,11 @@ import {
   useConfigFile,
   useDocs 
 } from './hooks';
-import { createTab } from '../common/browser';
+import {
+  createTab,
+  getStorageSize,
+  STORAGE_MAX_ITEM_SIZE,
+} from '../common/browser';
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
@@ -48,10 +52,11 @@ const App = () => {
   const [size, setSize] = useState(0);
   const docs = useDocs();
   const theme = useColorScheme();
+  const getStorage = () => getStorageSize().then(setSize);
 
   useEffect(() => {
-    setSize(new Blob([configFile]).size);
-  }, [configFile]);
+    getStorage();
+  }, []);
 
   const onSave = async () => {
     try {
@@ -67,9 +72,12 @@ const App = () => {
         intent: 'danger',
       });
     }
+
+    // update sync storage size bar
+    getStorage();
   };
   const editorKeymap = keymap([{ key: 'Ctrl-s', fn: onSave }]);
-  const syncSize = (size + 200) / 8192;
+  const syncSize = (size + 200) / STORAGE_MAX_ITEM_SIZE;
 
   return (
     <div id="options-ui" className={`wrapper bp4-${theme}`}>
