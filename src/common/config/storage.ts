@@ -7,10 +7,13 @@ import {
   decompressConfig,
 } from './gzip';
 
-export async function getConfig(): Promise<string> {
+export async function getConfig(): Promise<string | undefined> {
   const items = await getStorageItems();
   const configItem = items['configFile'] as string;
-  return decompressConfig(configItem);
+
+  if (items['configFile']) {
+    return decompressConfig(configItem);
+  }
 }
 
 export async function setConfig(config: string) {
