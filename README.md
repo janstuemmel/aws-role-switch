@@ -2,6 +2,7 @@
 
 Browser plugin to quickly switch between roles on the AWS console. This plugin shows a popup with aws roles you configured via a config ini file. It can be triggered via a keyboard combination, a role can then be selected via up and down arrow keys.  
 
+* [Firefox plugin](https://addons.mozilla.org/addon/aws-role-switch/) (experimental)
 
 > The plugin is under development! Only firefox supported at the moment!
 
