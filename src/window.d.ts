@@ -2,8 +2,8 @@ export {};
 
 declare global {
   interface Window {
-    wrappedJSObject: {
-      AWSC: {
+    wrappedJSObject?: {
+      AWSC?: {
         Auth: {
           getMbtc: () => number
         }

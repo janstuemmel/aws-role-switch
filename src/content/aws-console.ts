@@ -1,33 +1,33 @@
 import { addMessageListener } from '../common/browser';
+import { mapToSwitchForm } from './mapper';
 import { 
   AWSConfigItem,
+  Message,
   SwitchRoleForm,
-  SwitchRoleParamsSchema
 } from '../types';
+import { sendMessage } from '../common/browser/runtime';
 
-const createSwitchRoleForm = (configItem: AWSConfigItem) => {
-  // TODO: works only for firefox atm
-  // https://stackoverflow.com/questions/12395722/can-the-window-object-be-modified-from-a-chrome-extension
-  // https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Sharing_objects_with_page_scripts
-  // https://gist.github.com/devjin0617/3e8d72d94c1b9e69690717a219644c7a
-  const csrf = String(window.wrappedJSObject.AWSC.Auth.getMbtc()); 
+const tryGetCsrf = () => {
+  const csrfFromAWSC = window.wrappedJSObject?.AWSC?.Auth.getMbtc();
+  if (csrfFromAWSC) {
+    return String(csrfFromAWSC);
+  }
+  const csrfElem = document.querySelector('input[name=csrf]') as HTMLInputElement;
+  if (csrfElem) {
+    return csrfElem.value;
+  }
+  throw new Error('csrf not found');
+};
 
-  // create switch role form args
-  const params = SwitchRoleParamsSchema.parse({
-    account: configItem.aws_account_id,
-    roleName: configItem.role_name,
-    color: configItem.color?.replace('#', ''),
-    displayName: `${configItem.title} | ${configItem.aws_account_id}`.slice(0, 64),
-    redirect_uri: location.href,
-    csrf,
-  } as SwitchRoleForm);
+const createSwitchRoleForm = (configItem: AWSConfigItem, csrf: string) => {
+  const redirect_uri = location.href;
+  const params = mapToSwitchForm(configItem, { csrf, redirect_uri });
 
   // create switch role form
   const form = document.createElement('form');
   form.style.display = 'none';
   form.setAttribute('method', 'POST');
   form.setAttribute('action', 'https://signin.aws.amazon.com/switchrole');
-
   for (const key in params) {
     const value = params[key as keyof SwitchRoleForm];
     if (value) {
@@ -37,16 +37,26 @@ const createSwitchRoleForm = (configItem: AWSConfigItem) => {
       form.appendChild(input);
     }
   }
-
   return form;
 };
 
-addMessageListener((configItem: AWSConfigItem) => {
-  try {
-    const form = createSwitchRoleForm(configItem);
-    document.body.appendChild(form);
-    form.submit();
-  } catch(err) {
-    console.error(err);
+addMessageListener(({ type, ...configItem }: Message) => {
+  if (type === 'switch') {
+    try {
+      // try to get csrf and create a form
+      const csrf = tryGetCsrf();
+      const form = createSwitchRoleForm(configItem, csrf);
+
+      // append to body and submit it directly
+      document.body.appendChild(form);
+      form.submit();
+    } catch(err) {
+      console.warn(err);
+
+      // if above fails, we send a tab redirect request
+      // to background js, from there we redirect the active
+      // tab the aws's switch role form, and submit that
+      sendMessage({ type: 'redirect', ...configItem});
+    }
   }
 });

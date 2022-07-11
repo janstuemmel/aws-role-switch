@@ -1,8 +1,21 @@
-// import browser from 'webextension-polyfill';
+import browser, { Runtime } from 'webextension-polyfill';
 
-// only for development
-// if (process.env.NODE_ENV !== 'production') {
-//   browser.management.getSelf().then(({ optionsUrl: url }) => {
-//     browser.tabs.create({ active: true, url });
-//   });
-// }
+import { addMessageListener } from './common/browser';
+import { mapToSwitchForm } from './content/mapper';
+import { Message } from './types';
+
+addMessageListener(async (
+  { type, ...configItem }: Message, 
+  sender: Runtime.MessageSender,
+) => {
+  if (type === 'redirect') {
+    const params = mapToSwitchForm(configItem, {
+      redirect_uri: sender.url,
+      _fromAWSRoleSwitchExtension: 'true',
+    });
+    const urlParams = new URLSearchParams(params).toString();
+    await browser.tabs.update(sender.tab?.id, {
+      url: `https://signin.aws.amazon.com/switchrole?${urlParams}`,
+    });
+  }
+});

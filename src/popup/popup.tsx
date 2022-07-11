@@ -38,7 +38,7 @@ FocusStyleManager.onlyShowFocusOnTabs();
 
 const executeSwitch = async (configItem: AWSConfigItem) => {
   try {
-    await sendToCurrentTab(configItem, window.close);
+    await sendToCurrentTab({ ...configItem, type: 'switch' }, window.close);
   } catch (_) {
     Notification.show({ 
       message: 'Active tab is not an AWS console', 
