@@ -4,7 +4,7 @@ Browser plugin to quickly switch between roles on the AWS console. This plugin s
 
 * [Firefox plugin](https://addons.mozilla.org/addon/aws-role-switch/) (experimental)
 
-> The plugin is under development! Only firefox supported at the moment!
+> The plugin is under development! Only firefox supported at the moment! [issue #7](https://github.com/janstuemmel/aws-role-switch/issues/7)
 
 * [Docs](./docs)
 * [V1 Release Tickets](https://github.com/janstuemmel/aws-role-switch/projects/1)
