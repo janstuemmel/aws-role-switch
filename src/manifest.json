@@ -20,10 +20,8 @@
     }
   },
   "permissions": [
-    "management",
     "storage",
     "tabs",
-    "theme",
     "activeTab"
   ],
   "options_ui": {
