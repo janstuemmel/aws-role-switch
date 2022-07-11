@@ -68,7 +68,7 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "aws-role-switch@janstuemmel.github.io",
+      "id": "{31f7b254-7ac9-4f3a-ae3c-ef67ea153e4a}",
       "strict_min_version": "57.0"
     }
   }
