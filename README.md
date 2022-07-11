@@ -56,7 +56,7 @@ npm run watch
 npm run ext:run 
 
 # build distribution zip
-npm bundle 
+npm run bundle 
 ```
 
 ## License
