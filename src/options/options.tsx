@@ -38,14 +38,12 @@ const Notification = Toaster.create({
   maxToasts: 4,
 });
 
-const NavLink = ({ url, title }: { url: string, title: string }) => {
-  const link = (url: string) => () => createTab(url);
-  return (
-    <Button onClick={link(url)} minimal={true}>
-      {title}
-    </Button>
-  );
-};
+const NavLink = ({ url, title }: { url: string, title: string }) => (
+  <Button onClick={() => createTab(url)} minimal={true}>
+    {title}
+  </Button>
+);
+
 
 const App = () => {
   const [configFile, setConfigFile] = useConfigFile();
