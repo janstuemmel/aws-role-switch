@@ -2,7 +2,12 @@
 
 Browser plugin to quickly switch between roles on the AWS console. This plugin shows a popup with aws roles you configured via a config ini file. It can be triggered via a keyboard combination, a role can then be selected via up and down arrow keys.  
 
+
 > The plugin is under development! Only firefox supported at the moment!
+
+* [Docs](./docs)
+* [V1 Release Tickets](https://github.com/janstuemmel/aws-role-switch/projects/1)
+
 
 ## Features  
   * Edit your roles in a `./aws/config` style `ini` format via a code editor
@@ -16,7 +21,7 @@ Browser plugin to quickly switch between roles on the AWS console. This plugin s
 
 You can store up to 5 roles in the AWS console. If you have a bunch of roles over many accounts this browser plugin might be a good choice to store your roles. It can store roughly 200 roles and syncs it with browsers on other devices. 
 
-You might also checkout [tilfinltd/aws-extend-switch-roles](https://github.com/tilfinltd/aws-extend-switch-roles) witch is another browser plugin to switch roles. When i started to write this plugin i learned a lot of how the *switching* works. Originally i intended to contribute to this repository because i needed some features that aren't implemented there. However, it's written in a very oldschool style of Javascript, so i decided to rewrite it and give it a modern paint. 
+You might also checkout [tilfinltd/aws-extend-switch-roles](https://github.com/tilfinltd/aws-extend-switch-roles) which is another browser plugin to switch roles. When i started to write this plugin i learned a lot of how the *switching* works. Originally i intended to contribute to this repository because i needed some features that aren't implemented there. However, it's written in a very oldschool style of Javascript, so i decided to rewrite it and give it a modern paint. 
 
 ## Screenshots
 
@@ -32,7 +37,7 @@ The plugin is written with following technologies:
 * [typescript](https://www.typescriptlang.org/)
 * [react](https://reactjs.org/) 
 * [codemirror](https://codemirror.net/)
-* [bluebrint ui](https://blueprintjs.com/docs/)
+* [blueprint ui](https://blueprintjs.com/docs/)
 
 
 ```sh

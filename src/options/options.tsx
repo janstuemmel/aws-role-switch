@@ -99,7 +99,7 @@ const App = () => {
             <Navbar.Group align={Alignment.RIGHT}>
               <NavLink url="https://github.com/janstuemmel/aws-role-switch/issues" title="Issues" />
               <NavLink url="https://github.com/janstuemmel/aws-role-switch" title="Github" />
-              <NavLink url="https://github.com/janstuemmel/aws-role-switch/issues" title="Homepage" />
+              <NavLink url="https://janstuemmel.de/aws-role-switch/" title="Homepage" />
             </Navbar.Group>
           </Navbar>
           <Card style={{ marginTop: 10 }}>
