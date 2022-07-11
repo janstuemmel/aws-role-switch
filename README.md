@@ -28,6 +28,8 @@ You might also checkout [tilfinltd/aws-extend-switch-roles](https://github.com/t
 ![](./docs/popup-dark-light.png)
 <br />
 ![](./docs/popup-search.png)
+<br />
+![](./docs/options.png)
 
 ## Development
 

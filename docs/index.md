@@ -4,7 +4,7 @@
 
 The plugin can be configured with a `./aws/config` style `ini` file format. An entry can have following attributes:
 
-* `role_name`: Name of the you want to assume
+* `role_name`: Name of the role you want to assume
 * `aws_account_id`: Account id in which the role lives
 * `color`: Optional color represented as `css` color string (e.g. `#fff`, `orange`) 
 * `group`: Optional group  
