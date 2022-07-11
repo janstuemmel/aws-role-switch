@@ -2,12 +2,11 @@ import {
   Dispatch,
   SetStateAction,
   useEffect,
-  useRef,
   useState,
 } from 'react';
 
 import { getMappedConfig } from '../../common/config';
-import { useKeydown } from '../../common/hooks';
+import { useKeyPress } from '../../common/hooks';
 import {
   AWSConfigItem,
   AWSConfigItemState,
@@ -15,76 +14,61 @@ import {
 
 type ConfigItem = AWSConfigItemState;
 
+const mapSelected = (idx: number | null) => (item: ConfigItem, i: number): ConfigItem => ({
+  ...item,
+  selected: idx == i
+});
+
 const filterConfigItem = (filter: string) => 
   (configItem: AWSConfigItem) => 
   configItem.title.toLowerCase().includes(filter.toLowerCase()) || 
   configItem.aws_account_id.toLowerCase().startsWith(filter.toLowerCase()) ||
   configItem.group?.toLowerCase().includes(filter.toLowerCase());
 
-const useSelectIndex = (): [number | null, (list: unknown[]) => void, Dispatch<SetStateAction<number|null>>] => {
+const useSelectIndex = (): [number | null, (len: number) => void, Dispatch<SetStateAction<number|null>>] => {
   const [idx, setIdx] = useState<number | null>(null);
   const [len, setLen] = useState<number>(0);
+  const up = useKeyPress('ArrowUp');
+  const down = useKeyPress('ArrowDown');
   
-  // use ref, u cannot use state in listeners
-  // https://stackoverflow.com/a/55265764
-  const lenRef = useRef(len);
-  const setList = (list: unknown[]) => {
-    lenRef.current = list.length;
-    setLen(list.length);
-    setIdx(null);
-  };
-
-  useKeydown((evt: KeyboardEvent) => {
-    if (evt.key === 'ArrowDown') {
-      evt.preventDefault();
-      setIdx(idx => idx === null ? 0 : idx >= lenRef.current - 1 ? idx : idx + 1);
+  useEffect(() => {
+    if (up) {
+      setIdx(idx === null ? 0 : idx <= 0 ? idx : idx - 1);
+    } else if (down) {
+      setIdx(idx === null ? 0 : idx >= len - 1 ? idx : idx + 1);
     }
-    if (evt.key === 'ArrowUp') {
-      evt.preventDefault();
-      setIdx(idx => idx === null ? 0 : idx <= 0 ? idx : idx - 1);
-    }
-  });
+  }, [up, down]);
 
-  return [idx, setList, setIdx];
+  return [idx, setLen, setIdx];
 };
 
 export const useConfig = (): [ConfigItem[], string, (f: string) => void, number|null] => {
   const [ config, setConfig ] = useState<ConfigItem[]>([]);
   const [ filtered, setFiltered ] = useState<ConfigItem[]>([]);
   const [ filter, setFilter ] = useState<string>('');
-  const [ selectIdx, setSelectList, setSelectIdx ] = useSelectIndex();
+  const [ selectIdx, setSelectLen, setSelectIdx ] = useSelectIndex();
 
   useEffect(() => {
     getMappedConfig().then((c) => {
       setConfig(c);
       setFiltered(c);
-      setSelectList(c);
+      setSelectLen(c.length);
     });
   }, []);
  
   useEffect(() => {
-    setFiltered(filter === ''
-      ? config
-      : config.filter(filterConfigItem(filter))
-    );
-    
-    // reset selected
-    setSelectList(filter === '' ? config : filtered);
+    const filteredItems = filter === '' 
+      ? config 
+      : config
+        .filter(filterConfigItem(filter))
+        .map(mapSelected(0));
+    setFiltered(filteredItems);
+    setSelectLen(filteredItems.length);
+    setSelectIdx(filter === '' ? null : 0);
   }, [filter]);
 
   useEffect(() => {
-    // autoselect first element on search
-    // TODO: why does this work with a timeout only
-    setTimeout(() => {
-      setSelectIdx((idx) => filter === '' ? idx : 0);
-    }, 0);
-  }, [filter]);
-
-  useEffect(() => {
-    // set item selected
-    setFiltered(items => items.map((item, idx) => {
-      return { ...item, selected: idx === selectIdx };
-    }));
+    setFiltered(filtered.map(mapSelected(selectIdx)));
   }, [selectIdx]);
 
   return [ filtered, filter, setFilter, selectIdx ];

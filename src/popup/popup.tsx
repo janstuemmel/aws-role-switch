@@ -21,7 +21,7 @@ import {
 
 import { 
   useColorScheme,
-  useKeydown,
+  useKeyPress,
 } from '../common/hooks';
 import { mapConfigStateToGroups } from './util';
 import { 
@@ -86,24 +86,13 @@ const RoleItem: FC<AWSConfigItemState> = (configItemState) => {
 const App = () => {
   const theme = useColorScheme();
   const [ roles, filter, setFilter, selectIdx ] = useConfig();
+  const enter = useKeyPress('Enter');
 
-  const selectIdxRef = useRef(selectIdx);
-  const rolesRef = useRef(roles);
-
-  // update refs to use them in document listeners
   useEffect(() => {
-    selectIdxRef.current = selectIdx;
-    rolesRef.current = roles;
-  }, [selectIdx, roles]);
-
-  useKeydown(async (evt: KeyboardEvent) => {
-    if (selectIdxRef.current !== null && evt.key === 'Enter') {
-      const configItem = rolesRef.current[selectIdxRef.current];
-      if (configItem) {
-        await executeSwitch(configItem);
-      }
+    if (selectIdx && roles[selectIdx]) {
+      executeSwitch(roles[selectIdx]);
     }
-  });
+  }, [enter]);
 
   return (
     <div id="popup" className={`wrapper bp4-${theme}`}>

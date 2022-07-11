@@ -1,2 +1,2 @@
 export { useColorScheme } from './useColorScheme';
-export { useKeydown } from './useKeydown';
+export { useKeyPress } from './useKeyPress';
