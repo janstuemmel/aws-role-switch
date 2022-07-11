@@ -1,6 +1,6 @@
 {
   "manifest_version": 2,
-  "version": "1.0",
+  "version": "0.1",
   "name": "AWS role switch",
   "description": "Switch roles on aws",
   "homepage_url": "https://github.com/janstuemmel/aws-role-switch",
