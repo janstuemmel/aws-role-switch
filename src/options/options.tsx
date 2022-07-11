@@ -34,7 +34,7 @@ import {
 FocusStyleManager.onlyShowFocusOnTabs();
 
 const Notification = Toaster.create({
-  position: Position.BOTTOM_RIGHT,
+  position: Position.TOP,
   maxToasts: 4,
 });
 
@@ -63,6 +63,7 @@ const App = () => {
         icon: 'saved',
         message: 'Config saved',
         intent: 'success',
+        timeout: 1000,
       });
     } catch (_) {
       Notification.show({

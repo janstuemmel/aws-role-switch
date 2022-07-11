@@ -76,3 +76,9 @@ Array [
 ]
 `);
 });
+
+it('should return empty object when undefined', () => {
+  const file = undefined;
+  const config = parseConfig(file);
+  expect(config).toEqual({});
+});

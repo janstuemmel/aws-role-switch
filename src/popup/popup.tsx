@@ -87,9 +87,9 @@ const App = () => {
   const theme = useColorScheme();
   const [ roles, filter, setFilter, selectIdx ] = useConfig();
   const enter = useKeyPress('Enter');
-
+  
   useEffect(() => {
-    if (selectIdx && roles[selectIdx]) {
+    if (enter && selectIdx !== null && roles[selectIdx]) {
       executeSwitch(roles[selectIdx]);
     }
   }, [enter]);
