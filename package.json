@@ -4,7 +4,7 @@
   "license": "MIT",
   "browserslist": "> 0.5%, last 20 versions, not dead",
   "scripts": {
-    "test": "jest",
+    "test": "jest --colors",
     "lint": "eslint . --cache",
     "start": "run-p watch ext:run",
     "clean": "rimraf dist web-ext-artifacts",
