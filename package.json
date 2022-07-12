@@ -1,6 +1,6 @@
 {
   "name": "aws-role-switch",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "browserslist": "> 0.5%, last 20 versions, not dead",
   "scripts": {
