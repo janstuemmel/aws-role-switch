@@ -6,6 +6,7 @@
   "scripts": {
     "test": "jest --colors",
     "lint": "eslint . --cache",
+    "type-check": "tsc --noEmit",
     "start": "run-p watch ext:run",
     "clean": "rimraf dist web-ext-artifacts",
     "watch": "parcel watch src/manifest.json",
