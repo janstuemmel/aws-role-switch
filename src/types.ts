@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+export const IS_EXTENSION_KEY = '_fromAWSRoleSwitchExtension';
+
 export const AWSConfigItemSchema = z.object({
   title: z.string(),
   aws_account_id: z.string(),
@@ -25,7 +27,7 @@ export type StoredConfig = z.infer<typeof StoredConfigSchema>
 export const SwitchRoleParamsSchema = z.object({
   account: z.string(),
   roleName: z.string(),
-  csrf: z.string(),
+  csrf: z.string().optional(),
   
   color: z.string().optional(),
   displayName: z.string().optional(),
@@ -33,6 +35,19 @@ export const SwitchRoleParamsSchema = z.object({
   action: z.string().default('switchFromBasis'),
   mfaNeeded: z.string().default('0'),
   redirect_uri: z.string().default('https://console.aws.amazon.com/console'),
+
+  [IS_EXTENSION_KEY]: z.literal('true').optional()
 });
 
 export type SwitchRoleForm = z.infer<typeof SwitchRoleParamsSchema>;
+
+export type ContentScriptSwitchMessage = {
+  type: 'switch',
+} & AWSConfigItem
+
+export type BackgroundScriptRedirectMessage = {
+  type: 'redirect',
+} & AWSConfigItem;
+
+export type Message = ContentScriptSwitchMessage 
+  | BackgroundScriptRedirectMessage;

@@ -21,7 +21,6 @@ import {
 import { setConfig } from '../common/config';
 import keymap from './keymap';
 import { 
-  useColorScheme,
   useConfigFile,
   useDocs 
 } from './hooks';
@@ -30,6 +29,7 @@ import {
   getStorageSize,
   STORAGE_MAX_ITEM_SIZE,
 } from '../common/browser';
+import { useColorScheme } from '../common/hooks';
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
@@ -43,7 +43,6 @@ const NavLink = ({ url, title }: { url: string, title: string }) => (
     {title}
   </Button>
 );
-
 
 const App = () => {
   const [configFile, setConfigFile] = useConfigFile();

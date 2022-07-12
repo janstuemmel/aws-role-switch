@@ -7,6 +7,7 @@
     "lib": [
       "ES2017",
       "DOM",
+      "DOM.Iterable"
     ],
     "jsx": "react",
     "module": "CommonJS",

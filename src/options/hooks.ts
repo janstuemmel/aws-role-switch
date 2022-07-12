@@ -20,23 +20,8 @@ export const useDocs = () => {
   return docs;
 };
 
-export const useColorScheme = () => {
-  const matchesDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-  const [theme, setTheme] = useState<'dark' | 'light'>(matchesDark ? 'dark' : 'light');
-  const listener = (event: MediaQueryListEvent) => setTheme(() => event.matches ? 'dark' : 'light');
-  
-  useEffect(() => {
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', listener);
-    return () => {
-      window.matchMedia('(prefers-color-scheme: dark)').removeEventListener('change', listener);
-    };
-  }, []);
-
-  return theme;
-};
-
-export const useConfigFile = (): [string, Dispatch<SetStateAction<string>> ] => {
-  const [configFile, setConfigFile] = useState('');
+export const useConfigFile = (): [string | undefined, Dispatch<SetStateAction<string | undefined>> ] => {
+  const [configFile, setConfigFile] = useState<string | undefined>('');
   useEffect(() => {
     getConfig().then(setConfigFile);
   }, []);

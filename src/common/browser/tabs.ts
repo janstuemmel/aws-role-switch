@@ -1,4 +1,6 @@
-import { tabs } from "webextension-polyfill";
+import { tabs } from 'webextension-polyfill';
+
+import { Message } from "../../types";
 
 type Callback = () => void;
 
@@ -16,8 +18,14 @@ export const getCurrentTabId = async () => {
   throw new Error('could not get current tab id');
 };
 
-export const sendToCurrentTab = async (message: unknown, cb: Callback = () => {}) => {
+export const sendToCurrentTab = async (
+  message: Message, 
+  cb: Callback = () => {}
+) => {
   const id = await getCurrentTabId();
-  await tabs.sendMessage(id, message);
-  cb();
+  return tabs.sendMessage(id, message).then(cb);
+};
+
+export const updateTabUrl = async (tabId: number | undefined, url: string) => {
+  return tabs.update(tabId, { url });
 };

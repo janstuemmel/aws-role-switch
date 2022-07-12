@@ -1,10 +1,10 @@
 {
   "name": "aws-role-switch",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "license": "MIT",
   "browserslist": "> 0.5%, last 20 versions, not dead",
   "scripts": {
-    "test": "jest",
+    "test": "jest --colors",
     "lint": "eslint . --cache",
     "start": "run-p watch ext:run",
     "clean": "rimraf dist web-ext-artifacts",
@@ -12,6 +12,7 @@
     "build": "parcel build src/manifest.json --no-source-maps --no-cache",
     "bundle": "run-s clean build ext:build",
     "ext:run": "web-ext run -s dist",
+    "ext:lint": "web-ext lint -s dist",
     "ext:build": "web-ext build -s dist"
   },
   "dependencies": {
@@ -55,6 +56,7 @@
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-newline": "^1.5.0",
     "jest": "^28.1.2",
+    "jest-environment-jsdom": "^28.1.2",
     "npm-run-all": "^4.1.5",
     "parcel": "^2.6.2",
     "process": "^0.11.10",
