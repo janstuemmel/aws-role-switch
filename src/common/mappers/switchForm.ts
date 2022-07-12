@@ -4,7 +4,7 @@ import {
   AWSConfigItem,
   SwitchRoleForm,
   SwitchRoleParamsSchema,
-} from '../types';
+} from '../../types';
 
 const ArgsSchema = SwitchRoleParamsSchema.pick({
   _fromAWSRoleSwitchExtension: true,

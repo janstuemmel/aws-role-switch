@@ -1,0 +1,1 @@
+export { mapToSwitchForm } from './switchForm';

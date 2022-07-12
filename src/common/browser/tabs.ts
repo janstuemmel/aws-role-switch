@@ -1,4 +1,4 @@
-import { tabs } from "webextension-polyfill";
+import { tabs } from 'webextension-polyfill';
 
 import { Message } from "../../types";
 
@@ -24,4 +24,8 @@ export const sendToCurrentTab = async (
 ) => {
   const id = await getCurrentTabId();
   return tabs.sendMessage(id, message).then(cb);
+};
+
+export const updateTabUrl = async (tabId: number | undefined, url: string) => {
+  return tabs.update(tabId, { url });
 };
