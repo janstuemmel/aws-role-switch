@@ -12,6 +12,7 @@
     "build": "parcel build src/manifest.json --no-source-maps --no-cache",
     "bundle": "run-s clean build ext:build",
     "ext:run": "web-ext run -s dist",
+    "ext:lint": "web-ext lint -s dist",
     "ext:build": "web-ext build -s dist"
   },
   "dependencies": {
