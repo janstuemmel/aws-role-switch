@@ -32,32 +32,9 @@ You might also checkout [tilfinltd/aws-extend-switch-roles](https://github.com/t
 <br />
 ![](./docs/options.png)
 
-## Development
+## Build and Development
 
-The plugin is written with following technologies:
-
-* [parcel bundler](https://parceljs.org/docs/)
-* [typescript](https://www.typescriptlang.org/)
-* [react](https://reactjs.org/) 
-* [codemirror](https://codemirror.net/)
-* [blueprint ui](https://blueprintjs.com/docs/)
-
-
-```sh
-npm i
-
-# run jest test suite
-npm test
-
-# bundle and watch for file changes
-npm run watch
-
-# run a new instance of firefox with the plugin 
-npm run ext:run 
-
-# build distribution zip
-npm run bundle 
-```
+Please look at the [Developer documentation](./docs/dev.md)
 
 ## License
 
