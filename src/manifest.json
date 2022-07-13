@@ -9,7 +9,7 @@
     "default_popup": "popup/popup.html",
     "browser_style": true,
     "default_icon": {
-      "128": "assets/icon.svg"
+      "75": "assets/icon.png"
     }
   },
   "commands": {
