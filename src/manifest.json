@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "version": "0.2.0",
   "name": "AWS role switch",
   "description": "Quickly switch between roles on the AWS console",
@@ -21,18 +21,12 @@
   },
   "permissions": [
     "storage",
-    "tabs",
-    "activeTab"
+    "tabs"
   ],
   "options_ui": {
     "page": "options/options.html",
     "browser_style": false,
     "open_in_tab": true
-  },
-  "background": {
-    "scripts": [
-      "background/background.js"
-    ]
   },
   "content_scripts": [
     {
@@ -56,11 +50,5 @@
       ],
       "run_at": "document_idle"
     }
-  ],
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "{31f7b254-7ac9-4f3a-ae3c-ef67ea153e4a}",
-      "strict_min_version": "57.0"
-    }
-  }
+  ]
 }
