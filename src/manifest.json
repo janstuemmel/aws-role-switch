@@ -2,14 +2,14 @@
   "manifest_version": 2,
   "version": "0.2.0",
   "name": "AWS role switch",
-  "description": "Switch roles on aws",
+  "description": "Quickly switch between roles on the AWS console",
   "homepage_url": "https://github.com/janstuemmel/aws-role-switch",
   "browser_action": {
     "default_title": "AWS role switch",
     "default_popup": "popup/popup.html",
     "browser_style": true,
     "default_icon": {
-      "75": "assets/icon.png"
+      "75": "assets/icon128.png"
     }
   },
   "commands": {
