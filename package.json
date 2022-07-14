@@ -12,8 +12,8 @@
     "build": "./scripts/build.ts --minify",
     "bundle": "run-s clean build ext:build",
     "ext:run": "web-ext run -s dist/firefox",
-    "ext:lint": "web-ext lint -s dist",
-    "ext:build": "web-ext build -s dist"
+    "ext:lint": "web-ext lint -s dist/firefox",
+    "ext:build": "web-ext build -s dist/firefox"
   },
   "dependencies": {
     "@blueprintjs/core": "^4.5.1",
