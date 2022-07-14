@@ -1,5 +1,5 @@
 {
-  "manifest_version": 2,
+  "manifest_version": 3,
   "version": "0.2.0",
   "name": "AWS role switch",
   "description": "Quickly switch between roles on the AWS console",
@@ -9,7 +9,7 @@
     "default_popup": "popup/popup.html",
     "browser_style": true,
     "default_icon": {
-      "75": "assets/icon128.png"
+      "128": "assets/icon128.png"
     }
   },
   "commands": {
@@ -21,18 +21,12 @@
   },
   "permissions": [
     "storage",
-    "tabs",
-    "activeTab"
+    "tabs"
   ],
   "options_ui": {
     "page": "options/options.html",
     "browser_style": false,
     "open_in_tab": true
-  },
-  "background": {
-    "scripts": [
-      "background/background.ts"
-    ]
   },
   "content_scripts": [
     {
@@ -43,7 +37,7 @@
         "https://*.console.amazonaws.cn/*"
       ],
       "js": [
-        "content/aws-console.ts"
+        "content/aws-console.js"
       ],
       "run_at": "document_idle"
     },
@@ -52,20 +46,9 @@
         "https://signin.aws.amazon.com/*"
       ],
       "js": [
-        "content/aws-signin.ts"
+        "content/aws-signin.js"
       ],
       "run_at": "document_idle"
     }
-  ],
-  "icons": {
-    "48": "assets/icon.svg",
-    "96": "assets/icon.svg",
-    "128": "assets/icon.svg"
-  },
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "{31f7b254-7ac9-4f3a-ae3c-ef67ea153e4a}",
-      "strict_min_version": "57.0"
-    }
-  }
+  ]
 }
