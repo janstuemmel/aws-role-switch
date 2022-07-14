@@ -1,0 +1,21 @@
+{
+  "manifest_version": 3,
+  "action": {
+    "default_title": "AWS role switch",
+    "default_popup": "popup/popup.html",
+    "browser_style": true,
+    "default_icon": {
+      "128": "assets/icon128.png"
+    }
+  },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+L"
+      }
+    }
+  },
+  "background": {
+    "service_worker": "background/background.js"
+  }
+}

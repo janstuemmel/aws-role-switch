@@ -1,5 +1,3 @@
-import { tabs } from 'webextension-polyfill';
-
 import { Message } from "../../types";
 
 type Callback = () => void;
@@ -8,10 +6,12 @@ export const createTab = async (
   url: string, 
   active = true, 
   cb: Callback = () => {}
-) => tabs.create({ active, url }).then(cb);
+) => chrome.tabs.create({ active, url }, cb);
 
 export const getCurrentTabId = async () => {
-  const tab = await tabs.query({ active: true, currentWindow: true });
+  const tab = await new Promise((res: (tabs: chrome.tabs.Tab[]) => void) => 
+    chrome.tabs.query({ active: true, currentWindow: true }, res));
+
   if (tab[0] && tab[0].id) {
     return tab[0].id;
   }
@@ -23,9 +23,9 @@ export const sendToCurrentTab = async (
   cb: Callback = () => {}
 ) => {
   const id = await getCurrentTabId();
-  return tabs.sendMessage(id, message).then(cb);
+  return chrome.tabs.sendMessage(id, message, cb);
 };
 
-export const updateTabUrl = async (tabId: number | undefined, url: string) => {
-  return tabs.update(tabId, { url });
+export const updateTabUrl = async (url: string) => {
+  return chrome.tabs.update({ url });
 };
