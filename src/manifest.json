@@ -9,7 +9,7 @@
     "default_popup": "popup/popup.html",
     "browser_style": true,
     "default_icon": {
-      "75": "assets/icon128.png"
+      "128": "assets/icon128.png"
     }
   },
   "commands": {
@@ -31,7 +31,7 @@
   },
   "background": {
     "scripts": [
-      "background/background.ts"
+      "background/background.js"
     ]
   },
   "content_scripts": [
@@ -43,7 +43,7 @@
         "https://*.console.amazonaws.cn/*"
       ],
       "js": [
-        "content/aws-console.ts"
+        "content/aws-console.js"
       ],
       "run_at": "document_idle"
     },
@@ -52,16 +52,11 @@
         "https://signin.aws.amazon.com/*"
       ],
       "js": [
-        "content/aws-signin.ts"
+        "content/aws-signin.js"
       ],
       "run_at": "document_idle"
     }
   ],
-  "icons": {
-    "48": "assets/icon.svg",
-    "96": "assets/icon.svg",
-    "128": "assets/icon.svg"
-  },
   "browser_specific_settings": {
     "gecko": {
       "id": "{31f7b254-7ac9-4f3a-ae3c-ef67ea153e4a}",

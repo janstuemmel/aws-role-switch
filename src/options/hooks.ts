@@ -5,8 +5,8 @@ import {
   SetStateAction
 } from 'react';
 import { marked } from 'marked';
-import readme from 'url:../../docs/user.md';
 
+import readme from '../../docs/user.md';
 import { getConfig } from '../common/config';
 
 export const useDocs = () => {
