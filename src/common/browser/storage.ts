@@ -3,7 +3,7 @@ export const MAX_ITEM_SIZE = 8192;
 export const MAX_ITEM_COUNT = 512;
 
 export const getItems = () => {
-  return new Promise((res) => chrome.storage.sync.get(res));
+  return new Promise((res: (items: Record<string, unknown>) => void) => chrome.storage.sync.get(res));
 };
 
 export const setItems = (items: Record<string, unknown>) => {

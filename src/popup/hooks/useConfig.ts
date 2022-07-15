@@ -7,10 +7,6 @@ import {
 
 import { getMappedConfig } from '../../common/config';
 import { useKeyPress } from '../../common/hooks';
-import {
-  AWSConfigItem,
-  AWSConfigItemState,
-} from '../../types';
 
 type ConfigItem = AWSConfigItemState;
 
@@ -20,10 +16,13 @@ const mapSelected = (idx: number | null) => (item: ConfigItem, i: number): Confi
 });
 
 const filterConfigItem = (filter: string) => 
-  (configItem: AWSConfigItem) => 
+  (configItem: AWSConfigItemState) => 
   configItem.title.toLowerCase().includes(filter.toLowerCase()) || 
   configItem.aws_account_id.toLowerCase().startsWith(filter.toLowerCase()) ||
   configItem.group?.toLowerCase().includes(filter.toLowerCase());
+
+const mapItemsToState = (config: AWSConfigItem[]): AWSConfigItemState[] => 
+  config.map((c: AWSConfigItem) => ({ ...c, selected: false }));
 
 const useSelectIndex = (): [number | null, (len: number) => void, Dispatch<SetStateAction<number|null>>] => {
   const [idx, setIdx] = useState<number | null>(null);
@@ -49,7 +48,7 @@ export const useConfig = (): [ConfigItem[], string, (f: string) => void, number|
   const [ selectIdx, setSelectLen, setSelectIdx ] = useSelectIndex();
 
   useEffect(() => {
-    getMappedConfig().then((c) => {
+    getMappedConfig().then(mapItemsToState).then((c) => {
       setConfig(c);
       setFiltered(c);
       setSelectLen(c.length);

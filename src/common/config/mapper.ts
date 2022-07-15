@@ -1,15 +1,7 @@
-import { ColorTranslator } from "colortranslator";
+import { ColorTranslator } from 'colortranslator';
 
-import {
-  AWSConfig,
-  AWSConfigItem,
-  StoredConfig,
-  StoredConfigItem,
-  StoredConfigItemSchema
-} from "../../types";
-
-function isValidEntry(configItem: StoredConfigItem) {
-  return StoredConfigItemSchema.safeParse(configItem).success;
+function isValidEntry({ aws_account_id, role_name }: StoredConfigItem) {
+  return aws_account_id && role_name;
 }
 
 function getColorHEX(color: string) {

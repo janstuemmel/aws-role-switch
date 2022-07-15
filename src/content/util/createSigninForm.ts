@@ -1,8 +1,4 @@
 import { mapToSwitchForm } from "../../common/mappers";
-import {
-  AWSConfigItem,
-  SwitchRoleForm,
-} from '../../types';
 
 export const createSigninForm = (configItem: AWSConfigItem, csrf: string) => {
   const redirect_uri = location.href;

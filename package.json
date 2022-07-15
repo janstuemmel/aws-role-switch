@@ -1,19 +1,21 @@
 {
   "name": "aws-role-switch",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "license": "MIT",
   "scripts": {
     "test": "jest --colors",
     "lint": "eslint . --cache",
     "type-check": "tsc --noEmit",
-    "start": "run-p watch ext:run",
     "clean": "rimraf dist web-ext-artifacts",
     "watch": "./scripts/build.ts --watch",
     "build": "./scripts/build.ts --minify",
-    "bundle": "run-s clean build ext:build",
-    "ext:run": "web-ext run -s dist/firefox",
-    "ext:lint": "web-ext lint -s dist/firefox",
-    "ext:build": "web-ext build -s dist/firefox"
+    "bundle": "run-s clean build ext:build:firefox ext:build:chrome",
+    "ext:run:firefox": "web-ext run -s dist/firefox",
+    "ext:lint:firefox": "web-ext lint -s dist/firefox",
+    "ext:build:firefox": "web-ext build -s dist/firefox -a web-ext-artifacts/firefox",
+    "ext:run:chrome": "web-ext run -s dist/chrome --target chromium",
+    "ext:lint:chrome": "web-ext lint -s dist/chrome",
+    "ext:build:chrome": "web-ext build -s dist/chrome -a web-ext-artifacts/chrome"
   },
   "dependencies": {
     "@blueprintjs/core": "^4.5.1",
@@ -24,13 +26,11 @@
     "buffer": "^6.0.3",
     "colortranslator": "^1.9.2",
     "js-ini": "^1.5.1",
-    "lodash": "^4.17.21",
     "marked": "^4.0.17",
     "normalize.css": "^8.0.1",
     "pako": "^2.0.4",
     "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "zod": "^3.17.3"
+    "react-dom": "^17.0.2"
   },
   "devDependencies": {
     "@faker-js/faker": "^7.3.0",

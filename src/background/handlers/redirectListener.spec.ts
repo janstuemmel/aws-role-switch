@@ -1,10 +1,6 @@
 import { updateTabUrl } from '../../common/browser/tabs';
 import { mapToSwitchForm } from '../../common/mappers';
 import { mock } from '../../test/helper';
-import {
-  Message,
-  SwitchRoleForm,
-} from '../../types';
 import { redirectListener } from './redirectListener';
 
 jest.mock('../../common/mappers');

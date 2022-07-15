@@ -4,10 +4,8 @@ import {
   $Errors,
 } from 'js-ini';
 import { IIniObject } from 'js-ini/lib/interfaces/ini-object';
-import get from 'lodash/get';
-import omit from 'lodash/omit';
 
-import { StoredConfig } from '../../types';
+const errorsSymbol = $Errors as unknown as string;
 
 function parse(config: string) {
   return parseIni(config, {
@@ -18,11 +16,12 @@ function parse(config: string) {
 }
 
 export function parseConfig(config: string | undefined): StoredConfig {
-  return omit(parse(config || ''), $Errors) as StoredConfig;
+  const { [errorsSymbol]: _, ...rest } = parse(config || '');
+  return rest;
 }
 
 export function parseConfigError(config: string) {
-  return get(parse(config), $Errors);
+  return parse(config)[errorsSymbol];
 }
 
 export function stringifyConfig(data: IIniObject) {

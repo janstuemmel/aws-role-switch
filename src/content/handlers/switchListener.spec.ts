@@ -4,7 +4,6 @@ import { getCsrfFromPage } from '../util/getCsrfFromPage';
 import { createSigninForm } from '../util/createSigninForm';
 import { mock } from '../../test/helper';
 import { switchListener } from './switchListener';
-import { Message } from '../../types';
 
 jest.mock('../util/getCsrfFromPage');
 jest.mock('../util/createSigninForm');

@@ -1,7 +1,6 @@
 import { faker } from '@faker-js/faker';
 
 import { stringifyConfig } from '../src/common/config/parse';
-import { AWSConfigItem } from "../src/types";
 
 const groups = faker.random.words(30).split(' ');
 

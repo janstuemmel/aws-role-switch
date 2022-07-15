@@ -1,6 +1,5 @@
 /* @jest-environment jsdom */
 
-import { AWSConfigItem } from "../../types";
 import { createSigninForm } from "./createSigninForm";
 
 it('should create form correctly', () => {
@@ -25,10 +24,6 @@ it('should create form correctly', () => {
     value="dummy-role"
   />
   <input
-    name="csrf"
-    value="1337"
-  />
-  <input
     name="displayName"
     value="dummy-title | dummy-id"
   />
@@ -39,6 +34,10 @@ it('should create form correctly', () => {
   <input
     name="mfaNeeded"
     value="0"
+  />
+  <input
+    name="csrf"
+    value="1337"
   />
   <input
     name="redirect_uri"
@@ -59,14 +58,4 @@ Object {
   "roleName": "dummy-role",
 }
 `);
-});
-
-it('should throw error when form params not valid', () => {
-  expect(() => {
-    createSigninForm({
-      aws_account_id: 'dummy-id',
-      title: 'dummy-title',
-      // role_name missing
-    } as AWSConfigItem, '1337');
-  }).toThrow();
 });

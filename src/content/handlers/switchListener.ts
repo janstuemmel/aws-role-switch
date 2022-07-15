@@ -1,4 +1,3 @@
-import { Message } from '../../types';
 import { sendMessage } from '../../common/browser/runtime';
 import { getCsrfFromPage } from '../util/getCsrfFromPage';
 import { createSigninForm } from '../util/createSigninForm';

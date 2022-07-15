@@ -1,5 +1,4 @@
-import React,
-{
+import React, {
   FC,
   useEffect,
   useRef,
@@ -23,10 +22,6 @@ import {
   useKeyPress,
 } from '../common/hooks';
 import { mapConfigStateToGroups } from './util';
-import { 
-  AWSConfigItem,
-  AWSConfigItemState,
-} from '../types';
 import { useConfig } from './hooks/useConfig';
 import {
   createTab,

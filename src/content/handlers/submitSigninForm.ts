@@ -1,8 +1,7 @@
-import { IS_EXTENSION_KEY } from '../../types';
-
 export const submitSigninForm = (form: HTMLFormElement, locationHref: string) => {
   const url = new URL(locationHref);
-  const isExtension = url.searchParams.get(IS_EXTENSION_KEY) === 'true';
+  const key: keyof SwitchRoleFormFromExtension = '_fromAWSRoleSwitchExtension';
+  const isExtension = url.searchParams.get(key) === 'true';
 
   // automatically submit form when extension 
   // redirects to aws role signin form

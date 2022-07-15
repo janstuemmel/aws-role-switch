@@ -36,7 +36,7 @@ npm run clean
 npm run watch 
 
 # start a sandboxed firefox with the extension installed
-npm run ext:run
+npm run ext:run:firefox # or ext:run:chrome
 ```
 
 ### Chrome

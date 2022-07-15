@@ -1,4 +1,3 @@
-import { StoredConfig } from "../../types";
 import { mapConfig } from "./mapper";
 
 it('should map to default group', () => {

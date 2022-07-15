@@ -1,5 +1,3 @@
-import { Message } from "../../types";
-
 type Callback = () => void;
 
 export const createTab = async (

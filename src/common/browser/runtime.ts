@@ -1,5 +1,3 @@
-import { Message } from '../../types';
-
 export const openOptions = async (cb: () => void = () => {}) => {
   return chrome.runtime.openOptionsPage(cb);
 };
