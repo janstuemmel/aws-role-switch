@@ -12,10 +12,10 @@
     "bundle": "run-s clean build ext:build:firefox ext:build:chrome",
     "ext:run:firefox": "web-ext run -s dist/firefox",
     "ext:lint:firefox": "web-ext lint -s dist/firefox",
-    "ext:build:firefox": "web-ext build -s dist/firefox -a web-ext-artifacts/firefox",
+    "ext:build:firefox": "web-ext build -s dist/firefox -n firefox.zip",
     "ext:run:chrome": "web-ext run -s dist/chrome --target chromium",
     "ext:lint:chrome": "web-ext lint -s dist/chrome",
-    "ext:build:chrome": "web-ext build -s dist/chrome -a web-ext-artifacts/chrome"
+    "ext:build:chrome": "web-ext build -s dist/chrome -n chrome.zip"
   },
   "dependencies": {
     "@blueprintjs/core": "^4.5.1",
