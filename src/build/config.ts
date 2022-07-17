@@ -12,6 +12,7 @@ const defaultConfig: BuildOptions = {
     '.svg': 'file',
     '.md': 'file',
   },
+  metafile: true,
 };
 
 export const pagesConfig: BuildOptions = {

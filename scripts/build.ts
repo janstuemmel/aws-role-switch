@@ -7,11 +7,12 @@ import {
   pagesConfig,
   scriptsConfig,
 } from '../src/build/config';
+import fs from 'fs';
 
 const watch = !!process.argv.includes('--watch');
 const minify = !!process.argv.includes('--minify');
 
-build({
+const result = build({
   ...pagesConfig,
   watch,
   minify,
@@ -23,6 +24,12 @@ build({
     ]),
   ],
   outdir: 'dist/firefox',
+});
+
+// write metadata for bundle analyzer
+// npx esbuild-visualizer --metafile
+result.then(r => {
+  fs.writeFileSync('dist/metadata.json', JSON.stringify(r.metafile));
 });
 
 build({
