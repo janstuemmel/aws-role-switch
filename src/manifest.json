@@ -1,11 +1,10 @@
 {
-  "version": "0.3.0",
+  "version": "0.3.1",
   "name": "AWS role switch",
   "description": "Quickly switch between roles on the AWS console",
   "homepage_url": "https://github.com/janstuemmel/aws-role-switch",
   "permissions": [
-    "storage",
-    "tabs"
+    "storage"
   ],
   "options_ui": {
     "page": "options/options.html",
