@@ -10,6 +10,7 @@
   },
   "commands": {
     "_execute_browser_action": {
+      "description": "Open the popup window",
       "suggested_key": {
         "default": "Ctrl+Shift+L"
       }
