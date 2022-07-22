@@ -131,14 +131,9 @@ Array [
 });
 
 
-it('should cort correctly', () => {
+it('should sort correctly', () => {
   const stored = {
     'foo': {
-      aws_account_id: 'foo',
-      role_name: 'bar',
-      group: 'b',
-    },
-    'foo2': {
       aws_account_id: 'foo',
       role_name: 'bar',
       group: 'b',
@@ -147,6 +142,11 @@ it('should cort correctly', () => {
       aws_account_id: 'foo',
       role_name: 'bar',
       group: 'a',
+    },
+    'foo2': {
+      aws_account_id: 'foo',
+      role_name: 'bar',
+      group: 'b',
     },
     'bar2': {
       aws_account_id: 'foo',
@@ -167,13 +167,6 @@ Array [
   Object {
     "aws_account_id": "foo",
     "color": undefined,
-    "group": "a",
-    "role_name": "bar",
-    "title": "bar",
-  },
-  Object {
-    "aws_account_id": "foo",
-    "color": undefined,
     "group": "b",
     "role_name": "bar",
     "title": "foo",
@@ -184,6 +177,13 @@ Array [
     "group": "b",
     "role_name": "bar",
     "title": "foo2",
+  },
+  Object {
+    "aws_account_id": "foo",
+    "color": undefined,
+    "group": "a",
+    "role_name": "bar",
+    "title": "bar",
   },
 ]
 `);

@@ -23,35 +23,47 @@ function trimTitle(title: string) {
   return title.replace('profile', '').trim();
 }
 
-// sorts the config by group
-// ungrouped entries on top
-const sortByGroup = (a: AWSConfigItem, b: AWSConfigItem) => {
-  if (!a.group) {
-    return -1;
-  }
+// sorts the config by first appearance of a group
+// ungrouped entries should still be on top
+const sortByGroupIndex = (config: AWSConfig) => {
 
-  if (!b.group) {
-    return 1;
-  }
+  const groupsIndex = config
+    .filter((item: AWSConfigItem, idx: number) => config.findIndex((step) => item.group === step.group) === idx)
+    .map(({ group }, idx) => ({ group, idx }));
 
-  if (a.group < b.group) {
-    return -1;
-  }
+  return (a: AWSConfigItem, b: AWSConfigItem) => {
+    const itemA = groupsIndex.find(({ group }) => a.group === group);
+    const itemB = groupsIndex.find(({ group }) => b.group === group);
 
-  if (a.group > b.group) {
-    return 1;
-  }
-
-  return 0;
+    if (!itemA?.group) {
+      return -1;
+    }
+  
+    if (!itemB?.group) {
+      return 1;
+    }
+  
+    if (itemA.idx < itemB.idx) {
+      return -1;
+    }
+  
+    if (itemA.idx > itemB.idx) {
+      return 1;
+    }
+  
+    return 0;
+  };
 };
 
 export function mapConfig(config: StoredConfig): AWSConfig {
-  return Object.keys(config)
+  const entries = Object.keys(config)
     .filter(val => isValidEntry(config[val]))
     .map(key => ({ 
       title: trimTitle(key), 
       ...config[key],
     }))
-    .map(mapColor)
-    .sort(sortByGroup);
+    .map(mapColor);
+
+  return entries
+    .sort(sortByGroupIndex(entries));
 }
