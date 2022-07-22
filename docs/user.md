@@ -2,12 +2,19 @@
 
 ## Config
 
-The plugin can be configured with a `./aws/config` style `ini` file format. An entry can have following attributes:
+Enter your roles in the editor via `ini` format: 
+* Lines prefixed with `#` are comments
+* Section headers define the display name of a role and can be prefixed with `profile`, like `[profile my-aws-role]`
+* Roles are sorted by first appearance of an item's group, ungrouped items are always on top
 
-* `role_name`: Name of the role you want to assume
-* `aws_account_id`: Account id in which the role lives
-* `color`: Optional color represented as `css` color string (e.g. `#fff`, `orange`) 
-* `group`: Optional group  
+| Key   | Value  |
+| :---  |  :---  |
+| `role_name` | The role's name you want to assume |
+| `aws_account_id` | The aws account id where the role is stored |
+| `color` (optional) | A css color string, like `#f0f0f0` or `orange` |
+| `group` (optional) | The name of a group |
+
+### Example
 
 ```ini
 # A comment
@@ -21,9 +28,13 @@ group = My awesome account
 
 ## Usage
 
-After you entered a few entries, you can open the popup window and see a list of roles. Filter for group, id or title with the search bar.
+After entering your config the roles will show up in the popup window. You can filter roles via the search input. Assuming a role after selection will only work when you are on an aws console tap. 
 
-Keyboard shortcuts:
-* <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>l</kbd>: Open the popup window 
-* <kbd>↑</kbd> / <kbd>↓</kbd>: Navigate up/down
-* <kbd>Enter</kbd>: Assume role
+
+### Keyboard Shortcuts
+
+| Shortcut | Action  |
+| :---  |  :---  |
+| <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>l</kbd> | Open popup window |
+| <kbd>↑</kbd> / <kbd>↓</kbd> | Navigate up/down |
+| <kbd>Enter</kbd> | Assume the selected role |
