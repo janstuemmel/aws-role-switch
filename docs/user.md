@@ -28,7 +28,7 @@ group = My awesome account
 
 ## Usage
 
-After entering your config the roles will show up in the popup window. You can filter roles via the search input. Assuming a role after selection will only work when you are on an aws console tap. 
+After entering your config, roles will show up in the popup window. You can filter roles via the search input. Assuming a role after selection will only work when you are on an aws console tap. 
 
 
 ### Keyboard Shortcuts
