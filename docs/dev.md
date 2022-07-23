@@ -59,3 +59,14 @@ The plugin is written with following technologies:
 * [react](https://reactjs.org/) 
 * [codemirror](https://codemirror.net/)
 * [blueprint ui](https://blueprintjs.com/docs/)
+
+
+## Flow
+
+Here's a little diagram of how the application flow works.
+
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="./flow-dark.png">
+  <source media="(prefers-color-scheme: light)" srcset="./flow-light.png">
+  <img src="./flow-light.png">
+</picture>
