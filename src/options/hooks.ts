@@ -6,7 +6,7 @@ import {
 } from 'react';
 import { marked } from 'marked';
 
-import readme from '../../docs/user.md';
+import readme from '../../docs/usage.md';
 import { getConfig } from '../common/config';
 
 export const useDocs = () => {
