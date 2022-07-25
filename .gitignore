@@ -5,3 +5,5 @@ web-ext-artifacts
 
 .parcel-cache
 .eslintcache
+
+.DS_Store

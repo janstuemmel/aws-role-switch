@@ -7,6 +7,7 @@ import {
 
 import { getMappedConfig } from '../../common/config';
 import { useKeyPress } from '../../common/hooks';
+import { accountAndRoleNameFromConfigItem } from '../../common/mappers/switchForm';
 
 type ConfigItem = AWSConfigItemState;
 
@@ -16,10 +17,13 @@ const mapSelected = (idx: number | null) => (item: ConfigItem, i: number): Confi
 });
 
 const filterConfigItem = (filter: string) => 
-  (configItem: AWSConfigItemState) => 
-  configItem.title.toLowerCase().includes(filter.toLowerCase()) || 
-  configItem.aws_account_id.toLowerCase().startsWith(filter.toLowerCase()) ||
+  (configItem: AWSConfigItemState) => {
+    const { account } = accountAndRoleNameFromConfigItem(configItem);
+
+  return configItem.title.toLowerCase().includes(filter.toLowerCase()) || 
+  account.toLowerCase().startsWith(filter.toLowerCase()) ||
   configItem.group?.toLowerCase().includes(filter.toLowerCase());
+};
 
 const mapItemsToState = (config: AWSConfigItem[]): AWSConfigItemState[] => 
   config.map((c: AWSConfigItem) => ({ ...c, selected: false }));

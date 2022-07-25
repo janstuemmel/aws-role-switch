@@ -9,9 +9,10 @@ declare module "*.md" {
 }
 
 type AWSConfigItem = {
-  title: string,
-  aws_account_id: string,
-  role_name: string,
+  title?: string,
+  aws_account_id?: string,
+  role_arn?: string,
+  role_name?: string,
   color?: string,
   region?: string,
   group?: z.string,

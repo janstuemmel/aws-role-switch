@@ -10,10 +10,18 @@ it('should map to default group', () => {
       aws_account_id: 'foo',
       role_name: 'bar'
     },
+    'role_arn': {
+      role_arn: 'arn:aws:iam::0123456789876:role/MyRole'
+    }
   } as StoredConfig;
   const config = mapConfig(stored);
   expect(config).toMatchInlineSnapshot(`
 Array [
+  Object {
+    "color": undefined,
+    "role_arn": "arn:aws:iam::0123456789876:role/MyRole",
+    "title": "role_arn",
+  },
   Object {
     "aws_account_id": "foo",
     "color": undefined,

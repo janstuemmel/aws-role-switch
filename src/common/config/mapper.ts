@@ -1,7 +1,7 @@
 import { ColorTranslator } from 'colortranslator';
 
-function isValidEntry({ aws_account_id, role_name }: StoredConfigItem) {
-  return aws_account_id && role_name;
+function isValidEntry({ aws_account_id, role_name, role_arn }: StoredConfigItem) {
+  return aws_account_id && role_name ||role_arn;
 }
 
 function getColorHEX(color: string) {
