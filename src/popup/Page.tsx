@@ -29,7 +29,6 @@ import {
 } from '../common/browser';
 import { sendToCurrentTab } from '../common/browser';
 import { AWSIcon } from '../common/components';
-import { accountAndRoleNameFromConfigItem, extractAccountAndRoleFromRoleARN } from '../common/mappers/switchForm';
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
@@ -57,7 +56,6 @@ const MenuSection: FC<{ title: string }> = ({ title }) => {
 
 const RoleItem: FC<AWSConfigItemState> = (configItemState) => {
   const { title, color, selected = false } = configItemState;
-  const { account } = accountAndRoleNameFromConfigItem(configItemState);
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -76,7 +74,7 @@ const RoleItem: FC<AWSConfigItemState> = (configItemState) => {
         selected={selected}
         icon={<Icon icon="full-circle" color={color} />} 
         text={title} 
-        label={account} />
+        label={configItemState.aws_account_id} />
     </div>
   );
 };
@@ -126,8 +124,7 @@ export const Page = () => {
               <div key={group.title+gid}>
                 <MenuSection title={group.title} />
                 {group.children.map((role, idx) => { 
-                  const { account } = accountAndRoleNameFromConfigItem(role);
-                  return (<RoleItem {...role} key={account+idx} />);
+                  return (<RoleItem {...role} key={role.aws_account_id+idx} />);
                 })}
               </div>
             ))}

@@ -1,4 +1,4 @@
-import { mapConfig } from "./mapper";
+import { mapConfig, extractAccountAndRoleFromRoleARN } from "./mapper";
 
 it('should map to default group', () => {
   const stored = {
@@ -11,15 +11,17 @@ it('should map to default group', () => {
       role_name: 'bar'
     },
     'role_arn': {
-      role_arn: 'arn:aws:iam::0123456789876:role/MyRole'
+      role_arn: 'arn:aws:iam::123456789012:role/MyRole'
     }
   } as StoredConfig;
   const config = mapConfig(stored);
   expect(config).toMatchInlineSnapshot(`
 Array [
   Object {
+    "aws_account_id": "123456789012",
     "color": undefined,
-    "role_arn": "arn:aws:iam::0123456789876:role/MyRole",
+    "role_arn": "arn:aws:iam::123456789012:role/MyRole",
+    "role_name": "MyRole",
     "title": "role_arn",
   },
   Object {
@@ -196,3 +198,19 @@ Array [
 ]
 `);
 });
+
+describe('Role ARN handling', () => {
+  it("extracts role and account from a well formed role_arn", () => {
+    const arnRole= "arn:aws:iam::123456789012:role/MyRole";
+    const result = extractAccountAndRoleFromRoleARN(arnRole);
+    const expected = {aws_account_id: '123456789012', role_name: 'MyRole'};
+    
+    expect(result).toEqual(expected);
+  });
+  it("returns undefined for a malformed role_arn", () => {
+    const arnRole= "arn:aws:iam::123456:role/MyRole";
+    const result = extractAccountAndRoleFromRoleARN(arnRole);
+    
+    expect(result).toEqual(undefined);
+  });
+}) ;

@@ -8,20 +8,28 @@ declare module "*.md" {
   export default content;
 }
 
-type AWSConfigItem = {
-  title?: string,
-  aws_account_id?: string,
-  role_arn?: string,
-  role_name?: string,
+type AWSConfigOptionalData = {
   color?: string,
   region?: string,
   group?: z.string,
+
 }
+
+type AWSConfigItem = {
+  title: string,
+  aws_account_id: string,
+  role_name: string,
+} & AWSConfigOptinalData
+
 type AWSConfig = AWSConfigItem[]
 type AWSConfigItemState = AWSConfigItem & { selected: boolean }
 
-type StoredConfigItem = Omit<AWSConfigItem, 'title'>
-type StoredConfig = Record<string, StoredConfigItem>
+type AWSStoredConfigItem = {
+  aws_account_id?: string,
+  role_name?: string,
+  role_arn?: string
+} & AWSConfigOptionalData
+type StoredConfig = Record<string, AWSStoredConfigItem>
 
 type SwitchRoleFormFromExtension = { _fromAWSRoleSwitchExtension?: 'true' }
 type SwitchRoleForm = {
