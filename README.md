@@ -22,7 +22,7 @@ Browser plugin to quickly switch between roles on the AWS console. This plugin s
 
 You can store up to 5 roles in the AWS console. If you have a bunch of roles over many accounts this browser plugin might be a good choice to store your roles. It can store roughly 200 roles and syncs it with browsers on other devices. 
 
-You might also checkout [tilfinltd/aws-extend-switch-roles](https://github.com/tilfinltd/aws-extend-switch-roles) which is another browser plugin to switch roles. When i started to write this plugin i learned a lot of how the *switching* works. Originally i intended to contribute to this repository because i needed some features that aren't implemented there. However, it's written in a very oldschool style of Javascript, so i decided to rewrite it and give it a modern paint.
+You might also checkout [tilfinltd/aws-extend-switch-roles](https://github.com/tilfinltd/aws-extend-switch-roles) which is another browser plugin to switch roles. When i started to write this plugin i learned a lot of how the *switching* works. Originally i intended to contribute to this repository because i needed some features that aren't implemented there. However, it's written in a very oldschool style of Javascript, so i decided to rewrite it and give it a modern paint. 
 
 ## Development & Build
 

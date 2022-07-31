@@ -55,7 +55,7 @@ const MenuSection: FC<{ title: string }> = ({ title }) => {
 };
 
 const RoleItem: FC<AWSConfigItemState> = (configItemState) => {
-  const { title, color, selected = false } = configItemState;
+  const { title, aws_account_id, color, selected = false } = configItemState;
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -74,7 +74,7 @@ const RoleItem: FC<AWSConfigItemState> = (configItemState) => {
         selected={selected}
         icon={<Icon icon="full-circle" color={color} />} 
         text={title} 
-        label={configItemState.aws_account_id} />
+        label={aws_account_id} />
     </div>
   );
 };
@@ -123,9 +123,7 @@ export const Page = () => {
             {mapConfigStateToGroups(roles).map((group, gid) => (
               <div key={group.title+gid}>
                 <MenuSection title={group.title} />
-                {group.children.map((role, idx) => { 
-                  return (<RoleItem {...role} key={role.aws_account_id+idx} />);
-                })}
+                {group.children.map((role, idx) => <RoleItem {...role} key={role.aws_account_id+idx} />)}
               </div>
             ))}
           </Menu>
