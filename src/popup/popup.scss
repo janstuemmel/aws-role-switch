@@ -1,4 +1,9 @@
 @import "../scss/base";
+@import "../scss/scrollbar-chrome";
+
+::-webkit-scrollbar {
+  width: 5px;
+}
 
 body {
   width: 400px;
@@ -64,5 +69,13 @@ body {
       background-color: $dark-gray4;
       border-bottom: 1px solid $dark-gray3;
     }
+  }
+}
+
+// fix margin bottom on chrome because 
+// popup has no border radius like firefox 
+@supports (-webkit-appearance:none) {
+  #popup .menu {
+    margin: 0px;
   }
 }

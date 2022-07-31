@@ -1,10 +1,11 @@
 @import "../scss/base";
+@import "../scss/scrollbar-chrome";
 
 #options-ui {
   max-width: 1400px;
   min-width: 900px;
   margin: 0 auto;
-  
+  font-size: 14px;
   border-right: 2px solid $light-gray1;
   border-left: 2px solid $light-gray1;
   
@@ -90,7 +91,8 @@
       }
 
       code, kbd {
-        padding: 2px 3px;
+        font-size: 12px;
+        padding: 4px 5px;
         border-radius: 4px;
         background: $light-gray2;
         @media (prefers-color-scheme: dark) {
