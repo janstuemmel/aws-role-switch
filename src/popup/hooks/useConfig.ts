@@ -16,10 +16,10 @@ const mapSelected = (idx: number | null) => (item: ConfigItem, i: number): Confi
 });
 
 const filterConfigItem = (filter: string) => 
-  (configItem: AWSConfigItemState) => configItem.title.toLowerCase().includes(filter.toLowerCase()) || 
+  (configItem: AWSConfigItemState) => 
+  configItem.title.toLowerCase().includes(filter.toLowerCase()) || 
   configItem.aws_account_id.toLowerCase().startsWith(filter.toLowerCase()) ||
   configItem.group?.toLowerCase().includes(filter.toLowerCase());
-
 
 const mapItemsToState = (config: AWSConfigItem[]): AWSConfigItemState[] => 
   config.map((c: AWSConfigItem) => ({ ...c, selected: false }));
