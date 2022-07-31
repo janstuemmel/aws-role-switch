@@ -1,4 +1,7 @@
-import { mapConfig, extractAccountAndRoleFromRoleARN } from "./mapper";
+import {
+  mapConfig,
+  extractAccountAndRoleFromRoleARN,
+} from './mapper';
 
 it('should map to default group', () => {
   const stored = {
@@ -10,7 +13,7 @@ it('should map to default group', () => {
       aws_account_id: 'foo',
       role_name: 'bar'
     },
-    'role_arn': {
+    'baz': {
       role_arn: 'arn:aws:iam::123456789012:role/MyRole'
     }
   } as StoredConfig;
@@ -20,9 +23,8 @@ Array [
   Object {
     "aws_account_id": "123456789012",
     "color": undefined,
-    "role_arn": "arn:aws:iam::123456789012:role/MyRole",
     "role_name": "MyRole",
-    "title": "role_arn",
+    "title": "baz",
   },
   Object {
     "aws_account_id": "foo",

@@ -56,32 +56,32 @@ const sortByGroupIndex = (config: AWSConfig) => {
   };
 };
 
-export const awsStoredConfigItemToAWSConfigItem = 
-  (title: string, sci: AWSStoredConfigItem): AWSConfigItem | undefined => {
-  const optionalData: AWSConfigOptionalData = sci;
-  if (sci.aws_account_id && sci.role_name) {
-    const item: AWSConfigItem = {
-      ...optionalData,
-      title,
-      aws_account_id: sci.aws_account_id,
-      role_name: sci.role_name
-    };
+export const awsStoredConfigItemToAWSConfigItem = (
+  title: string, 
+  sci: AWSStoredConfigItem
+): AWSConfigItem | undefined => {
+  const { aws_account_id, role_arn, role_name, ...rest } = sci;
 
-    return item;
+  if (aws_account_id && role_name) {
+    return {
+      ...rest,
+      title,
+      aws_account_id,
+      role_name,
+    };
   }
-  if (sci.role_arn) {
-    const accountAndRole = extractAccountAndRoleFromRoleARN(sci.role_arn);
+
+  if (role_arn) {
+    const accountAndRole = extractAccountAndRoleFromRoleARN(role_arn);
     if (accountAndRole) {
       const item: AWSConfigItem = {
         title,
-        ...optionalData,
+        ...rest,
         ...accountAndRole,
       };
       return item;
     }
   }
-
-  return undefined;
 };
 
 export const extractAccountAndRoleFromRoleARN = (roleArn: string): AccountRole | undefined => {
@@ -89,9 +89,11 @@ export const extractAccountAndRoleFromRoleARN = (roleArn: string): AccountRole |
   const match = roleArn.trim().match(arnRoleRe);
   
   if (match?.groups) {
-    return { role_name: match.groups.roleName, aws_account_id: match.groups.account };
+    return {
+      role_name: match.groups.roleName,
+      aws_account_id: match.groups.account
+    };
   }
-  return undefined;
 };
 
 export function mapConfig(config: StoredConfig): AWSConfig {
@@ -99,7 +101,7 @@ export function mapConfig(config: StoredConfig): AWSConfig {
     .filter(val => isValidEntry(config[val]))
     .map(configEntry => awsStoredConfigItemToAWSConfigItem(trimTitle(configEntry), config[configEntry]))
     .filter(item => !!item) // filter items that could not be transformed properly
-    .map(mapColor);
+    .map((item) => mapColor(item as AWSConfigItem));
 
   return entries
     .sort(sortByGroupIndex(entries));
