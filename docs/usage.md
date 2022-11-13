@@ -13,6 +13,7 @@ Enter your roles in the editor via `ini` format:
 | `aws_account_id` | The aws account id where the role is stored |
 | `color` (optional) | A css color string, like `#f0f0f0` or `orange` |
 | `group` (optional) | The name of a group |
+| `region` (optional) | Force a region ([region list](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html)) |
 
 ### Example config
 
@@ -24,6 +25,13 @@ role_name = AdminFullAccess
 aws_account_id = 123456789101
 color = orangered
 group = My awesome account
+
+[role-title-eu-central]
+role_name = AdminFullAccess
+aws_account_id = 123456789101
+color = blue
+group = My awesome account
+region = eu-central-1
 ```
 
 ## Usage
