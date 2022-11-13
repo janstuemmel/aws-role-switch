@@ -88,3 +88,26 @@ Object {
 }
 `);
 });
+
+it('region not written correctly', () => {
+  const params = mapToSwitchForm({
+    aws_account_id: 'dummy',
+    role_name: 'DummyAdmin',
+    title: 'dummy-account',
+    region: 'us-east-foooo',
+  }, {
+    redirect_uri: 'example.com?region=us-east-2'
+  });
+
+  expect(params).toMatchInlineSnapshot(`
+Object {
+  "account": "dummy",
+  "action": "switchFromBasis",
+  "color": undefined,
+  "displayName": "dummy-account | dummy",
+  "mfaNeeded": "0",
+  "redirect_uri": "example.com?region=us-east-2",
+  "roleName": "DummyAdmin",
+}
+`);
+});
