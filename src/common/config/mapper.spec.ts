@@ -11,7 +11,8 @@ it('should map to default group', () => {
     },
     'profile bar': {
       aws_account_id: 'foo',
-      role_name: 'bar'
+      role_name: 'bar',
+      region: 'us-east-1'
     },
     'baz': {
       role_arn: 'arn:aws:iam::123456789012:role/MyRole'
@@ -29,6 +30,7 @@ Array [
   Object {
     "aws_account_id": "foo",
     "color": undefined,
+    "region": "us-east-1",
     "role_name": "bar",
     "title": "bar",
   },

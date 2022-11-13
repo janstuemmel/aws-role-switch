@@ -41,7 +41,7 @@ it('should create form correctly', () => {
   />
   <input
     name="redirect_uri"
-    value="http://localhost/"
+    value="http://localhost/?region=us-east-1"
   />
 </form>
 `);
@@ -54,7 +54,7 @@ Object {
   "csrf": "1337",
   "displayName": "dummy-title | dummy-id",
   "mfaNeeded": "0",
-  "redirect_uri": "http://localhost/",
+  "redirect_uri": "http://localhost/?region=us-east-1",
   "roleName": "dummy-role",
 }
 `);
