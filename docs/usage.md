@@ -11,6 +11,7 @@ Enter your roles in the editor via `ini` format:
 | :---  |  :---  |
 | `role_name` | The role's name you want to assume |
 | `aws_account_id` | The aws account id where the role is stored |
+| `role_arn` (optional) | An aws role arn including account id and role name (replaces `role_name` & `aws_account_id`) |
 | `color` (optional) | A css color string, like `#f0f0f0` or `orange` |
 | `group` (optional) | The name of a group |
 | `region` (optional) | Force a region ([region list](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html)) |
@@ -27,9 +28,7 @@ color = orangered
 group = My awesome account
 
 [role-title-eu-central]
-role_name = AdminFullAccess
-aws_account_id = 123456789101
-color = blue
+role_arn = arn:aws:iam::123456789101:role/AdminFullAccess
 group = My awesome account
 region = eu-central-1
 ```
@@ -38,7 +37,7 @@ region = eu-central-1
 
 After entering your config, roles will show up in the popup window. You can filter roles via the search input. 
 
-?> Assuming a role after selection will only work when you are on an aws console tab. 
+Assuming a role after selection will only work when you are on an aws console tab. 
 
 
 ### Keyboard Shortcuts
