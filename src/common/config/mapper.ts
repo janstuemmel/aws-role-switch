@@ -1,5 +1,7 @@
 import { ColorTranslator } from 'colortranslator';
 
+import { availableRegions } from './availableRegions';
+
 type AccountRole = { role_name: string, aws_account_id: string }
 
 const isValidEntry = ({aws_account_id, role_name, role_arn}: AWSStoredConfigItem): boolean =>
@@ -13,16 +15,9 @@ function getColorHEX(color: string) {
   }
 }
 
-function mapColor({ color = '', ...rest }: AWSConfigItem): AWSConfigItem {
-  return {
-    ...rest,
-    color: getColorHEX(color)
-  };
-}
+const mapColor = ({ color = '', ...rest }: AWSConfigItem): AWSConfigItem => ({ ...rest, color: getColorHEX(color) });
 
-function trimTitle(title: string) {
-  return title.replace('profile', '').trim();
-}
+const trimTitle = (title: string) => title.replace('profile', '').trim();
 
 // sorts the config by first appearance of a group
 // ungrouped entries should still be on top
@@ -58,13 +53,14 @@ const sortByGroupIndex = (config: AWSConfig) => {
 
 export const awsStoredConfigItemToAWSConfigItem = (
   title: string, 
-  sci: AWSStoredConfigItem
+  { aws_account_id, role_arn, role_name, region: regionTo, ...rest }: AWSStoredConfigItem
 ): AWSConfigItem | undefined => {
-  const { aws_account_id, role_arn, role_name, ...rest } = sci;
+  const region = availableRegions.includes(regionTo || '') && regionTo || undefined;
 
   if (aws_account_id && role_name) {
     return {
       ...rest,
+      region,
       title,
       aws_account_id,
       role_name,
@@ -76,6 +72,7 @@ export const awsStoredConfigItemToAWSConfigItem = (
     if (accountAndRole) {
       const item: AWSConfigItem = {
         title,
+        region,
         ...rest,
         ...accountAndRole,
       };

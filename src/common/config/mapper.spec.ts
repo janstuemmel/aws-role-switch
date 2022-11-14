@@ -24,6 +24,7 @@ Array [
   Object {
     "aws_account_id": "123456789012",
     "color": undefined,
+    "region": undefined,
     "role_name": "MyRole",
     "title": "baz",
   },
@@ -37,6 +38,7 @@ Array [
   Object {
     "aws_account_id": "foo",
     "color": undefined,
+    "region": undefined,
     "role_name": "bar",
     "title": "foo",
   },
@@ -62,6 +64,7 @@ Array [
   Object {
     "aws_account_id": "foo",
     "color": undefined,
+    "region": undefined,
     "role_name": "bar",
     "title": "foo",
   },
@@ -69,6 +72,7 @@ Array [
     "aws_account_id": "foo",
     "color": undefined,
     "group": "baz",
+    "region": undefined,
     "role_name": "bar",
     "title": "bar",
   },
@@ -99,6 +103,7 @@ Array [
   Object {
     "aws_account_id": "foo",
     "color": undefined,
+    "region": undefined,
     "role_name": "ccc",
     "title": "foo",
   },
@@ -106,6 +111,7 @@ Array [
     "aws_account_id": "foo",
     "color": undefined,
     "group": "aaa",
+    "region": undefined,
     "role_name": "bar",
     "title": "bar",
   },
@@ -113,6 +119,7 @@ Array [
     "aws_account_id": "foo",
     "color": undefined,
     "group": "bbb",
+    "region": undefined,
     "role_name": "bar",
     "title": "baz",
   },
@@ -137,6 +144,7 @@ Array [
   Object {
     "aws_account_id": "foo",
     "color": undefined,
+    "region": undefined,
     "role_name": "bar",
     "title": "bar",
   },
@@ -144,6 +152,49 @@ Array [
 `);
 });
 
+it('should map region', () => {
+  const stored = {
+    'foo': {
+      aws_account_id: 'foo',
+      role_name: 'bar',
+      region: 'eu-central-1'
+    },
+  };
+  const config = mapConfig(stored as object as StoredConfig);
+  expect(config).toMatchInlineSnapshot(`
+Array [
+  Object {
+    "aws_account_id": "foo",
+    "color": undefined,
+    "region": "eu-central-1",
+    "role_name": "bar",
+    "title": "foo",
+  },
+]
+`);
+});
+
+it('should not map invalid region', () => {
+  const stored = {
+    'foo': {
+      aws_account_id: 'foo',
+      role_name: 'bar',
+      region: 'us-dummy-1'
+    },
+  };
+  const config = mapConfig(stored as object as StoredConfig);
+  expect(config).toMatchInlineSnapshot(`
+Array [
+  Object {
+    "aws_account_id": "foo",
+    "color": undefined,
+    "region": undefined,
+    "role_name": "bar",
+    "title": "foo",
+  },
+]
+`);
+});
 
 it('should sort correctly', () => {
   const stored = {
@@ -175,6 +226,7 @@ Array [
     "aws_account_id": "foo",
     "color": undefined,
     "group": undefined,
+    "region": undefined,
     "role_name": "bar",
     "title": "bar2",
   },
@@ -182,6 +234,7 @@ Array [
     "aws_account_id": "foo",
     "color": undefined,
     "group": "b",
+    "region": undefined,
     "role_name": "bar",
     "title": "foo",
   },
@@ -189,6 +242,7 @@ Array [
     "aws_account_id": "foo",
     "color": undefined,
     "group": "b",
+    "region": undefined,
     "role_name": "bar",
     "title": "foo2",
   },
@@ -196,6 +250,7 @@ Array [
     "aws_account_id": "foo",
     "color": undefined,
     "group": "a",
+    "region": undefined,
     "role_name": "bar",
     "title": "bar",
   },
