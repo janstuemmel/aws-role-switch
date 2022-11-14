@@ -1,5 +1,16 @@
 type Args = Pick<SwitchRoleForm, 'csrf' | 'redirect_uri' | '_fromAWSRoleSwitchExtension'>
 
+const createRedirectUrl = (redirectUrl: string, region?: string) => {
+  try {
+    const url = new URL(redirectUrl);
+    const actualRegion = url.searchParams.get('region') || 'us-east-1';
+    url.searchParams.set('region', region || actualRegion as string);
+    return url.toString();
+  } catch(_) {
+    return redirectUrl;
+  }
+};
+
 export const mapToSwitchForm = (
   configItem: AWSConfigItem, 
   args: Args,
@@ -11,4 +22,5 @@ export const mapToSwitchForm = (
   action: 'switchFromBasis',
   mfaNeeded: '0',
   ...args,
+  redirect_uri: createRedirectUrl(args.redirect_uri, configItem.region),
 });

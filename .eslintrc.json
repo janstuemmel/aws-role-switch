@@ -11,7 +11,7 @@
     "plugin:@typescript-eslint/recommended"
   ],
   "rules": {
-    "@typescript-eslint/no-unused-vars": ["error", { "ignoreRestSiblings": true }],
+    "@typescript-eslint/no-unused-vars": ["error", { "ignoreRestSiblings": true, "destructuredArrayIgnorePattern": "^_" }],
     "@typescript-eslint/no-empty-function": ["error", { "allow": ["arrowFunctions"] }],
     "eol-last": ["error", "always"],
     "semi": ["error", "always"],

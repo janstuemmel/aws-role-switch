@@ -35,6 +35,7 @@ type SwitchRoleFormFromExtension = { _fromAWSRoleSwitchExtension?: 'true' }
 type SwitchRoleForm = {
   account: string,
   roleName: string,
+  region?: string,
   color?: string,
   displayName?: string,
   
