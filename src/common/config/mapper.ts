@@ -2,10 +2,11 @@ import { ColorTranslator } from 'colortranslator';
 
 import { availableRegions } from './availableRegions';
 
-type AccountRole = { role_name: string, aws_account_id: string }
-
-const isValidEntry = ({aws_account_id, role_name, role_arn}: AWSStoredConfigItem): boolean =>
+const isValidConfigEntry = ({ aws_account_id, role_name, role_arn }: AWSStoredConfigItem): boolean =>
  !!aws_account_id && !!role_name || !!role_arn;
+
+const isValidConfigItem = ({ aws_account_id, role_name }: Partial<AWSConfigItem>): boolean =>
+ !!aws_account_id && !!role_name;
 
 function getColorHEX(color: string) {
   try {
@@ -15,7 +16,8 @@ function getColorHEX(color: string) {
   }
 }
 
-const mapColor = ({ color = '', ...rest }: AWSConfigItem): AWSConfigItem => ({ ...rest, color: getColorHEX(color) });
+const mapColor = ({ color = '', ...rest }: Partial<AWSConfigItem>): Partial<AWSConfigItem> => 
+  ({ ...rest, color: getColorHEX(color) });
 
 const trimTitle = (title: string) => title.replace('profile', '').trim();
 
@@ -51,54 +53,28 @@ const sortByGroupIndex = (config: AWSConfig) => {
   };
 };
 
-export const awsStoredConfigItemToAWSConfigItem = (
+const buildConfigItem = (
   title: string, 
-  { aws_account_id, role_arn, role_name, region: regionTo, ...rest }: AWSStoredConfigItem
-): AWSConfigItem | undefined => {
-  const region = availableRegions.includes(regionTo || '') && regionTo || undefined;
+  { role_arn = '', aws_account_id, role_name, region: regionTo, ...rest }: AWSStoredConfigItem
+): Partial<AWSConfigItem> => {  
+  const region = availableRegions.includes(regionTo || '') ? regionTo : undefined;
+  const match = role_arn.trim().match(/^arn:aws:iam::(?<aws_account_id>\d{12}):role\/(?<role_name>\w+)/);
 
-  if (aws_account_id && role_name) {
-    return {
-      ...rest,
-      region,
-      title,
-      aws_account_id,
-      role_name,
-    };
-  }
-
-  if (role_arn) {
-    const accountAndRole = extractAccountAndRoleFromRoleARN(role_arn);
-    if (accountAndRole) {
-      const item: AWSConfigItem = {
-        title,
-        region,
-        ...rest,
-        ...accountAndRole,
-      };
-      return item;
-    }
-  }
-};
-
-export const extractAccountAndRoleFromRoleARN = (roleArn: string): AccountRole | undefined => {
-  const arnRoleRe = /^arn:aws:iam::(?<account>\d{12}):role\/(?<roleName>\w+)/;
-  const match = roleArn.trim().match(arnRoleRe);
-  
-  if (match?.groups) {
-    return {
-      role_name: match.groups.roleName,
-      aws_account_id: match.groups.account
-    };
-  }
+  return {
+    ...rest,
+    title: trimTitle(title),
+    region,
+    aws_account_id: match?.groups?.aws_account_id || aws_account_id,
+    role_name: match?.groups?.role_name || role_name,
+  };
 };
 
 export function mapConfig(config: StoredConfig): AWSConfig {
   const entries = Object.keys(config)
-    .filter(val => isValidEntry(config[val]))
-    .map(configEntry => awsStoredConfigItemToAWSConfigItem(trimTitle(configEntry), config[configEntry]))
-    .filter(item => !!item) // filter items that could not be transformed properly
-    .map((item) => mapColor(item as AWSConfigItem));
+    .filter((val) => isValidConfigEntry(config[val]))
+    .map((configEntry) => buildConfigItem(configEntry, config[configEntry]))
+    .filter(isValidConfigItem)
+    .map(mapColor) as AWSConfig;
 
   return entries
     .sort(sortByGroupIndex(entries));

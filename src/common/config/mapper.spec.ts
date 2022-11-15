@@ -1,7 +1,4 @@
-import {
-  mapConfig,
-  extractAccountAndRoleFromRoleARN,
-} from './mapper';
+import {mapConfig,} from './mapper';
 
 it('should map to default group', () => {
   const stored = {
@@ -152,6 +149,50 @@ Array [
 `);
 });
 
+it('should omit entry with invalid role_arn', () => {
+  const stored = {
+    'foo': {
+      role_arn: 'foo',
+    },
+    'bar': {
+      aws_account_id: 'foo',
+      role_name: 'bar',
+    },
+  };
+  const config = mapConfig(stored as object as StoredConfig);
+  expect(config).toMatchInlineSnapshot(`
+Array [
+  Object {
+    "aws_account_id": "foo",
+    "color": undefined,
+    "region": undefined,
+    "role_name": "bar",
+    "title": "bar",
+  },
+]
+`);
+});
+
+it('should extract role_name and aws_account_id from role_arn', () => {
+  const stored = {
+    'foo': {
+      role_arn: 'arn:aws:iam::123456789012:role/MyRole',
+    },
+  };
+  const config = mapConfig(stored as object as StoredConfig);
+  expect(config).toMatchInlineSnapshot(`
+Array [
+  Object {
+    "aws_account_id": "123456789012",
+    "color": undefined,
+    "region": undefined,
+    "role_name": "MyRole",
+    "title": "foo",
+  },
+]
+`);
+});
+
 it('should map region', () => {
   const stored = {
     'foo': {
@@ -258,18 +299,18 @@ Array [
 `);
 });
 
-describe('Role ARN handling', () => {
-  it("extracts role and account from a well formed role_arn", () => {
-    const arnRole= "arn:aws:iam::123456789012:role/MyRole";
-    const result = extractAccountAndRoleFromRoleARN(arnRole);
-    const expected = {aws_account_id: '123456789012', role_name: 'MyRole'};
+// describe('Role ARN handling', () => {
+//   it("extracts role and account from a well formed role_arn", () => {
+//     const arnRole= "arn:aws:iam::123456789012:role/MyRole";
+//     const result = extractAccountAndRoleFromRoleARN(arnRole);
+//     const expected = {aws_account_id: '123456789012', role_name: 'MyRole'};
     
-    expect(result).toEqual(expected);
-  });
-  it("returns undefined for a malformed role_arn", () => {
-    const arnRole= "arn:aws:iam::123456:role/MyRole";
-    const result = extractAccountAndRoleFromRoleARN(arnRole);
+//     expect(result).toEqual(expected);
+//   });
+//   it("returns undefined for a malformed role_arn", () => {
+//     const arnRole= "arn:aws:iam::123456:role/MyRole";
+//     const result = extractAccountAndRoleFromRoleARN(arnRole);
     
-    expect(result).toEqual(undefined);
-  });
-}) ;
+//     expect(result).toEqual(undefined);
+//   });
+// }) ;
