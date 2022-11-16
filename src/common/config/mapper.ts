@@ -2,6 +2,9 @@ import { ColorTranslator } from 'colortranslator';
 
 import { availableRegions } from './availableRegions';
 
+// Possible role_name syntax: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html
+const ROLE_ARN_REGEX = /^arn:aws:iam::(?<aws_account_id>\d{12}):role\/(?<role_name>[\w+=,.@-]+)/;
+
 const isValidConfigEntry = ({ aws_account_id, role_name, role_arn }: AWSStoredConfigItem): boolean =>
  !!aws_account_id && !!role_name || !!role_arn;
 
@@ -58,7 +61,7 @@ const buildConfigItem = (
   { role_arn = '', aws_account_id, role_name, region: regionTo, ...rest }: AWSStoredConfigItem
 ): Partial<AWSConfigItem> => {  
   const region = availableRegions.includes(regionTo || '') ? regionTo : undefined;
-  const match = role_arn.trim().match(/^arn:aws:iam::(?<aws_account_id>\d{12}):role\/(?<role_name>\w+)/);
+  const match = role_arn.trim().match(ROLE_ARN_REGEX);
 
   return {
     ...rest,
