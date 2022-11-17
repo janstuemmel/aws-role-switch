@@ -20,7 +20,3 @@ jobs:
       - run: npm test
       - run: npm run type-check
       - run: npm run lint
-      - run: npm run bundle
-        if: github.ref == 'refs/heads/master'
-      - run: npm run ext:lint:firefox
-        if: github.ref == 'refs/heads/master'
