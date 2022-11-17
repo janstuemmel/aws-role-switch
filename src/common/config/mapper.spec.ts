@@ -299,18 +299,19 @@ Array [
 `);
 });
 
-// describe('Role ARN handling', () => {
-//   it("extracts role and account from a well formed role_arn", () => {
-//     const arnRole= "arn:aws:iam::123456789012:role/MyRole";
-//     const result = extractAccountAndRoleFromRoleARN(arnRole);
-//     const expected = {aws_account_id: '123456789012', role_name: 'MyRole'};
-    
-//     expect(result).toEqual(expected);
-//   });
-//   it("returns undefined for a malformed role_arn", () => {
-//     const arnRole= "arn:aws:iam::123456:role/MyRole";
-//     const result = extractAccountAndRoleFromRoleARN(arnRole);
-    
-//     expect(result).toEqual(undefined);
-//   });
-// }) ;
+describe('role_arn handling', () => {
+  test.each([
+    ['arn:aws:iam::123456789111:role/MyRole', 'MyRole'],
+    ['arn:aws:iam::123456789111:role/user-role-abc-xyz', 'user-role-abc-xyz'],
+    ['arn:aws:iam::123456789111:role/user_role_abc_xyz', 'user_role_abc_xyz'],
+    ['arn:aws:iam::123456789111:role/user=role', 'user=role'],
+    ['arn:aws:iam::123456789111:role/user.role', 'user.role'],
+    ['arn:aws:iam::123456789111:role/user,role,foo', 'user,role,foo'],
+    ['arn:aws:iam::123456789111:role/user@role-foo', 'user@role-foo'],
+    ['arn:aws:iam::123456789111:role/userRole+11', 'userRole+11'],
+  ])('test role_arn %s', (arn, role_name) => {
+    const config = mapConfig({ foo: { role_arn: arn } });
+    expect(config[0].aws_account_id).toBe('123456789111');
+    expect(config[0].role_name).toBe(role_name);
+  });
+});
