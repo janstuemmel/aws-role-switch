@@ -53,5 +53,5 @@ it('should not error if no json exists', async () => {
   await onBuildEnd('vDummy', ['foo', 'bar'], 'out')();
 
   expect(fs.promises.readFile).toHaveBeenCalledWith('home/foo.json', 'utf8');
-  expect(fs.promises.writeFile).toHaveBeenCalledWith('home/foo.json', '{}');
+  expect(fs.promises.writeFile).toHaveBeenCalledWith('home/foo.json', expect.stringMatching(/vDummy/));
 });
