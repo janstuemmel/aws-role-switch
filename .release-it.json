@@ -1,0 +1,9 @@
+{
+  "git": {
+    "commitMessage": "release: v${version}\n\n[ci skip]"
+  },
+  "github": {
+    "release": true,
+    "assets": ["dist/*.zip"]
+  }
+}

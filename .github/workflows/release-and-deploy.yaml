@@ -1,0 +1,63 @@
+name: Release and deploy
+
+on:
+  workflow_dispatch:
+    inputs:
+      increment:
+        type: choice
+        required: true
+        description: Version
+        default: minor
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  build:
+    name: Build and release ${{ inputs.increment }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run bundle
+      - uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist/*.zip
+      - run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+      - run: npx release-it ${{ inputs.increment }} --ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy_firefox:
+    name: Deploy firefox addon
+    needs: [build]
+    environment: firefox-addon
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+      - name: Publish 
+        uses: PlasmoHQ/bpp@v3
+        with:
+          artifact: dist/firefox.zip
+          keys: ${{ secrets.KEYS }}
+
+  deploy_chrome:
+    name: Deploy chrome extension
+    needs: [build]
+    environment: chrome-extension
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+      - name: Publish 
+        uses: PlasmoHQ/bpp@v3
+        with:
+          artifact: dist/chrome.zip
+          keys: ${{ secrets.KEYS }}

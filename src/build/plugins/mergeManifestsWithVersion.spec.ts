@@ -1,7 +1,7 @@
 import path from 'path';
 import fs from 'fs';
 import { mock } from '../../test/helper';
-import { onBuildEnd } from './mergeJsons';
+import { onBuildEnd } from './mergeManifestsWithVersion';
 
 jest.mock('fs', () => ({ promises: { writeFile: () => jest.fn(), readFile: () => jest.fn() } }));
 jest.mock('path', () => ({ join: () => jest.fn(), basename: () => jest.fn() }));
@@ -26,7 +26,7 @@ it('should assign jsons', async () => {
     .mockResolvedValueOnce(JSON.stringify({ foo: 'baz' }));
   mock(path.join).mockReturnValue('home/foo.json');
 
-  await onBuildEnd(['foo', 'bar'], 'out')();
+  await onBuildEnd('vDummy', ['foo', 'bar'], 'out')();
 
   expect(fs.promises.readFile).toHaveBeenCalledWith('home/foo.json', 'utf8');
   expect(fs.promises.writeFile).toHaveBeenCalledWith('home/foo.json', expect.stringMatching(/baz/));
@@ -38,7 +38,7 @@ it('should not error if second json does not exist', async () => {
     .mockRejectedValue(new Error('foo'));
   mock(path.join).mockReturnValue('home/foo.json');
 
-  await onBuildEnd(['foo', 'bar'], 'out')();
+  await onBuildEnd('vDummy', ['foo', 'bar'], 'out')();
 
   expect(fs.promises.readFile).toHaveBeenCalledWith('home/foo.json', 'utf8');
   expect(fs.promises.writeFile).toHaveBeenCalledWith('home/foo.json', expect.stringMatching(/bar/));
@@ -50,8 +50,8 @@ it('should not error if no json exists', async () => {
     .mockRejectedValue(new Error('foo'));
   mock(path.join).mockReturnValue('home/foo.json');
 
-  await onBuildEnd(['foo', 'bar'], 'out')();
+  await onBuildEnd('vDummy', ['foo', 'bar'], 'out')();
 
   expect(fs.promises.readFile).toHaveBeenCalledWith('home/foo.json', 'utf8');
-  expect(fs.promises.writeFile).toHaveBeenCalledWith('home/foo.json', '{}');
+  expect(fs.promises.writeFile).toHaveBeenCalledWith('home/foo.json', expect.stringMatching(/vDummy/));
 });

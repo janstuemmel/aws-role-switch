@@ -1,1 +1,1 @@
-export { mergeJsons } from './mergeJsons';
+export { mergeManifestWithVersion } from './mergeManifestsWithVersion';
