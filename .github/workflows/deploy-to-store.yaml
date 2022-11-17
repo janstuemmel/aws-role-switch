@@ -3,14 +3,25 @@ name: Deploy to stores
 on:
   pull_request: # TODO: remove
   workflow_dispatch:
+    inputs:
+      increment:
+        type: choice
+        required: true
+        description: Version
+        default: minor
+        options:
+          - patch
+          - minor
+          - major      
 
 jobs: 
   build:
-    name: Build artifacts
-    environment: firefox-addon
+    name: Build and release ${{ inputs.increment || 'patch' }}
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          ref: 'feat/enhance-build' # TODO remove
       - uses: actions/setup-node@v3
         with:
           node-version: 18
@@ -21,6 +32,14 @@ jobs:
         with:
           name: dist
           path: dist/*.zip
+
+      - run: |
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+      - run: npx release-it ${{ inputs.increment || 'patch' }} --ci
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - run: cat package.json
 
   # deploy_firefox:
   #   name: Deploy firefox addon
@@ -34,15 +53,15 @@ jobs:
   #         artifact: dist/firefox.zip
   #         keys: ${{ secrets.KEYS }}
 
-  deploy_chrome:
-    name: Deploy chrome extension
-    needs: [build]
-    environment: chrome-extension
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/download-artifact@v3
-      - run: ls
-      - run: ls dist
+  # deploy_chrome:
+  #   name: Deploy chrome extension
+  #   needs: [build]
+  #   environment: chrome-extension
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/download-artifact@v3
+  #     - run: ls
+  #     - run: ls dist
       # - name: Publish 
       #   uses: PlasmoHQ/bpp@v3
       #   with:

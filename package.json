@@ -1,5 +1,6 @@
 {
   "name": "aws-role-switch",
+  "private": "true",
   "version": "0.4.0",
   "license": "MIT",
   "scripts": {
