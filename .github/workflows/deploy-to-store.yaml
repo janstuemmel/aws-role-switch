@@ -1,0 +1,50 @@
+name: Deploy to stores
+
+on:
+  pull_request: # TODO: remove
+  workflow_dispatch:
+
+jobs: 
+  build:
+    name: Build artifacts
+    environment: firefox-addon
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run bundle
+      - uses: actions/upload-artifact@v3
+        with:
+          name: dist
+          path: dist/*.zip
+
+  # deploy_firefox:
+  #   name: Deploy firefox addon
+  #   needs: [build]
+  #   environment: firefox-addon
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - name: Publish 
+  #       uses: PlasmoHQ/bpp@v3
+  #       with:
+  #         artifact: dist/firefox.zip
+  #         keys: ${{ secrets.KEYS }}
+
+  deploy_chrome:
+    name: Deploy chrome extension
+    needs: [build]
+    environment: chrome-extension
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v3
+      - run: ls
+      - run: ls dist
+      # - name: Publish 
+      #   uses: PlasmoHQ/bpp@v3
+      #   with:
+      #     artifact: dist/chrome.zip
+      #     keys: ${{ secrets.KEYS }}
