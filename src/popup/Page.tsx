@@ -33,16 +33,14 @@ import { AWSIcon } from '../common/components';
 FocusStyleManager.onlyShowFocusOnTabs();
 
 const executeSwitch = async (configItem: AWSConfigItem) => {
-  try {
-    await sendToCurrentTab({ ...configItem, type: 'switch' }, window.close);
-  } catch (_) {
-    Notification.show({ 
+  return sendToCurrentTab({ ...configItem, type: 'switch' })
+    .then(window.close)
+    .catch(() => Notification.show({ 
       message: 'Active tab is not an AWS console', 
       intent: 'danger', 
       timeout: 2000,
       icon: 'warning-sign',
-    });
-  }
+    })); 
 };
 
 const Notification = Toaster.create({

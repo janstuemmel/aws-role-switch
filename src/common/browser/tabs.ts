@@ -16,12 +16,19 @@ export const getCurrentTabId = async () => {
   throw new Error('could not get current tab id');
 };
 
-export const sendToCurrentTab = async (
-  message: Message, 
-  cb: Callback = () => {}
-) => {
+export const sendToCurrentTab = async (message: Message) => {
   const id = await getCurrentTabId();
-  return chrome.tabs.sendMessage(id, message, cb);
+  return new Promise((res, rej) => {
+    // `chrome.runtime.lastError` has to be checked
+    // https://stackoverflow.com/a/61530117
+    chrome.tabs.sendMessage(id, message, () => {
+      if (chrome.runtime.lastError) {
+        rej(new Error('receiving end does not exist'));
+        return;
+      }
+      res(undefined);
+    });
+  });
 };
 
 export const updateTabUrl = async (url: string) => {
