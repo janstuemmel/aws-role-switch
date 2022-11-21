@@ -6,6 +6,8 @@ Enter your roles in the editor via `ini` format:
 * Lines prefixed with `#` are comments
 * Section headers define the display name of a role and can be prefixed with `profile`, like `[profile my-aws-role]`
 * Roles are sorted by first appearance of an item's group, ungrouped items are always on top
+* You can also define a complete arn to a role (`role_arn`) which replaces `role_name` and `aws_account_id`
+* A aws region is forced by setting a `region` key. Check [aws region list](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html)
 
 | Key   | Value  |
 | :---  |  :---  |
@@ -14,7 +16,7 @@ Enter your roles in the editor via `ini` format:
 | `role_arn` (optional) | An aws role arn including account id and role name (replaces `role_name` & `aws_account_id`) |
 | `color` (optional) | A css color string, like `#f0f0f0` or `orange` |
 | `group` (optional) | The name of a group |
-| `region` (optional) | Force a region ([region list](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/Concepts.RegionsAndAvailabilityZones.html)) |
+| `region` (optional) | Force a region |
 
 ### Example config
 
