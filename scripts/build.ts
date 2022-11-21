@@ -2,13 +2,14 @@
 
 import { build } from 'esbuild';
 
-import { mergeManifestWithVersion } from '../src/build/plugins';
+import { writeManifest } from '../src/build/plugins';
 import {
   pagesConfig,
   scriptsConfig,
 } from '../src/build/config';
 import fs from 'fs';
-import { version } from '../package.json';
+import manifestFirefox from '../src/manifest.firefox';
+import manifestChrome from '../src/manifest.chrome';
 
 const watch = !!process.argv.includes('--watch');
 const minify = !!process.argv.includes('--minify');
@@ -19,10 +20,7 @@ const result = build({
   minify,
   plugins: [
     ...pagesConfig.plugins || [],
-    mergeManifestWithVersion(version, [
-      'src/manifest.json',
-      'src/manifest.firefox.json'
-    ]),
+    writeManifest(manifestFirefox),
   ],
   outdir: 'dist/firefox',
 });
@@ -39,10 +37,7 @@ build({
   minify,
   plugins: [
     ...pagesConfig.plugins || [],
-    mergeManifestWithVersion(version, [
-      'src/manifest.json',
-      'src/manifest.chrome.json'
-    ]),
+    writeManifest(manifestChrome),
   ],
   outdir: 'dist/chrome',
 });

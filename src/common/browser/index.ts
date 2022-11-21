@@ -1,7 +1,7 @@
 export {
   createTab,
-  getCurrentTabId,
-  sendToCurrentTab,
+  getCurrentTab,
+  sendToCurrentAwsConsoleTab,
 } from './tabs';
 
 export {

@@ -1,3 +1,5 @@
+import matchAwsConsoleUrl from "./matchAwsConsoleUrl";
+
 type Callback = () => void;
 
 export const createTab = async (
@@ -6,22 +8,21 @@ export const createTab = async (
   cb: Callback = () => {}
 ) => chrome.tabs.create({ active, url }, cb);
 
-export const getCurrentTabId = async () => {
-  const tab = await new Promise((res: (tabs: chrome.tabs.Tab[]) => void) => 
+export const getCurrentTab = async () => {
+  const tabs = await new Promise((res: (tabs: chrome.tabs.Tab[]) => void) => 
     chrome.tabs.query({ active: true, currentWindow: true }, res));
-
-  if (tab[0] && tab[0].id) {
-    return tab[0].id;
-  }
-  throw new Error('could not get current tab id');
+  return tabs[0];
 };
 
-export const sendToCurrentTab = async (
-  message: Message, 
-  cb: Callback = () => {}
-) => {
-  const id = await getCurrentTabId();
-  return chrome.tabs.sendMessage(id, message, cb);
+export const sendToCurrentAwsConsoleTab = async (message: Message) => {
+  const tab = await getCurrentTab();
+
+  // only send to aws console tabs
+  if (tab.id && matchAwsConsoleUrl(tab.url)) {
+    return chrome.tabs.sendMessage(tab.id, message);
+  }
+  
+  throw new Error('active tab not an aws console');
 };
 
 export const updateTabUrl = async (url: string) => {
