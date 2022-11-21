@@ -27,20 +27,22 @@ import {
   createTab,
   openOptions,
 } from '../common/browser';
-import { sendToCurrentTab } from '../common/browser';
+import { sendToCurrentAwsConsoleTab } from '../common/browser';
 import { AWSIcon } from '../common/components';
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
 const executeSwitch = async (configItem: AWSConfigItem) => {
-  return sendToCurrentTab({ ...configItem, type: 'switch' })
+  return sendToCurrentAwsConsoleTab({ ...configItem, type: 'switch' })
     .then(window.close)
-    .catch(() => Notification.show({ 
-      message: 'Active tab is not an AWS console', 
-      intent: 'danger', 
-      timeout: 2000,
-      icon: 'warning-sign',
-    })); 
+    .catch(() => {
+      Notification.show({ 
+        message: 'Active tab is not an AWS console', 
+        intent: 'danger', 
+        timeout: 2000,
+        icon: 'warning-sign',
+      });
+    }); 
 };
 
 const Notification = Toaster.create({

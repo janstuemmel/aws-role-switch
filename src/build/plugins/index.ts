@@ -1,1 +1,1 @@
-export { mergeManifestWithVersion } from './mergeManifestsWithVersion';
+export { writeManifest } from './writeManifest';
