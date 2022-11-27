@@ -11,5 +11,8 @@ export const setItems = (items: Record<string, unknown>) => {
 };
 
 export const getSize = async (): Promise<number> => {
-  return chrome.storage.sync.getBytesInUse();
+  // TODO: use promise instead of callback when bug resolved
+  // there's a bug where firefox says that getBytesInUse() 
+  // is undefined when using with promise
+  return new Promise((res) => chrome.storage.sync.getBytesInUse('configFile', res));
 };
