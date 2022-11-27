@@ -1,5 +1,27 @@
 @import "../scss/base";
 @import "../scss/scrollbar-chrome";
+  
+.cm-focused {
+  outline: none !important;
+}
+
+// .cm-theme-dark {
+//   .cm-line, .cm-activeLine.cm-line {
+//     &::selection, ::selection {
+//       background-color: #092052 !important;
+//     }
+//   }
+  
+//   .cm-selectionBackground {
+//     background-color: #092052 !important;
+//   }
+// }
+
+// .cm-theme-dark .cm-selectionBackground, 
+// .cm-theme-dark .cm-line::selection, 
+// .cm-theme-dark .cm-line ::selection {
+//   background-color: #3e4451 !important;
+// }
 
 #options-ui {
   max-width: 1400px;
@@ -12,10 +34,6 @@
   @media (prefers-color-scheme: dark) {
     border-right: 2px solid $dark-gray1;
     border-left: 2px solid $dark-gray1;
-  }
-  
-  .cm-focused {
-    outline: none !important
   }
 
   &.wrapper {
