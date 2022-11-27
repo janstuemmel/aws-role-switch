@@ -8,6 +8,7 @@
     "lint": "eslint . --cache",
     "type-check": "tsc --noEmit",
     "clean": "rimraf dist",
+    "ladle": "ladle serve",
     "watch": "./scripts/build.ts --watch",
     "build": "./scripts/build.ts --minify",
     "bundle": "run-s clean build ext:build:firefox ext:build:chrome",
