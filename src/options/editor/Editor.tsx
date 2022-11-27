@@ -1,6 +1,6 @@
 import React from 'react';
 import CodeMirror from '@uiw/react-codemirror';
-import {StreamLanguage,} from '@codemirror/language';
+import { StreamLanguage } from '@codemirror/language';
 import { toml } from '@codemirror/legacy-modes/mode/toml';
 import { autocompletion } from '@codemirror/autocomplete';
 import { oneDark } from '@codemirror/theme-one-dark';
