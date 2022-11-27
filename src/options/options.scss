@@ -1,6 +1,6 @@
 @import "../scss/base";
 @import "../scss/scrollbar-chrome";
-  
+
 #options-ui {
   max-width: 1400px;
   min-width: 900px;
@@ -14,6 +14,10 @@
     border-left: 2px solid $dark-gray1;
   }
 
+  .cm-focused {
+    outline: none !important;
+  }
+
   &.wrapper {
     display: flex;
     overflow: hidden;
@@ -25,10 +29,6 @@
     flex: 1;
   }
 
-  .cm-focused {
-    outline: none !important;
-  }
-  
   .divider {
     width: 2px;
     background: $light-gray1;
