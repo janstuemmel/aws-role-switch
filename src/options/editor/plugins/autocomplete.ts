@@ -1,10 +1,10 @@
 import {
+  closeCompletion,
   Completion,
   CompletionContext,
   CompletionResult,
   startCompletion,
 } from '@codemirror/autocomplete';
-import { syntaxTree } from '@codemirror/language';
 import { EditorView } from '@codemirror/view';
 
 import { availableRegions } from '../../../common/config/availableRegions';
@@ -46,11 +46,11 @@ const getOptions = (key: string): Completion[] => {
 // fixes the codemirror behaviour when a completion is applied
 // the next completion dialog is not shown 
 export const showCompletionForCompletedKey = EditorView.updateListener.of(({ state, view, docChanged }) => {
-  const pos = syntaxTree(state).cursor().to;
-  const currentLineNumber = state.doc.lineAt(pos).number;
+  const currentLineNumber = state.doc.lineAt(state.selection.main.head).number;
   const line = state.doc.line(currentLineNumber).text;
   const match = line.match(/^(region|color)\s*=\s$/);
   if (docChanged && match) {
+    closeCompletion(view);
     startCompletion(view);
   }
 });
