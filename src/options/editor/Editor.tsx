@@ -13,6 +13,7 @@ import {
 import {
   completeValue,
   completeKey,
+  showCompletionForCompletedKey,
 } from './plugins/autocomplete';
 
 type EditorProps = {
@@ -43,7 +44,11 @@ export default ({
         { key: 'Ctrl-x', run: deleteLine, preventDefault: true },
       ]),
       autocompletion({
-        override: [completeKey, completeValue],
+        override: [
+          completeKey, 
+          completeValue,
+        ],
       }),
+      showCompletionForCompletedKey,
     ]}
   />;
