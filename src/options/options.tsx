@@ -4,9 +4,6 @@ import React,
   useState,
 } from 'react';
 import { render } from 'react-dom';
-import CodeMirror from '@uiw/react-codemirror';
-import { StreamLanguage } from '@codemirror/language';
-import { toml } from '@codemirror/legacy-modes/mode/toml';
 import {
   Alignment,
   Button,
@@ -19,7 +16,6 @@ import {
 } from '@blueprintjs/core';
 
 import { setConfig } from '../common/config';
-import keymap from './keymap';
 import { 
   useConfigFile,
   useDocs 
@@ -30,6 +26,7 @@ import {
   STORAGE_MAX_ITEM_SIZE,
 } from '../common/browser';
 import { useColorScheme } from '../common/hooks';
+import Editor from './editor/Editor';
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
@@ -55,37 +52,32 @@ const App = () => {
     getStorage();
   }, []);
 
-  const onSave = async () => {
-    try {
-      await setConfig(configFile || '');
-      Notification.show({
+  const onSave = () => {
+    setConfig(configFile || '')
+      .then(() => Notification.show({
         icon: 'saved',
         message: 'Config saved',
         intent: 'success',
         timeout: 1000,
-      });
-    } catch (_) {
-      Notification.show({
+      }))
+      .catch(() => Notification.show({
         message: 'Could not save config',
         intent: 'danger',
-      });
-    }
-
-    // update sync storage size bar
-    getStorage();
+      }))
+      .finally(getStorage);
+    return true;
   };
-  const editorKeymap = keymap([{ key: 'Ctrl-s', fn: onSave }]);
+
   const syncSize = (size + 200) / STORAGE_MAX_ITEM_SIZE;
 
   return (
     <div id="options-ui" className={`wrapper bp4-${theme}`}>
       <div className="editor">
-        <CodeMirror
-          height="100vh"
+        <Editor 
           theme={theme}
-          onChange={(val) => setConfigFile(val)}
           value={configFile ? configFile : ''}
-          extensions={[StreamLanguage.define(toml), editorKeymap]} 
+          onChange={(val) => setConfigFile(val)}
+          onSave={onSave}
         />
       </div>
       <div className="divider" />
