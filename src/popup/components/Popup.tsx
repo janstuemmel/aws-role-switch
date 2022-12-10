@@ -7,7 +7,7 @@ import {
   NonIdealStateIconSize,
 } from '@blueprintjs/core';
 
-import { groupBy } from '../util';
+import { groupBy } from '../../common/util';
 import SectionList from './SectionList';
 import { RoleItem } from './RoleItem';
 
