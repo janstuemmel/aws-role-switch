@@ -48,6 +48,8 @@ const App = () => {
   const theme = useColorScheme();
   const getStorage = () => getStorageSize().then(setSize);
 
+  console.log(size);
+
   useEffect(() => {
     getStorage();
   }, []);
@@ -68,7 +70,7 @@ const App = () => {
     return true;
   };
 
-  const syncSize = (size + 200) / STORAGE_MAX_ITEM_SIZE;
+  const syncSize = (size + 200) / (STORAGE_MAX_ITEM_SIZE * 10);
 
   return (
     <div id="options-ui" className={`wrapper bp4-${theme}`}>

@@ -26,7 +26,7 @@ const trimTitle = (title: string) => title.replace('profile', '').trim();
 
 // sorts the config by first appearance of a group
 // ungrouped entries should still be on top
-const sortByGroupIndex = (config: AWSConfig) => {
+export const sortByGroupIndex = (config: AWSConfig) => {
 
   const groupsIndex = config
     .filter((item: AWSConfigItem, idx: number) => config.findIndex((step) => item.group === step.group) === idx)

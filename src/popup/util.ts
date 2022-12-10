@@ -1,4 +1,4 @@
-const groupBy = <T>(arr: T[], keys: (keyof T)[]): { [key: string]: T[] } => {
+export const groupBy = <T>(arr: T[], keys: (keyof T)[]): { [key: string]: T[] } => {
   return arr.reduce((storage, item) => {
     const objKey = keys.map(key => `${ item[key] }`).join(':');
     if (storage[objKey]) {
@@ -10,14 +10,3 @@ const groupBy = <T>(arr: T[], keys: (keyof T)[]): { [key: string]: T[] } => {
   }, {} as { [key: string]: T[] });
 };
 
-export const mapConfigStateToGroups = (config: AWSConfigItemState[]) => {
-  const groups = groupBy<AWSConfigItemState>(config, ['group']);
-
-  return Object.keys(groups || {})
-    .map((key: string) => ({
-
-      // TODO: this looks wrong!
-      title: key !== 'undefined' ? key : 'Ungrouped',
-      children: groups[key]
-    }));
-};

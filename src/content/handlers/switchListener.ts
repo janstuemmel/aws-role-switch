@@ -2,8 +2,9 @@ import { sendMessage } from '../../common/browser/runtime';
 import { getCsrfFromPage } from '../util/getCsrfFromPage';
 import { createSigninForm } from '../util/createSigninForm';
 
-export const switchListener = ({ type, ...configItem }: Message) => {
-  if (type === 'switch') {
+export const switchListener = (msg: Message) => {
+  if (msg.type === 'switch') {
+    const { type, ...configItem } = msg;
     try {
       // try to get csrf and create a form
       const csrf = getCsrfFromPage();
