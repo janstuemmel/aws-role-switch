@@ -48,7 +48,7 @@ it('should create form correctly', () => {
 
   const data = Object.fromEntries(new FormData(form));
   expect(data).toMatchInlineSnapshot(`
-Object {
+{
   "account": "dummy-id",
   "action": "switchFromBasis",
   "csrf": "1337",

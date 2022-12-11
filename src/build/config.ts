@@ -28,9 +28,8 @@ export const pagesConfig: BuildOptions = {
     copy({
       assets: [{
         from: ['src/assets/*'],
-        to: ['./assets/*']
+        to: ['./assets']
       }, {
-        keepStructure: true,
         from: ['src/**/*.html'],
         to: ['.']
       }],

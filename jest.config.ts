@@ -6,13 +6,10 @@ const config: Config.InitialOptions = {
   ],
   verbose: true,
   transform: {
-    '^.+\\.(ts|tsx)$': 'ts-jest',
-  },
-  globals: {
-    'ts-jest': {
+    '^.+\\.(ts|tsx)$': ['ts-jest', {
       isolatedModules: true,
-    },
-  },
+    }],
+  }
 };
 
 export default config;
