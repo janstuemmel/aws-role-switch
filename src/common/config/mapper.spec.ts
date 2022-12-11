@@ -17,22 +17,22 @@ it('should map to default group', () => {
   } as StoredConfig;
   const config = mapConfig(stored);
   expect(config).toMatchInlineSnapshot(`
-Array [
-  Object {
+[
+  {
     "aws_account_id": "123456789012",
     "color": undefined,
     "region": undefined,
     "role_name": "MyRole",
     "title": "baz",
   },
-  Object {
+  {
     "aws_account_id": "foo",
     "color": undefined,
     "region": "us-east-1",
     "role_name": "bar",
     "title": "bar",
   },
-  Object {
+  {
     "aws_account_id": "foo",
     "color": undefined,
     "region": undefined,
@@ -57,15 +57,15 @@ it('should map to groups', () => {
   };
   const config = mapConfig(stored);
   expect(config).toMatchInlineSnapshot(`
-Array [
-  Object {
+[
+  {
     "aws_account_id": "foo",
     "color": undefined,
     "region": undefined,
     "role_name": "bar",
     "title": "foo",
   },
-  Object {
+  {
     "aws_account_id": "foo",
     "color": undefined,
     "group": "baz",
@@ -96,15 +96,15 @@ it('should sort by groups', () => {
   };
   const config = mapConfig(stored);
   expect(config).toMatchInlineSnapshot(`
-Array [
-  Object {
+[
+  {
     "aws_account_id": "foo",
     "color": undefined,
     "region": undefined,
     "role_name": "ccc",
     "title": "foo",
   },
-  Object {
+  {
     "aws_account_id": "foo",
     "color": undefined,
     "group": "aaa",
@@ -112,7 +112,7 @@ Array [
     "role_name": "bar",
     "title": "bar",
   },
-  Object {
+  {
     "aws_account_id": "foo",
     "color": undefined,
     "group": "bbb",
@@ -137,8 +137,8 @@ it('should omit entries with invalid values', () => {
   };
   const config = mapConfig(stored as object as StoredConfig);
   expect(config).toMatchInlineSnapshot(`
-Array [
-  Object {
+[
+  {
     "aws_account_id": "foo",
     "color": undefined,
     "region": undefined,
@@ -161,8 +161,8 @@ it('should omit entry with invalid role_arn', () => {
   };
   const config = mapConfig(stored as object as StoredConfig);
   expect(config).toMatchInlineSnapshot(`
-Array [
-  Object {
+[
+  {
     "aws_account_id": "foo",
     "color": undefined,
     "region": undefined,
@@ -181,8 +181,8 @@ it('should extract role_name and aws_account_id from role_arn', () => {
   };
   const config = mapConfig(stored as object as StoredConfig);
   expect(config).toMatchInlineSnapshot(`
-Array [
-  Object {
+[
+  {
     "aws_account_id": "123456789012",
     "color": undefined,
     "region": undefined,
@@ -203,8 +203,8 @@ it('should map region', () => {
   };
   const config = mapConfig(stored as object as StoredConfig);
   expect(config).toMatchInlineSnapshot(`
-Array [
-  Object {
+[
+  {
     "aws_account_id": "foo",
     "color": undefined,
     "region": "eu-central-1",
@@ -225,8 +225,8 @@ it('should not map invalid region', () => {
   };
   const config = mapConfig(stored as object as StoredConfig);
   expect(config).toMatchInlineSnapshot(`
-Array [
-  Object {
+[
+  {
     "aws_account_id": "foo",
     "color": undefined,
     "region": undefined,
@@ -262,8 +262,8 @@ it('should sort correctly', () => {
   };
   const config = mapConfig(stored as object as StoredConfig);
   expect(config).toMatchInlineSnapshot(`
-Array [
-  Object {
+[
+  {
     "aws_account_id": "foo",
     "color": undefined,
     "group": undefined,
@@ -271,7 +271,7 @@ Array [
     "role_name": "bar",
     "title": "bar2",
   },
-  Object {
+  {
     "aws_account_id": "foo",
     "color": undefined,
     "group": "b",
@@ -279,7 +279,7 @@ Array [
     "role_name": "bar",
     "title": "foo",
   },
-  Object {
+  {
     "aws_account_id": "foo",
     "color": undefined,
     "group": "b",
@@ -287,7 +287,7 @@ Array [
     "role_name": "bar",
     "title": "foo2",
   },
-  Object {
+  {
     "aws_account_id": "foo",
     "color": undefined,
     "group": "a",

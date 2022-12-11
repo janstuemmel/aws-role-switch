@@ -11,7 +11,7 @@ it('map region to redirect url', () => {
   });
 
   expect(params).toMatchInlineSnapshot(`
-Object {
+{
   "account": "dummy",
   "action": "switchFromBasis",
   "color": undefined,
@@ -33,7 +33,7 @@ it('keep region in redirect url', () => {
   });
 
   expect(params).toMatchInlineSnapshot(`
-Object {
+{
   "account": "dummy",
   "action": "switchFromBasis",
   "color": undefined,
@@ -55,7 +55,7 @@ it('take default (us-east-1) region in redirect url when not defined', () => {
   });
 
   expect(params).toMatchInlineSnapshot(`
-Object {
+{
   "account": "dummy",
   "action": "switchFromBasis",
   "color": undefined,
@@ -77,7 +77,7 @@ it('keep invalid redirect url', () => {
   });
 
   expect(params).toMatchInlineSnapshot(`
-Object {
+{
   "account": "dummy",
   "action": "switchFromBasis",
   "color": undefined,
@@ -100,7 +100,7 @@ it('region not written correctly', () => {
   });
 
   expect(params).toMatchInlineSnapshot(`
-Object {
+{
   "account": "dummy",
   "action": "switchFromBasis",
   "color": undefined,
