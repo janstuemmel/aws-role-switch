@@ -14,19 +14,19 @@ it('should group items by \'group\'', () => {
 
   const grouped = groupBy(config, ['group']);
   expect(grouped).toMatchInlineSnapshot(`
-Object {
-  "bar": Array [
-    Object {
+{
+  "bar": [
+    {
       "foo": "1",
       "group": "bar",
     },
   ],
-  "foo": Array [
-    Object {
+  "foo": [
+    {
       "foo": "1",
       "group": "foo",
     },
-    Object {
+    {
       "foo": "1",
       "group": "foo",
     },
