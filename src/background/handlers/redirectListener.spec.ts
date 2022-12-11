@@ -14,7 +14,7 @@ beforeEach(() => {
 it('should call updateUrl with params', () => {
   mock(mapToSwitchForm).mockReturnValue({ foo: 'bar', bar: undefined } as unknown as SwitchRoleForm);
   redirectListener(
-    { type: 'redirect' } as Message, 
+    { type: 'redirect' } as Message & AWSConfigItem, 
     { tab: { id: 1337 } } as chrome.runtime.MessageSender,
   );
   expect(updateTabUrl).toHaveBeenCalledWith(

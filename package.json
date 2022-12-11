@@ -27,6 +27,7 @@
     "@codemirror/legacy-modes": "^6.1.0",
     "@codemirror/theme-one-dark": "^6.1.0",
     "@codemirror/view": "^6.6.0",
+    "@tanstack/react-virtual": "^3.0.0-beta.26",
     "@uiw/react-codemirror": "^4.15.1",
     "buffer": "^6.0.3",
     "colortranslator": "^1.9.2",

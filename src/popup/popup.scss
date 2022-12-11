@@ -1,81 +1,118 @@
 @import "../scss/base";
-@import "../scss/scrollbar-chrome";
 
-::-webkit-scrollbar {
-  width: 5px;
+li {
+  padding: 0;
+  margin: 0;
 }
 
 body {
-  width: 386px;
   @media (prefers-color-scheme: dark) {
     background: $dark-gray3;
   }
 }
 
-#popup {
-  &.wrapper {
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    min-height: 300px;
-    max-height: 600px;
-  }
-  
-  .header {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: $light-gray4;
-    border-bottom: 1px solid $light-gray2;
-    @media (prefers-color-scheme: dark) {
-      background-color: $dark-gray4;
-      border-bottom: 1px solid $dark-gray3;
-    }
+::-webkit-scrollbar-thumb {
+  background: $gray3;
+}
 
-    .header-right {
-      display: flex;
-      justify-content: space-around;
-      gap: 10px;
-    }
-  }
-  
-  .empty-state {
-    flex: 1;
-
-    .bp4-non-ideal-state-text {
-      text-align: center;
-    }
-  }
-
-  .menu {
-    overflow-y: auto;
-    border-radius: 0;
-    padding: 0;
-    margin-bottom: 5px;
-    li {
-      border-radius: 0;
-    }
-  }
-  
-  .menu-divider {
-    position: sticky;
-    top: 0;
-    margin: 0;
-    padding: 5px;
-    font-size: 12px;
-    background-color: $light-gray4;
-    border-bottom: 1px solid $light-gray2;
-    @media (prefers-color-scheme: dark) {
-      background-color: $dark-gray4;
-      border-bottom: 1px solid $dark-gray3;
-    }
+.sectionList {
+  overflow: auto;
+  &::-webkit-scrollbar {
+    width: 0px;
   }
 }
 
-// fix margin bottom on chrome because 
-// popup has no border radius like firefox 
+.sectionList:hover {
+  &::-webkit-scrollbar {
+    width: 7px;
+  }
+}
+
+.bp4-dark {
+  .header {
+    background-color: $dark-gray4;
+    border-bottom: 1px solid $dark-gray3;
+  }
+
+  .menu-divider {
+    background-color: $dark-gray4;
+    border-bottom: 1px solid $dark-gray3;
+  }
+
+  .wrapper {
+    background: $dark-gray3;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: $dark-gray5;
+  }
+}
+
+.wrapper {
+  width: 386px;
+  min-height: 300px;
+  max-height: 600px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  background-color: $light-gray4;
+  border-bottom: 1px solid $light-gray2;
+
+  .header-right {
+    display: flex;
+    justify-content: space-around;
+    gap: 10px;
+  }
+}
+
+.empty-state {
+  flex: 1;
+
+  .bp4-non-ideal-state-text {
+    text-align: center;
+  }
+}
+
+.menu {
+  border-radius: 0;
+  padding: 0;
+  margin-bottom: 5px;
+  li {
+    border-radius: 0;
+  }
+}
+
+.bp4-menu {
+  padding: 0;
+}
+
+.menu-divider {
+  padding: 5px;
+  font-size: 12px;
+  align-self: center;
+  background-color: $light-gray4;
+  border-bottom: 1px solid $light-gray2;
+}
+
+.bp4-menu-item {
+  padding: 5px 10px 5px 5px;
+}
+
 @supports (-webkit-appearance:none) {
-  #popup .menu {
+  // fix margin bottom on chrome because 
+  // popup has no border radius like firefox 
+  .menu {
     margin: 0px;
+  }
+
+  // fix oberlay scrolling
+  .sectionList {
+    overflow: overlay;
   }
 }

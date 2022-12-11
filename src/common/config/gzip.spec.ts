@@ -22,7 +22,7 @@ baz = Hello World`;
   expect(compressed).toEqual(expect.any(String));
   expect(compressed)
     .toMatchInlineSnapshot(
-      `"eJzjik7Lz4/lSkosUrBVMDQyNjE1M7ewNDQwBApVAYU8UnNy8hXC84tyUri4ooHKSFBbRZxaACjLJDI="`
+      `"eNrjik7Lz4/lSkosUrBVMDQyNjE1M7ewNDQwBApVAYU8UnNy8hXC84tyUri4ooHKSFBbRZxaACjLJDI="`
     );
 
   // decompress

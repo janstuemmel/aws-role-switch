@@ -11,13 +11,15 @@ declare module "*.md" {
 type AWSConfigOptionalData = {
   color?: string,
   region?: string,
-  group?: z.string,
+  group?: string,
 }
 
 type AWSConfigItem = {
   title: string,
   aws_account_id: string,
   role_name: string,
+
+  selected?: boolean,
 } & AWSConfigOptionalData
 
 type AWSConfig = AWSConfigItem[]
@@ -48,4 +50,8 @@ type SwitchRoleForm = {
 
 type ContentScriptSwitchMessage = { type: 'switch' } & AWSConfigItem
 type BackgroundScriptRedirectMessage = { type: 'redirect' } & AWSConfigItem;
-type Message = ContentScriptSwitchMessage | BackgroundScriptRedirectMessage;
+type BackgroundScriptGetConfigMessage = { type: 'getConfig' };
+type Message = 
+  ContentScriptSwitchMessage | 
+  BackgroundScriptRedirectMessage | 
+  BackgroundScriptGetConfigMessage;
