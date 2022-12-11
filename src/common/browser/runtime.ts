@@ -3,7 +3,7 @@ export const openOptions = async (cb: () => void = () => {}) => {
 };
 
 // Chrome does not understand promises here
-// use sendResponse and return=true in listener
+// use sendResponse and return=true in listener callback
 // use callback style in sendMessage
 // https://github.com/mozilla/webextension-polyfill/issues/130#issuecomment-996926374
 
@@ -12,10 +12,7 @@ export const addMessageListener = (cb: (
   sender: chrome.runtime.MessageSender,
   sendResponse: (res: unknown) => void
 ) => void) => {
-  chrome.runtime.onMessage.addListener((...args) => {
-    cb(...args);
-    return true;
-  });
+  chrome.runtime.onMessage.addListener(cb);
 };
 
 export const sendMessage = async <T>(msg: Message) => {
