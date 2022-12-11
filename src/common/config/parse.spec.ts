@@ -9,8 +9,8 @@ it('should parse file', () => {
 bar = 1`;
   const config = parseConfig(file);
   expect(config).toMatchInlineSnapshot(`
-Object {
-  "foo": Object {
+{
+  "foo": {
     "bar": "1",
   },
 }
@@ -24,8 +24,8 @@ bar = 1
 # dummy`;
   const config = parseConfig(file);
   expect(config).toMatchInlineSnapshot(`
-Object {
-  "foo": Object {
+{
+  "foo": {
     "bar": "1",
   },
 }
@@ -40,8 +40,8 @@ bar = 1
 baz = 2`;
   const config = parseConfig(file);
   expect(config).toMatchInlineSnapshot(`
-Object {
-  "foo": Object {
+{
+  "foo": {
     "bar": "1",
     "baz": "2",
   },
@@ -56,8 +56,8 @@ helloooo
 bar = 1`;
   const config = parseConfig(file);
   expect(config).toMatchInlineSnapshot(`
-Object {
-  "foo": Object {
+{
+  "foo": {
     "bar": "1",
   },
 }
@@ -71,7 +71,7 @@ helloooo
 bar = "1"`;
   const errors = parseConfigError(file);
   expect(errors).toMatchInlineSnapshot(`
-Array [
+[
   [Error: Unsupported type of line: [2]"helloooo"],
 ]
 `);
