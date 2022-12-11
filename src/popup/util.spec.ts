@@ -14,23 +14,23 @@ it('should group items by \'group\'', () => {
 
   const grouped = mapConfigStateToGroups(config as unknown as AWSConfigItemState[]);
   expect(grouped).toMatchInlineSnapshot(`
-Array [
-  Object {
-    "children": Array [
-      Object {
+[
+  {
+    "children": [
+      {
         "foo": "1",
         "group": "foo",
       },
-      Object {
+      {
         "foo": "1",
         "group": "foo",
       },
     ],
     "title": "foo",
   },
-  Object {
-    "children": Array [
-      Object {
+  {
+    "children": [
+      {
         "foo": "1",
         "group": "bar",
       },
