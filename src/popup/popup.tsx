@@ -62,7 +62,7 @@ const App = () => {
               minimal={true} 
               onClick={() => createTab('https://console.aws.amazon.com/console', true, window.close)}
               />
-            <Button icon="wrench" minimal={true} onClick={() => openOptions()} />
+            <Button icon="wrench" minimal={true} onClick={() => openOptions(window.close)} />
           </>
         }
       />

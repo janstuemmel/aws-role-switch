@@ -1,6 +1,5 @@
 import React, {useState,} from 'react';
 import {
-  Button,
   ControlGroup,
   InputGroup,
   NonIdealState,
@@ -26,8 +25,7 @@ const EmptyList = ({ emptyConfig }: { emptyConfig: boolean }) => <NonIdealState
   description={emptyConfig ? 'You did not specify any roles yet!' : 'No items found'}
   iconSize={NonIdealStateIconSize.SMALL}
   className="empty-state" 
-  icon={emptyConfig ? undefined : 'search'}
-  action={emptyConfig ? <Button onClick={() => {}} text="Open options page" icon="wrench" /> : undefined}
+  icon={emptyConfig ? 'wrench' : 'search'}
 />;
 
 export const Popup = ({ 
