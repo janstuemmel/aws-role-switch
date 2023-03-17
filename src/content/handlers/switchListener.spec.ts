@@ -21,10 +21,11 @@ beforeEach(() => {
 
 it('should submit form when csrf set and form creation succeeded', () => {
   const submit = jest.fn();
+  const form = document.createElement('form');
+  form.submit = submit;
+  
   mock(getCsrfFromPage).mockReturnValue('dummy');
-  mock(createSigninForm).mockReturnValue({ 
-    submit, 
-  } as unknown as HTMLFormElement);
+  mock(createSigninForm).mockReturnValue(form);
 
   switchListener({ type: 'switch' } as Message);
   expect(document.body.appendChild).toHaveBeenCalled();
