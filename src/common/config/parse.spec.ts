@@ -72,7 +72,7 @@ bar = "1"`;
   const errors = parseConfigError(file);
   expect(errors).toMatchInlineSnapshot(`
 [
-  [Error: Unsupported type of line: [2]"helloooo"],
+  [Error: Unsupported type of line: [2] "helloooo"],
 ]
 `);
 });
