@@ -4,11 +4,11 @@ import { sortByGroupIndex } from '../config/mapper';
 import { stringifyConfig } from '../config/parse';
 
 export const generateConfigItems = (numEntries: number, numGroups: number): AWSConfigItem[] => {
-  const groups = faker.random.words(numGroups).split(' ');
+  const groups = faker.word.words(numGroups).split(' ');
   const items = Array.from({ length: numEntries }, (_, i) => ({
-    aws_account_id: faker.random.numeric(12),
+    aws_account_id: faker.string.numeric(12),
     role_name: faker.helpers.arrayElement(['AdminFullAccess', 'RestrictedAdmin']),
-    title: faker.fake(`{{random.word}}-{{random.word}}-project-${i}`),
+    title: faker.helpers.fake(`{{lorem.word}}-{{lorem.word}}-project-${i}`),
     color: faker.color.human(),
     group: faker.helpers.arrayElement(groups),
   }));
