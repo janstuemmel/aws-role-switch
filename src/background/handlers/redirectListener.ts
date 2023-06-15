@@ -1,8 +1,6 @@
 import { updateTabUrl } from '../../common/browser/tabs';
 import { mapToSwitchForm } from '../../common/mappers';
-
-const removeUndefinedEntries = (obj: object) => Object.fromEntries(
-  Object.entries(obj).filter(([_, v]) => v));
+import { removeUndefinedEntries } from '../../common/util';
 
 export const redirectListener = async (
   msg: AWSConfigItem, 

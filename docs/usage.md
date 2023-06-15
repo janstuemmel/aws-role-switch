@@ -35,6 +35,21 @@ group = My awesome account
 region = eu-central-1
 ```
 
+### Example config with `target_role_name`
+
+```ini
+[my-org]
+aws_account_id = your_org_alias_or_id
+target_role_name = MyRole
+
+[child-profile]
+aws_account_id = 123456789101
+source_profile = my-org
+# uses target_role_name as role_name from above
+```
+
+When using a `source_profile` as parent and there is no `role_arn` specified in the child profile, the child profile uses `target_role_name` as `role_name`. 
+
 ## Usage
 
 After entering your config, roles will show up in the popup window. You can filter roles via the search input. 

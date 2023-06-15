@@ -18,7 +18,6 @@ type AWSConfigItem = {
   title: string,
   aws_account_id: string,
   role_name: string,
-
   selected?: boolean,
 } & AWSConfigOptionalData
 
@@ -28,7 +27,9 @@ type AWSConfigItemState = AWSConfigItem & { selected: boolean }
 type AWSStoredConfigItem = {
   aws_account_id?: string,
   role_name?: string,
-  role_arn?: string
+  role_arn?: string,
+  source_profile?: string,
+  target_role_name?: string,
 } & AWSConfigOptionalData
 
 type StoredConfig = Record<string, AWSStoredConfigItem>
@@ -36,7 +37,7 @@ type StoredConfig = Record<string, AWSStoredConfigItem>
 type SwitchRoleFormFromExtension = { _fromAWSRoleSwitchExtension?: 'true' }
 type SwitchRoleForm = {
   account: string,
-  roleName: string,
+  roleName?: string,
   region?: string,
   color?: string,
   displayName?: string,
