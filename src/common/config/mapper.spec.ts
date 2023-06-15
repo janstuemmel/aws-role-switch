@@ -20,22 +20,17 @@ it('should map to default group', () => {
 [
   {
     "aws_account_id": "123456789012",
-    "color": undefined,
-    "region": undefined,
     "role_name": "MyRole",
     "title": "baz",
   },
   {
     "aws_account_id": "foo",
-    "color": undefined,
     "region": "us-east-1",
     "role_name": "bar",
     "title": "bar",
   },
   {
     "aws_account_id": "foo",
-    "color": undefined,
-    "region": undefined,
     "role_name": "bar",
     "title": "foo",
   },
@@ -60,16 +55,12 @@ it('should map to groups', () => {
 [
   {
     "aws_account_id": "foo",
-    "color": undefined,
-    "region": undefined,
     "role_name": "bar",
     "title": "foo",
   },
   {
     "aws_account_id": "foo",
-    "color": undefined,
     "group": "baz",
-    "region": undefined,
     "role_name": "bar",
     "title": "bar",
   },
@@ -99,24 +90,18 @@ it('should sort by groups', () => {
 [
   {
     "aws_account_id": "foo",
-    "color": undefined,
-    "region": undefined,
     "role_name": "ccc",
     "title": "foo",
   },
   {
     "aws_account_id": "foo",
-    "color": undefined,
     "group": "aaa",
-    "region": undefined,
     "role_name": "bar",
     "title": "bar",
   },
   {
     "aws_account_id": "foo",
-    "color": undefined,
     "group": "bbb",
-    "region": undefined,
     "role_name": "bar",
     "title": "baz",
   },
@@ -124,10 +109,10 @@ it('should sort by groups', () => {
 `);
 });
 
-it('should omit entries with invalid values', () => {
+it('should omit entries with missing account_id', () => {
   const stored = {
     'foo': {
-      aws_account_id: 'foo',
+      role_name: 'bar',
     },
     'bar': {
       aws_account_id: 'foo',
@@ -140,8 +125,6 @@ it('should omit entries with invalid values', () => {
 [
   {
     "aws_account_id": "foo",
-    "color": undefined,
-    "region": undefined,
     "role_name": "bar",
     "title": "bar",
   },
@@ -164,8 +147,6 @@ it('should omit entry with invalid role_arn', () => {
 [
   {
     "aws_account_id": "foo",
-    "color": undefined,
-    "region": undefined,
     "role_name": "bar",
     "title": "bar",
   },
@@ -184,8 +165,6 @@ it('should extract role_name and aws_account_id from role_arn', () => {
 [
   {
     "aws_account_id": "123456789012",
-    "color": undefined,
-    "region": undefined,
     "role_name": "MyRole",
     "title": "foo",
   },
@@ -206,7 +185,6 @@ it('should map region', () => {
 [
   {
     "aws_account_id": "foo",
-    "color": undefined,
     "region": "eu-central-1",
     "role_name": "bar",
     "title": "foo",
@@ -228,8 +206,6 @@ it('should not map invalid region', () => {
 [
   {
     "aws_account_id": "foo",
-    "color": undefined,
-    "region": undefined,
     "role_name": "bar",
     "title": "foo",
   },
@@ -265,33 +241,24 @@ it('should sort correctly', () => {
 [
   {
     "aws_account_id": "foo",
-    "color": undefined,
-    "group": undefined,
-    "region": undefined,
     "role_name": "bar",
     "title": "bar2",
   },
   {
     "aws_account_id": "foo",
-    "color": undefined,
     "group": "b",
-    "region": undefined,
     "role_name": "bar",
     "title": "foo",
   },
   {
     "aws_account_id": "foo",
-    "color": undefined,
     "group": "b",
-    "region": undefined,
     "role_name": "bar",
     "title": "foo2",
   },
   {
     "aws_account_id": "foo",
-    "color": undefined,
     "group": "a",
-    "region": undefined,
     "role_name": "bar",
     "title": "bar",
   },
