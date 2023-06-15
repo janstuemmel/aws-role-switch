@@ -12,8 +12,11 @@ const isValidConfigItem = ({ aws_account_id, role_name }: Partial<AWSConfigItem>
  !!aws_account_id && !!role_name;
 
 function getColorHEX(color: string) {
+  const match = color.match(/^(?<hex>[0-9A-Fa-f]{3,8})$/);
+  const cssColor = match?.groups?.hex ? `#${match.groups.hex}` : color;
+
   try {
-    return ColorTranslator.toHEX(color);
+    return ColorTranslator.toHEX(cssColor);
   } catch (_) {
     return undefined;
   }

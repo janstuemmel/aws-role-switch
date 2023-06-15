@@ -299,6 +299,26 @@ it('should sort correctly', () => {
 `);
 });
 
+describe('should map color correctly', () => {
+  test.each([
+    ['#ffffff1f', '#FFFFFF'],
+    ['#ffffff', '#FFFFFF'],
+    ['#fff', '#FFFFFF'],
+    ['ffffff1f', '#FFFFFF'],
+    ['ffffff', '#FFFFFF'],
+    ['fff', '#FFFFFF'],
+    ['white', '#FFFFFF'],
+  ])('test color %s', (colorInput, colorOutput) => {
+    const config = mapConfig({
+      foo: { 
+        role_arn: 'arn:aws:iam::123456789111:role/MyRole',
+        color: colorInput
+      }
+    });
+    expect(config[0].color).toBe(colorOutput);
+  });
+});
+
 describe('role_arn handling', () => {
   test.each([
     ['arn:aws:iam::123456789111:role/MyRole', 'MyRole'],
