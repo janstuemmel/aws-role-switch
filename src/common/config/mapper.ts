@@ -21,7 +21,7 @@ function getColorHEX(color: string) {
   }
 }
 
-const trimTitle = (title: string) => title.replace('profile', '').trim();
+const trimTitle = (title: string) => title.replace(/^profile/, '').trim();
 
 // sorts the config by first appearance of a group
 // ungrouped entries should still be on top

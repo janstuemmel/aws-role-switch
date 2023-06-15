@@ -11,7 +11,7 @@ it('should map to default group', () => {
       role_name: 'bar',
       region: 'us-east-1'
     },
-    'baz': {
+    'baz profile': {
       role_arn: 'arn:aws:iam::123456789012:role/MyRole'
     }
   } as StoredConfig;
@@ -21,7 +21,7 @@ it('should map to default group', () => {
   {
     "aws_account_id": "123456789012",
     "role_name": "MyRole",
-    "title": "baz",
+    "title": "baz profile",
   },
   {
     "aws_account_id": "foo",
