@@ -38,6 +38,30 @@ it('should map to default group', () => {
 `);
 });
 
+it('should map to default group', () => {
+  const stored = {
+    'source': {
+      aws_account_id: 'org',
+      target_role_name: 'UserRole'
+    },
+    'foo': {
+      aws_account_id: 'foo',
+      source_profile: 'source',
+    },
+  } as StoredConfig;
+  const config = mapConfig(stored);
+  expect(config).toMatchInlineSnapshot(`
+[
+  {
+    "aws_account_id": "foo",
+    "role_name": "UserRole",
+    "source_profile": "source",
+    "title": "foo",
+  },
+]
+`);
+});
+
 it('should map to groups', () => {
   const stored = {
     'foo': {
@@ -113,6 +137,29 @@ it('should omit entries with missing account_id', () => {
   const stored = {
     'foo': {
       role_name: 'bar',
+    },
+    'bar': {
+      aws_account_id: 'foo',
+      role_name: 'bar',
+    },
+    'baz': 1337,
+  };
+  const config = mapConfig(stored as object as StoredConfig);
+  expect(config).toMatchInlineSnapshot(`
+[
+  {
+    "aws_account_id": "foo",
+    "role_name": "bar",
+    "title": "bar",
+  },
+]
+`);
+});
+
+it('should omit entries with missing role_name', () => {
+  const stored = {
+    'foo': {
+      aws_account_id: 'bar',
     },
     'bar': {
       aws_account_id: 'foo',

@@ -17,7 +17,7 @@ type AWSConfigOptionalData = {
 type AWSConfigItem = {
   title: string,
   aws_account_id: string,
-  role_name?: string,
+  role_name: string,
   selected?: boolean,
 } & AWSConfigOptionalData
 
@@ -29,6 +29,7 @@ type AWSStoredConfigItem = {
   role_name?: string,
   role_arn?: string,
   source_profile?: string,
+  target_role_name?: string,
 } & AWSConfigOptionalData
 
 type StoredConfig = Record<string, AWSStoredConfigItem>

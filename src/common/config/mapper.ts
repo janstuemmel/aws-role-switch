@@ -7,8 +7,8 @@ import { removeUndefinedEntries } from '../util';
 const ROLE_ARN_REGEX = /^arn:aws:iam::(?<aws_account_id>\d{12}):role\/(?<role_name>[\w+=,.@-]+)/;
 const HEX_COLOR_REGEX = /^(?<hex>[0-9A-Fa-f]{3,8})$/;
 
-const isValidConfigItem = ({ aws_account_id }: Partial<AWSConfigItem>): boolean =>
- !!aws_account_id;
+const isValidConfigItem = ({ aws_account_id, role_name }: Partial<AWSConfigItem>): boolean =>
+ !!aws_account_id && !!role_name;
 
 function getColorHEX(color: string) {
   const match = new RegExp(HEX_COLOR_REGEX).exec(color);
@@ -59,6 +59,7 @@ const buildConfigItem = (config: StoredConfig) => (key: string): Partial<AWSConf
   const { role_arn = '', aws_account_id, role_name, region: regionTo, color = '', ...rest } = config[key];  
   const region = availableRegions.includes(regionTo || '') ? regionTo : undefined;
   const match = new RegExp(ROLE_ARN_REGEX).exec(role_arn);
+  const source = config[rest.source_profile ?? ''] ?? {};
 
   return removeUndefinedEntries({
     ...rest,
@@ -66,7 +67,7 @@ const buildConfigItem = (config: StoredConfig) => (key: string): Partial<AWSConf
     color: getColorHEX(color),
     region,
     aws_account_id: match?.groups?.aws_account_id ?? aws_account_id,
-    role_name: match?.groups?.role_name ?? role_name,
+    role_name: match?.groups?.role_name ?? role_name ?? source.target_role_name,
   });
 };
 
