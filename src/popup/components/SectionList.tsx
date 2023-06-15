@@ -111,7 +111,7 @@ export default <T, >({
           return item.type === 'section' ? renderSection({
             key,
             style,
-            title: item.title || 'Ungrouped',
+            title: item.title ? item.title : 'Ungrouped',
           }) : renderItem({
             key,
             style,

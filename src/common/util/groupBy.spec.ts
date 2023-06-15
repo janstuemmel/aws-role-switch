@@ -10,11 +10,20 @@ it('should group items by \'group\'', () => {
   }, {
     foo: '1',
     group: 'bar'
+  }, {
+    foo: '1',
+    group: undefined
   }];
 
   const grouped = groupBy(config, ['group']);
   expect(grouped).toMatchInlineSnapshot(`
 {
+  "": [
+    {
+      "foo": "1",
+      "group": undefined,
+    },
+  ],
   "bar": [
     {
       "foo": "1",
