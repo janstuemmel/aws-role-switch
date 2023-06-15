@@ -12,8 +12,11 @@ const isValidConfigItem = ({ aws_account_id, role_name }: Partial<AWSConfigItem>
  !!aws_account_id && !!role_name;
 
 function getColorHEX(color: string) {
+  const match = new RegExp(/^(?<hex>[0-9A-Fa-f]{3,8})$/).exec(color);
+  const cssColor = match?.groups?.hex ? `#${match.groups.hex}` : color;
+
   try {
-    return ColorTranslator.toHEX(color);
+    return ColorTranslator.toHEX(cssColor);
   } catch (_) {
     return undefined;
   }
@@ -61,14 +64,14 @@ const buildConfigItem = (
   { role_arn = '', aws_account_id, role_name, region: regionTo, ...rest }: AWSStoredConfigItem
 ): Partial<AWSConfigItem> => {  
   const region = availableRegions.includes(regionTo || '') ? regionTo : undefined;
-  const match = role_arn.trim().match(ROLE_ARN_REGEX);
+  const match = new RegExp(ROLE_ARN_REGEX).exec(role_arn);
 
   return {
     ...rest,
     title: trimTitle(title),
     region,
-    aws_account_id: match?.groups?.aws_account_id || aws_account_id,
-    role_name: match?.groups?.role_name || role_name,
+    aws_account_id: match?.groups?.aws_account_id ?? aws_account_id,
+    role_name: match?.groups?.role_name ?? role_name,
   };
 };
 
