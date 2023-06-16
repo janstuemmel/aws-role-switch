@@ -19,6 +19,7 @@ type AWSConfigItem = {
   aws_account_id: string,
   role_name: string,
   selected?: boolean,
+  source_profile_account_id?: string,
 } & AWSConfigOptionalData
 
 type AWSConfig = AWSConfigItem[]
@@ -52,7 +53,9 @@ type SwitchRoleForm = {
 type ContentScriptSwitchMessage = { type: 'switch' } & AWSConfigItem
 type BackgroundScriptRedirectMessage = { type: 'redirect' } & AWSConfigItem;
 type BackgroundScriptGetConfigMessage = { type: 'getConfig' };
+type BackgroundScriptGetAccountAliasMessage = { type: 'getAccountAlias', url: string };
 type Message = 
   ContentScriptSwitchMessage | 
   BackgroundScriptRedirectMessage | 
-  BackgroundScriptGetConfigMessage;
+  BackgroundScriptGetConfigMessage |
+  BackgroundScriptGetAccountAliasMessage;

@@ -15,14 +15,12 @@ body {
   background: $gray3;
 }
 
-.sectionList {
-  overflow: auto;
-  &::-webkit-scrollbar {
-    width: 0px;
-  }
+::-webkit-scrollbar-track {
+  background: $gray5;
 }
 
-.sectionList:hover {
+.sectionList {
+  overflow: auto;
   &::-webkit-scrollbar {
     width: 7px;
   }
@@ -45,6 +43,10 @@ body {
 
   ::-webkit-scrollbar-thumb {
     background: $dark-gray5;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: $dark-gray2;
   }
 }
 

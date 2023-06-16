@@ -18,6 +18,7 @@ import {
 } from '../common/browser/runtime';
 import {
   createTab,
+  getCurrentTab,
   sendToCurrentAwsConsoleTab,
 } from '../common/browser';
 import { AWSIcon } from '../common/components';
@@ -44,10 +45,17 @@ const Notification = Toaster.create({
 
 const App = () => {
   const [roles, setRoles] = useState<AWSConfig>([]);
+  const [accountAlias, setAccountAlias] = useState<string | undefined>();
   const theme = useColorScheme();
 
   useEffect(() => {
     sendMessage<AWSConfig>({ type: 'getConfig' }).then(setRoles);
+    
+    getCurrentTab().then(tab => {
+      sendMessage<string>({type: 'getAccountAlias', url: tab.url ?? ''}).then((alias) => {
+        setAccountAlias(alias);
+      });
+    });
   }, []);
 
   return (
@@ -55,6 +63,7 @@ const App = () => {
       <Popup 
         executeSwitch={executeSwitch} 
         roles={roles}
+        accountAlias={accountAlias}
         headerRight={
           <>
             <Button 

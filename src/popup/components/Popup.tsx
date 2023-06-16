@@ -6,20 +6,16 @@ import {
   NonIdealStateIconSize,
 } from '@blueprintjs/core';
 
-import { groupBy } from '../../common/util';
 import SectionList from './SectionList';
 import { RoleItem } from './RoleItem';
+import { mapConfigToGroups } from '../mappers/mapConfigToGroups';
 
 type PopupProps = {
   roles: AWSConfigItem[],
+  accountAlias?: string,
   executeSwitch?: (item: AWSConfigItem) => void
   headerRight?: JSX.Element | null
 };
-
-const filterConfigItem = (filter: string) => (configItem: AWSConfigItem) => 
-  configItem.title.toLowerCase().includes(filter.toLowerCase()) || 
-  configItem.aws_account_id.toLowerCase().startsWith(filter.toLowerCase()) ||
-  configItem.group?.toLowerCase().includes(filter.toLowerCase());
 
 const EmptyList = ({ emptyConfig }: { emptyConfig: boolean }) => <NonIdealState
   description={emptyConfig ? 'You did not specify any roles yet!' : 'No items found'}
@@ -29,18 +25,13 @@ const EmptyList = ({ emptyConfig }: { emptyConfig: boolean }) => <NonIdealState
 />;
 
 export const Popup = ({ 
-  roles, 
+  roles,
+  accountAlias,
   executeSwitch = () => {}, 
   headerRight = null 
 }: PopupProps) => {
   const [filter, setFiler] = useState('');
-  const items = filter ? roles.filter(filterConfigItem(filter)) : roles;
-  const groups = groupBy(items, ['group']);
-  const data = Object.keys(groups).map((gn) => ({
-    title: gn,
-    children: groups[gn],
-  }));
-
+  const data = mapConfigToGroups(roles, filter, accountAlias);
   return (
     <div className="wrapper">
       <ControlGroup className="header">
@@ -56,7 +47,7 @@ export const Popup = ({
           {headerRight}
         </div>
       </ControlGroup>
-      {items.length > 0 ? 
+      {data.length > 0 ? 
         <SectionList 
           data={data}
           itemHeight={30}

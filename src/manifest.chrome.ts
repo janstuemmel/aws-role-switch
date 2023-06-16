@@ -13,7 +13,8 @@ export default {
     }
   },
   permissions: [
-    "storage"
+    "storage",
+    "cookies",
   ],
   host_permissions: [
     ...awsConsoleUrls,
