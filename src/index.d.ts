@@ -20,6 +20,7 @@ type AWSConfigItem = {
   role_name: string,
   selected?: boolean,
   source_profile_account_id?: string,
+  target_role_name?: string,
 } & AWSConfigOptionalData
 
 type AWSConfig = AWSConfigItem[]

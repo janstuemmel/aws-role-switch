@@ -7,8 +7,8 @@ import { removeUndefinedEntries } from '../util';
 const ROLE_ARN_REGEX = /^arn:aws:iam::(?<aws_account_id>\d{12}):role\/(?<role_name>[\w+=,.@-]+)/;
 const HEX_COLOR_REGEX = /^(?<hex>[0-9A-Fa-f]{3,8})$/;
 
-const isValidConfigItem = ({ aws_account_id, role_name }: Partial<AWSConfigItem>): boolean =>
- !!aws_account_id && !!role_name;
+const isValidConfigItem = ({ aws_account_id, role_name, target_role_name }: Partial<AWSConfigItem>): boolean =>
+ !!aws_account_id && !!role_name && !target_role_name;
 
 function getColorHEX(color: string) {
   const match = new RegExp(HEX_COLOR_REGEX).exec(color);

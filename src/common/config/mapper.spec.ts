@@ -42,7 +42,7 @@ it('should map to default group', () => {
 `);
 });
 
-it('should map to default group', () => {
+it('should include target_role_name in child', () => {
   const stored = {
     'source': {
       aws_account_id: 'org',
@@ -64,6 +64,17 @@ it('should map to default group', () => {
   },
 ]
 `);
+});
+
+it('should not map entries with target_role_name', () => {
+  const stored = {
+    'source': {
+      aws_account_id: 'org',
+      target_role_name: 'UserRole'
+    },
+  } as StoredConfig;
+  const config = mapConfig(stored);
+  expect(config).toMatchInlineSnapshot(`[]`);
 });
 
 it('should map to groups', () => {
