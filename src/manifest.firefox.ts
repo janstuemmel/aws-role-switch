@@ -14,6 +14,7 @@ export default {
   },
   permissions: [
     "storage",
+    "cookies",
     ...awsConsoleUrls,
   ],
   commands: {

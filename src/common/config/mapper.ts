@@ -7,8 +7,8 @@ import { removeUndefinedEntries } from '../util';
 const ROLE_ARN_REGEX = /^arn:aws:iam::(?<aws_account_id>\d{12}):role\/(?<role_name>[\w+=,.@-]+)/;
 const HEX_COLOR_REGEX = /^(?<hex>[0-9A-Fa-f]{3,8})$/;
 
-const isValidConfigItem = ({ aws_account_id, role_name }: Partial<AWSConfigItem>): boolean =>
- !!aws_account_id && !!role_name;
+const isValidConfigItem = ({ aws_account_id, role_name, target_role_name }: Partial<AWSConfigItem>): boolean =>
+ !!aws_account_id && !!role_name && !target_role_name;
 
 function getColorHEX(color: string) {
   const match = new RegExp(HEX_COLOR_REGEX).exec(color);
@@ -55,11 +55,46 @@ export const sortByGroupIndex = (config: AWSConfig) => {
   };
 };
 
+// returns the first appearance of target_role_name in source profiles
+export const getTargetRoleName = (config: StoredConfig, source = ''): string | undefined => {
+  const item = config[source];
+
+  if (item?.target_role_name) {
+    return item.target_role_name;
+  }
+
+  if (item?.source_profile) {
+    return getTargetRoleName(config, item.source_profile);
+  }
+};
+
+// returns the last appearance of aws_account_id in source profiles
+export const getSourceAccountId = (config: StoredConfig, source = '', carry?: string): string | undefined => {
+  const item = config[source];
+
+  if (item?.source_profile) {
+    return getSourceAccountId(config, item.source_profile, item.aws_account_id);
+  }
+
+  if (item?.aws_account_id) {
+    return item.aws_account_id;
+  }
+
+  return carry;
+};
+
 const buildConfigItem = (config: StoredConfig) => (key: string): Partial<AWSConfigItem> => {
-  const { role_arn = '', aws_account_id, role_name, region: regionTo, color = '', ...rest } = config[key];  
+  const { 
+    role_arn = '',
+    aws_account_id,
+    role_name,
+    region: regionTo,
+    color = '',
+    source_profile, 
+    ...rest
+  } = config[key];  
   const region = availableRegions.includes(regionTo || '') ? regionTo : undefined;
   const match = new RegExp(ROLE_ARN_REGEX).exec(role_arn);
-  const source = config[rest.source_profile ?? ''] ?? {};
 
   return removeUndefinedEntries({
     ...rest,
@@ -67,8 +102,9 @@ const buildConfigItem = (config: StoredConfig) => (key: string): Partial<AWSConf
     color: getColorHEX(color),
     region,
     aws_account_id: match?.groups?.aws_account_id ?? aws_account_id,
-    role_name: match?.groups?.role_name ?? role_name ?? source.target_role_name,
-  });
+    role_name: match?.groups?.role_name ?? role_name ?? getTargetRoleName(config, source_profile),
+    source_profile_account_id: getSourceAccountId(config, source_profile),
+  } as AWSConfigItem);
 };
 
 export function mapConfig(config: StoredConfig): AWSConfig {

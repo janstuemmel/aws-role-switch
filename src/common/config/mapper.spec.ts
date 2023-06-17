@@ -1,4 +1,8 @@
-import {mapConfig,} from './mapper';
+import {
+  getSourceAccountId,
+  getTargetRoleName,
+  mapConfig,
+} from './mapper';
 
 it('should map to default group', () => {
   const stored = {
@@ -38,7 +42,7 @@ it('should map to default group', () => {
 `);
 });
 
-it('should map to default group', () => {
+it('should include target_role_name in child', () => {
   const stored = {
     'source': {
       aws_account_id: 'org',
@@ -55,11 +59,22 @@ it('should map to default group', () => {
   {
     "aws_account_id": "foo",
     "role_name": "UserRole",
-    "source_profile": "source",
+    "source_profile_account_id": "org",
     "title": "foo",
   },
 ]
 `);
+});
+
+it('should not map entries with target_role_name', () => {
+  const stored = {
+    'source': {
+      aws_account_id: 'org',
+      target_role_name: 'UserRole'
+    },
+  } as StoredConfig;
+  const config = mapConfig(stored);
+  expect(config).toMatchInlineSnapshot(`[]`);
 });
 
 it('should map to groups', () => {
@@ -348,4 +363,94 @@ describe('role_arn handling', () => {
     expect(config[0].aws_account_id).toBe('123456789111');
     expect(config[0].role_name).toBe(role_name);
   });
+});
+
+
+it('should get targetRoleName from source1', () => {
+  const stored = {
+    'source1': {
+      aws_account_id: 'foo1',
+      target_role_name: 'foo',
+      role_name: 'bar',
+    },
+    'source2': {
+      aws_account_id: 'foo2',
+      source_profile: 'source1'
+    }
+  } as StoredConfig;
+  const targetRoleName = getTargetRoleName(stored, 'source2');
+  expect(targetRoleName).toMatchInlineSnapshot(`"foo"`);
+});
+
+it('should get targetRoleName from source2', () => {
+  const stored = {
+    'source1': {
+      aws_account_id: 'foo1',
+      target_role_name: 'foo',
+      role_name: 'bar',
+    },
+    'source2': {
+      aws_account_id: 'foo2',
+      target_role_name: 'bar',
+      source_profile: 'source1'
+    }
+  } as StoredConfig;
+  const targetRoleName = getTargetRoleName(stored, 'source2');
+  expect(targetRoleName).toMatchInlineSnapshot(`"bar"`);
+});
+
+it('should get accountId from source1', () => {
+  const stored = {
+    'source1': {
+      aws_account_id: 'foo1',
+      role_name: 'bar',
+    },
+    'source2': {
+      source_profile: 'source1'
+    },
+  } as StoredConfig;
+  const accountId = getSourceAccountId(stored, 'source2');
+  expect(accountId).toMatchInlineSnapshot(`"foo1"`);
+});
+
+it('should get accountId from source2', () => {
+  const stored = {
+    'source1': {
+      aws_account_id: 'foo1',
+      role_name: 'bar',
+    },
+    'source2': {
+      aws_account_id: 'foo2',
+      source_profile: 'source1'
+    },
+  } as StoredConfig;
+  const accountId = getSourceAccountId(stored, 'source2');
+  expect(accountId).toMatchInlineSnapshot(`"foo1"`);
+});
+
+it('should get accountId from source1 when source2 has none', () => {
+  const stored = {
+    'source1': {
+      role_name: 'bar',
+    },
+    'source2': {
+      aws_account_id: 'foo2',
+      source_profile: 'source1'
+    },
+  } as StoredConfig;
+  const accountId = getSourceAccountId(stored, 'source2');
+  expect(accountId).toMatchInlineSnapshot(`"foo2"`);
+});
+
+it('should get accountId from source1 when source2 has none', () => {
+  const stored = {
+    'source1': {
+      role_name: 'bar',
+    },
+    'source2': {
+      source_profile: 'source1'
+    },
+  } as StoredConfig;
+  const accountId = getSourceAccountId(stored, 'source2');
+  expect(accountId).toMatchInlineSnapshot(`undefined`);
 });
