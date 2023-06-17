@@ -11,3 +11,5 @@ export {
   decompressConfig, 
   compressConfig,
 } from './gzip';
+
+export { filterBySourceAccountAlias } from './filterBySourceAccountAlias';

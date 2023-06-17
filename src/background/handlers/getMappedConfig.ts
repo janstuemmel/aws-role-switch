@@ -3,8 +3,8 @@ import {
   getConfig,
   mapConfig,
   parseConfig,
+  filterBySourceAccountAlias,
 } from '../../common/config';
-import { filterBySourceAccountAlias } from '../../common/config/filterBySourceAccountAlias';
 
 export const getMappedConfig = async (aliasUrl: string) => {
   const alias = await getAccountAlias(aliasUrl) ?? '';
