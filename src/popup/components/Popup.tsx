@@ -26,12 +26,11 @@ const EmptyList = ({ emptyConfig }: { emptyConfig: boolean }) => <NonIdealState
 
 export const Popup = ({ 
   roles,
-  accountAlias,
   executeSwitch = () => {}, 
   headerRight = null 
 }: PopupProps) => {
   const [filter, setFiler] = useState('');
-  const data = mapConfigToGroups(roles, filter, accountAlias);
+  const data = mapConfigToGroups(roles, filter);
   return (
     <div className="wrapper">
       <ControlGroup className="header">

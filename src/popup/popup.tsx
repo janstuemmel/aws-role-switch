@@ -45,16 +45,11 @@ const Notification = Toaster.create({
 
 const App = () => {
   const [roles, setRoles] = useState<AWSConfig>([]);
-  const [accountAlias, setAccountAlias] = useState<string | undefined>();
   const theme = useColorScheme();
 
   useEffect(() => {
-    sendMessage<AWSConfig>({ type: 'getConfig' }).then(setRoles);
-    
     getCurrentTab().then(tab => {
-      sendMessage<string>({type: 'getAccountAlias', url: tab.url ?? ''}).then((alias) => {
-        setAccountAlias(alias);
-      });
+      sendMessage<AWSConfig>({ type: 'getConfig', url: tab.url ?? '' }).then(setRoles);
     });
   }, []);
 
@@ -63,7 +58,6 @@ const App = () => {
       <Popup 
         executeSwitch={executeSwitch} 
         roles={roles}
-        accountAlias={accountAlias}
         headerRight={
           <>
             <Button 

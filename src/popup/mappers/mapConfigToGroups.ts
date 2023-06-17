@@ -6,18 +6,10 @@ const filterConfigItem = (filter: string) => (configItem: AWSConfigItem) =>
   configItem.aws_account_id.toLowerCase().startsWith(filter.toLowerCase()) ||
   configItem.group?.toLowerCase().includes(filter.toLowerCase());
 
-const filterBySourceAccountAlias = (alias: string) => (configItem: AWSConfigItem) =>
-  !alias ||
-  configItem.source_profile_account_id === alias;
-
-export const mapConfigToGroups = (roles: AWSConfigItem[], filter = '', alias = '') => {
-  // config has at least one item with matching alias
-  const hasSourceAccountAlias = !!roles.find((configItem) => configItem.source_profile_account_id === alias);
-  
-  // filter by filter and alias
+export const mapConfigToGroups = (roles: AWSConfigItem[], filter = '') => {
+  // filter by filter
   const items = roles
-    .filter(filterConfigItem(filter))
-    .filter(hasSourceAccountAlias ? filterBySourceAccountAlias(alias) : () => true);
+    .filter(filterConfigItem(filter));
 
   const groups = groupBy(items, ['group']);
 
