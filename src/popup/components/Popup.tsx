@@ -12,7 +12,6 @@ import { mapConfigToGroups } from '../mappers/mapConfigToGroups';
 
 type PopupProps = {
   roles: AWSConfigItem[],
-  accountAlias?: string,
   executeSwitch?: (item: AWSConfigItem) => void
   headerRight?: JSX.Element | null
 };
