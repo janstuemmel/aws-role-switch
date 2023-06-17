@@ -12,8 +12,9 @@ Enter your roles in the editor via `ini` format:
 | Key   | Value  |
 | :---  |  :---  |
 | `role_name` | The role's name you want to assume |
-| `aws_account_id` | The aws account id where the role is stored |
+| `aws_account_id` | The aws account id where the role is stored (or alias if it's a source profile) |
 | `role_arn` (optional) | An aws role arn including account id and role name (replaces `role_name` & `aws_account_id`) |
+| `target_role_name` (optional) | Overrides `role_name` for child profiles |
 | `color` (optional) | A css color string, like `#f0f0f0` or `orange` |
 | `group` (optional) | The name of a group |
 | `region` (optional) | Force a region |
@@ -66,6 +67,29 @@ Example (see config above):
 * `child-profile1` is shown in popup as it is associated with `parent`
 * `child-profile2` is **not** shown in popup as it is **not** associated with `parent`
 
+It is also possible to use this feature recursivly:
+
+```ini
+
+[parent]
+aws_account_id = my-org
+
+[parent-admin]
+source_profile = parent
+target_role_name = MyAdminRole
+
+[parent-readonly]
+source_profile = parent
+target_role_name = MyReadOnlyRole
+
+[child-profile1]
+aws_account_id = 123456789101
+source_profile = parent-admin
+
+[child-profile2]
+aws_account_id = 123456789101
+source_profile = parent-readonly
+```
 
 ## Usage
 
