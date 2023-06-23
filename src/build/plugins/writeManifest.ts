@@ -11,7 +11,7 @@ export const writeManifest = (manifest: object): Plugin => ({
       await fs.promises.writeFile(
         path.join(
           process.cwd(), 
-          build.initialOptions.outdir || '', 
+          build.initialOptions.outdir ?? '', 
           'manifest.json'
         ),
         json,
