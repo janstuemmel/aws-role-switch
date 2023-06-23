@@ -20,3 +20,14 @@ export const EditorWithText = () => {
   );
 };
 
+export const Scrollbar = () => {
+  const { globalState } = useLadleContext();
+  const className = globalState.theme === 'dark' ? 'bp4-dark' : 'bp4-light';
+  return (
+    <div className={className}>
+      <div style={{ overflow: 'auto', height: 300 }}>
+        <div style={{ height: 999, background: 'gray' }}></div>
+      </div>
+    </div>
+  );
+};

@@ -1,4 +1,5 @@
 @import "../scss/base";
+@import "../scss/scrollbar-chrome";
 
 li {
   padding: 0;
@@ -9,14 +10,6 @@ body {
   @media (prefers-color-scheme: dark) {
     background: $dark-gray3;
   }
-}
-
-::-webkit-scrollbar-thumb {
-  background: $gray3;
-}
-
-::-webkit-scrollbar-track {
-  background: $gray5;
 }
 
 .sectionList {
@@ -39,14 +32,6 @@ body {
 
   .wrapper {
     background: $dark-gray3;
-  }
-
-  ::-webkit-scrollbar-thumb {
-    background: $dark-gray5;
-  }
-
-  ::-webkit-scrollbar-track {
-    background: $dark-gray2;
   }
 }
 

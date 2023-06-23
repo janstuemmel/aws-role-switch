@@ -3,22 +3,19 @@
 }
 
 ::-webkit-scrollbar-track {
-  background: $light-gray3;
-  @media (prefers-color-scheme: dark) {
-    background: $dark-gray5;
-  }
+  background: $gray5;
 }
 
 ::-webkit-scrollbar-thumb {
   background: $gray3;
-  @media (prefers-color-scheme: dark) {
-    background: $dark-gray1;
-  }
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background: $gray1;
-  @media (prefers-color-scheme: dark) {
-    background: $black;
+.bp4-dark {
+  ::-webkit-scrollbar-track {
+    background: $dark-gray2;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: $dark-gray5;
   }
 }
