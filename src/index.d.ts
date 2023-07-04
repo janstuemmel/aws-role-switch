@@ -60,3 +60,6 @@ type Message =
   ContentScriptSwitchMessage | 
   BackgroundScriptRedirectMessage | 
   BackgroundScriptGetConfigMessage;
+
+type BackgroundScriptPushExternalConfigMessage = { type: 'pushConfig', config: string }
+type ExternalMessage = ackgroundScriptPushExternalConfigMessage;
