@@ -32,7 +32,7 @@
     "buffer": "^6.0.3",
     "colortranslator": "^2.0.0",
     "js-ini": "^1.5.1",
-    "marked": "^5.0.0",
+    "marked": "^6.0.0",
     "normalize.css": "^8.0.1",
     "outmatch": "^0.7.0",
     "pako": "^2.0.4",
