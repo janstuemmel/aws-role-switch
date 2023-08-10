@@ -358,6 +358,7 @@ describe('role_arn handling', () => {
     ['arn:aws:iam::123456789111:role/user,role,foo', 'user,role,foo'],
     ['arn:aws:iam::123456789111:role/user@role-foo', 'user@role-foo'],
     ['arn:aws:iam::123456789111:role/userRole+11', 'userRole+11'],
+    ['arn:aws:iam::123456789111:role/with/path', 'with/path'],
   ])('test role_arn %s', (arn, role_name) => {
     const config = mapConfig({ foo: { role_arn: arn } });
     expect(config[0].aws_account_id).toBe('123456789111');
