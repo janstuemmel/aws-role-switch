@@ -8,6 +8,8 @@ declare module "*.md" {
   export default content;
 }
 
+declare const browser: typeof chrome | undefined;
+
 type AWSConfigOptionalData = {
   color?: string,
   region?: string,
@@ -19,6 +21,8 @@ type AWSConfigItem = {
   aws_account_id: string,
   role_name: string,
   selected?: boolean,
+  source_profile_account_id?: string,
+  target_role_name?: string,
 } & AWSConfigOptionalData
 
 type AWSConfig = AWSConfigItem[]
@@ -51,7 +55,7 @@ type SwitchRoleForm = {
 
 type ContentScriptSwitchMessage = { type: 'switch' } & AWSConfigItem
 type BackgroundScriptRedirectMessage = { type: 'redirect' } & AWSConfigItem;
-type BackgroundScriptGetConfigMessage = { type: 'getConfig' };
+type BackgroundScriptGetConfigMessage = { type: 'getConfig', url: string };
 type Message = 
   ContentScriptSwitchMessage | 
   BackgroundScriptRedirectMessage | 

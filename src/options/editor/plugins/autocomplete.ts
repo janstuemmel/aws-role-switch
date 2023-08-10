@@ -33,6 +33,8 @@ const getOptions = (key: string): Completion[] => {
       return [
         { label: 'aws_account_id', apply: 'aws_account_id = ', type: 'keyword' },
         { label: 'role_name', apply: 'role_name = ', type: 'keyword' },
+        { label: 'target_role_name', apply: 'target_role_name = ', type: 'keyword' },
+        { label: 'source_profile', apply: 'source_profile = ', type: 'keyword' },
         { label: 'role_arn', apply: 'role_arn = ', type: 'keyword' },
         { label: 'color', apply: 'color = ', type: 'keyword' },
         { label: 'group', apply: 'group = ', type: 'keyword' },

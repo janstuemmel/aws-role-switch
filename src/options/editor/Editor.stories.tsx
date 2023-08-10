@@ -20,3 +20,7 @@ export const EditorWithText = () => {
   );
 };
 
+export const Scrollbar = () => 
+  <div style={{ overflow: 'auto', height: 300 }}>
+    <div style={{ height: 999, background: 'gray' }}></div>
+  </div>;

@@ -1,5 +1,6 @@
 @import "../scss/base";
 @import "../scss/scrollbar-chrome";
+@import "highlight.js/styles/github-dark.css";
 
 #options-ui {
   max-width: 1400px;
@@ -21,7 +22,6 @@
   &.wrapper {
     display: flex;
     overflow: hidden;
-    width: 100wh;
     height: 100vh;
   }
   
@@ -100,12 +100,11 @@
         }
       }
 
-      pre {
-        padding: 10px;
-        background: $light-gray2;
-        @media (prefers-color-scheme: dark) {
-          background: $dark-gray2;
-        }
+
+      code.hljs {
+        background: $dark-gray2;
+        // margin: 0;
+        padding: 7px;
       }
     }
   }

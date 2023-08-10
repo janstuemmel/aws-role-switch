@@ -1,7 +1,3 @@
-import { mapConfig } from './mapper';
-import { parseConfig } from './parse';
-import { getConfig } from './storage';
-
 export {
   setConfig,
   getConfig,
@@ -16,8 +12,4 @@ export {
   compressConfig,
 } from './gzip';
 
-export const getMappedConfig = async () => {
-  return getConfig()
-    .then(parseConfig)
-    .then(mapConfig);
-};
+export { filterBySourceAccountAlias } from './filterBySourceAccountAlias';

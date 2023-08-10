@@ -12,8 +12,9 @@ Enter your roles in the editor via `ini` format:
 | Key   | Value  |
 | :---  |  :---  |
 | `role_name` | The role's name you want to assume |
-| `aws_account_id` | The aws account id where the role is stored |
+| `aws_account_id` | The aws account id where the role is stored (or alias if it's a source profile) |
 | `role_arn` (optional) | An aws role arn including account id and role name (replaces `role_name` & `aws_account_id`) |
+| `target_role_name` (optional) | Overrides `role_name` for child profiles |
 | `color` (optional) | A css color string, like `#f0f0f0` or `orange` |
 | `group` (optional) | The name of a group |
 | `region` (optional) | Force a region |
@@ -35,20 +36,57 @@ group = My awesome account
 region = eu-central-1
 ```
 
-### Example config with `target_role_name`
+### Advanced Config
+
+It's possible to use `source_profile` in roles to point to a parent profile. Using parent profiles implicates two things: 
+* `target_role_name`: Defining a target role name will exclude the role from being displayed in popup window because it is a source profile. Every child profile will use `target_role_name` as `role_name` if it is not defined.
+* `aws_account_id`: Setting this field to the root account alias or id will result in not showing roles that are not associated with `source_profile` in popup on current tab's aws-console.
 
 ```ini
-[my-org]
-aws_account_id = your_org_alias_or_id
+[parent]
+aws_account_id = my-org
 target_role_name = MyRole
 
-[child-profile]
+# this profile will be shown on active aws-console tab in popup
+[child-profile1]
 aws_account_id = 123456789101
-source_profile = my-org
-# uses target_role_name as role_name from above
+source_profile = parent
+
+# this profile will not be shown on active aws-console tab in popup
+[child-profile2]
+aws_account_id = 123456789101
+role_name = UserRole
 ```
 
-When using a `source_profile` as parent and there is no `role_arn` specified in the child profile, the child profile uses `target_role_name` as `role_name`. 
+Example (see config above):
+* You're logged in to aws-console with org alias or id `my-org`
+* Your current tab is aws-console
+* You open the extensions popup
+* `child-profile1` is shown in popup as it is associated with `parent`
+* `child-profile2` is **not** shown in popup as it is **not** associated with `parent`
+
+It is also possible to use this feature recursivly:
+
+```ini
+[parent]
+aws_account_id = my-org
+
+[parent-admin]
+source_profile = parent
+target_role_name = MyAdminRole
+
+[parent-readonly]
+source_profile = parent
+target_role_name = MyReadOnlyRole
+
+[child-profile1]
+aws_account_id = 123456789101
+source_profile = parent-admin
+
+[child-profile2]
+aws_account_id = 123456789101
+source_profile = parent-readonly
+```
 
 ## Usage
 

@@ -18,6 +18,7 @@ import {
 } from '../common/browser/runtime';
 import {
   createTab,
+  getCurrentTab,
   sendToCurrentAwsConsoleTab,
 } from '../common/browser';
 import { AWSIcon } from '../common/components';
@@ -47,7 +48,9 @@ const App = () => {
   const theme = useColorScheme();
 
   useEffect(() => {
-    sendMessage<AWSConfig>({ type: 'getConfig' }).then(setRoles);
+    getCurrentTab().then(tab => {
+      sendMessage<AWSConfig>({ type: 'getConfig', url: tab.url ?? '' }).then(setRoles);
+    });
   }, []);
 
   return (

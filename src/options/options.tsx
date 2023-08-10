@@ -10,9 +10,9 @@ import {
   Card,
   FocusStyleManager,
   Navbar,
+  OverlayToaster,
   Position,
   ProgressBar,
-  Toaster,
 } from '@blueprintjs/core';
 
 import { setConfig } from '../common/config';
@@ -30,7 +30,7 @@ import Editor from './editor/Editor';
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
-const Notification = Toaster.create({
+const Notification = OverlayToaster.create({
   position: Position.TOP,
   maxToasts: 4,
 });
@@ -48,14 +48,12 @@ const App = () => {
   const theme = useColorScheme();
   const getStorage = () => getStorageSize().then(setSize);
 
-  console.log(size);
-
   useEffect(() => {
     getStorage();
   }, []);
 
   const onSave = () => {
-    setConfig(configFile || '')
+    setConfig(configFile ?? '')
       .then(() => Notification.show({
         icon: 'saved',
         message: 'Config saved',
