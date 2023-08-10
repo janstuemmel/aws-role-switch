@@ -22,7 +22,6 @@ Enter your roles in the editor via `ini` format:
 ### Example config
 
 ```ini
-
 # A comment
 
 [role-title]
@@ -44,7 +43,6 @@ It's possible to use `source_profile` in roles to point to a parent profile. Usi
 * `aws_account_id`: Setting this field to the root account alias or id will result in not showing roles that are not associated with `source_profile` in popup on current tab's aws-console.
 
 ```ini
-
 [parent]
 aws_account_id = my-org
 target_role_name = MyRole
@@ -70,7 +68,6 @@ Example (see config above):
 It is also possible to use this feature recursivly:
 
 ```ini
-
 [parent]
 aws_account_id = my-org
 
