@@ -4,7 +4,7 @@ import { availableRegions } from './availableRegions';
 import { removeUndefinedEntries } from '../util';
 
 // Possible role_name syntax: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html
-const ROLE_ARN_REGEX = /^arn:aws:iam::(?<aws_account_id>\d{12}):role\/(?<role_name>[\w+=,.@-]+)/;
+const ROLE_ARN_REGEX = /^arn:aws:iam::(?<aws_account_id>\d{12}):role\/(?<role_name>[\w+=,.@\\/-]+)/;
 const HEX_COLOR_REGEX = /^(?<hex>[0-9A-Fa-f]{3,8})$/;
 
 const isValidConfigItem = ({ aws_account_id, role_name, target_role_name }: Partial<AWSConfigItem>): boolean =>
