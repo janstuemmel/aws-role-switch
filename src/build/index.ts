@@ -12,7 +12,7 @@ type Target = 'firefox' | 'chrome';
 
 const defaultConfig: BuildOptions = {
   bundle: true,
-  target: 'ES2018',
+  target: 'es2017',
   format: 'cjs',
   sourcemap: 'external',
   loader: {
