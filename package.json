@@ -20,7 +20,7 @@
     "ext:build:chrome": "web-ext build -s dist/chrome -n chrome.zip -a dist"
   },
   "dependencies": {
-    "@blueprintjs/core": "^5.0.0",
+    "@blueprintjs/core": "^4.5.1",
     "@codemirror/autocomplete": "^6.3.4",
     "@codemirror/commands": "^6.1.2",
     "@codemirror/language": "^6.3.1",

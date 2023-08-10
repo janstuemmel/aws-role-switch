@@ -48,6 +48,7 @@ const buildPages = (target: Target, minify: boolean) => context({
 });
 
 const buildScripts = (target: Target) => context({
+  ...defaultConfig,
   minify: false,
   entryPoints: [
     'src/content/aws-console.ts',
