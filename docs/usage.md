@@ -102,3 +102,6 @@ Assuming a role after selection will only work when you are on an aws console ta
 | <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>l</kbd> | Open popup window |
 | <kbd>↑</kbd> / <kbd>↓</kbd> | Navigate up/down |
 | <kbd>Enter</kbd> | Assume the selected role |
+
+* Modify chrome extension keyboard shortcuts via [chrome://extensions/shortcuts](chrome://extensions/shortcuts)
+* Modify firefox extension keyboard shortcuts via [about:addons](about:addons): `Settings -> Manage Extension Shortcuts` 
