@@ -30,7 +30,6 @@
     "@tanstack/react-virtual": "^3.0.0-beta.26",
     "@uiw/react-codemirror": "^4.15.1",
     "buffer": "^6.0.3",
-    "colortranslator": "^2.0.0",
     "highlight.js": "^11.8.0",
     "js-ini": "^1.5.1",
     "marked": "^7.0.2",
