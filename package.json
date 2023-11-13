@@ -42,7 +42,7 @@
   },
   "devDependencies": {
     "@faker-js/faker": "^8.0.0",
-    "@ladle/react": "^2.4.5",
+    "@ladle/react": "^3.0.0",
     "@types/chrome": "^0.0.251",
     "@types/jest": "^29.0.0",
     "@types/marked": "^5.0.0",
