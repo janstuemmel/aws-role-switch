@@ -1,5 +1,7 @@
 import { addMessageListener } from '../common/browser';
+import { addExternalMessageListener } from '../common/browser/runtime';
 import { getMappedConfig } from './handlers/getMappedConfig';
+import { pushConfigFromExternal } from './handlers/pushConfigFromExternal';
 import { redirectListener } from './handlers/redirectListener';
 
 // return true to indicate a asyncronous sendResponse
@@ -15,3 +17,5 @@ addMessageListener((msg, sender, sendResponse) => {
       return true;
   }
 });
+
+addExternalMessageListener('pushConfig', pushConfigFromExternal);
