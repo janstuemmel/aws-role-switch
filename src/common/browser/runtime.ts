@@ -15,6 +15,19 @@ export const addMessageListener = (cb: (
   chrome.runtime.onMessage.addListener(cb);
 };
 
+export const addExternalMessageListener = (msgType: ExternalMessage['type'], cb: (
+  msg: ExternalMessage, 
+  sender: chrome.runtime.MessageSender,
+  sendResponse: (res: unknown) => void
+) => void) => {
+  chrome.runtime.onMessageExternal.addListener((msg: ExternalMessage, ...rest) => {
+    if (msg.type === msgType) {
+      cb(msg, ...rest);
+    }
+    return true;
+  });
+};
+
 export const sendMessage = async <T>(msg: Message) => {
   return new Promise<T>((res) => {
     chrome.runtime.sendMessage(msg, res);
