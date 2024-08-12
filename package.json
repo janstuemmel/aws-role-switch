@@ -32,7 +32,7 @@
     "buffer": "^6.0.3",
     "highlight.js": "^11.8.0",
     "js-ini": "^1.5.1",
-    "marked": "^7.0.2",
+    "marked": "^14.0.0",
     "marked-highlight": "^2.0.4",
     "normalize.css": "^8.0.1",
     "outmatch": "^0.7.0",
