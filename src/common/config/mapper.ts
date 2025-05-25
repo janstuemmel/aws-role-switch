@@ -3,7 +3,7 @@ import { removeUndefinedEntries } from '../util';
 import { getCssColor } from '../util/getCssColor';
 
 // Possible role_name syntax: https://docs.aws.amazon.com/IAM/latest/UserGuide/reference_iam-quotas.html
-const ROLE_ARN_REGEX = /^arn:aws:iam::(?<aws_account_id>\d{12}):role\/(?<role_name>[\w+=,.@\\/-]+)/;
+const ROLE_ARN_REGEX = /^arn:(aws|aws-us-gov):iam::(?<aws_account_id>\d{12}):role\/(?<role_name>[\w+=,.@\\/-]+)/;
 
 const isValidConfigItem = ({ aws_account_id, role_name, target_role_name }: Partial<AWSConfigItem>): boolean =>
  !!aws_account_id && !!role_name && !target_role_name;
