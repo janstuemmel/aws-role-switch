@@ -54,7 +54,7 @@ const App = () => {
   }, []);
 
   return (
-    <div className={`bp4-${theme}`}>
+    <div className={`bp5-${theme}`}>
       <Popup 
         executeSwitch={executeSwitch} 
         roles={roles}
@@ -62,10 +62,10 @@ const App = () => {
           <>
             <Button 
               icon={<AWSIcon />} 
-              minimal={true} 
+              variant="minimal" 
               onClick={() => createTab('https://console.aws.amazon.com/console', true, window.close)}
               />
-            <Button icon="wrench" minimal={true} onClick={() => openOptions(window.close)} />
+            <Button icon="wrench" variant="minimal" onClick={() => openOptions(window.close)} />
           </>
         }
       />

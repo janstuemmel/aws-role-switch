@@ -95,7 +95,7 @@ export default <T, >({
   const items = virtual.getVirtualItems().filter((i) => i);
 
   return (
-    <div ref={ref} style={{ flex: 1 }} className="sectionList" tabIndex={0}>
+    <div ref={ref} style={{ flex: 1 }} className="sectionList">
       <Menu className="menu" style={{ height: virtual.getTotalSize(), position: 'relative' }}>
         {items.map(({ size, start, index, key }) => {
           const item: ListEntry<T> = rows[index];

@@ -1,3 +1,5 @@
+@use "@blueprintjs/core/lib/scss/variables" as *;
+
 ::-webkit-scrollbar {
   width: 10px;
 }
@@ -10,7 +12,7 @@
   background: $gray3;
 }
 
-.bp4-dark {
+.bp5-dark {
   ::-webkit-scrollbar-track {
     background: $dark-gray2;
   }

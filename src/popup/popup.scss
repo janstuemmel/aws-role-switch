@@ -1,5 +1,5 @@
-@import "../scss/base";
-@import "../scss/scrollbar-chrome";
+@use "../scss/base";
+@use "@blueprintjs/core/lib/scss/variables" as *;
 
 li {
   padding: 0;
@@ -19,7 +19,7 @@ body {
   }
 }
 
-.bp4-dark {
+.bp5-dark {
   .header {
     background-color: $dark-gray4;
     border-bottom: 1px solid $dark-gray3;
@@ -61,7 +61,7 @@ body {
 .empty-state {
   flex: 1;
 
-  .bp4-non-ideal-state-text {
+  .bp5-non-ideal-state-text {
     text-align: center;
   }
 }
@@ -75,7 +75,7 @@ body {
   }
 }
 
-.bp4-menu {
+.bp5-menu {
   padding: 0;
 }
 
@@ -87,7 +87,7 @@ body {
   border-bottom: 1px solid $light-gray2;
 }
 
-.bp4-menu-item {
+.bp5-menu-item {
   padding: 5px 10px 5px 5px;
 }
 

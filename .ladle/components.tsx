@@ -5,7 +5,7 @@ import { FocusStyleManager } from '@blueprintjs/core';
 FocusStyleManager.onlyShowFocusOnTabs();
 
 export const Provider: GlobalProvider = ({ children, globalState: { theme } }) => (
-  <div className={`bp4-${theme}`}>
+  <div className={`bp5-${theme}`}>
     {children}
   </div>
 );

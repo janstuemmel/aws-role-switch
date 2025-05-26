@@ -71,7 +71,7 @@ const App = () => {
   const syncSize = (size + 200) / (STORAGE_MAX_ITEM_SIZE * 10);
 
   return (
-    <div id="options-ui" className={`wrapper bp4-${theme}`}>
+    <div id="options-ui" className={`wrapper bp5-${theme}`}>
       <div className="editor">
         <Editor 
           theme={theme}

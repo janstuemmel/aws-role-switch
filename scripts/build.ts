@@ -1,4 +1,4 @@
-#!/usr/bin/env -S TS_NODE_TRANSPILE_ONLY=true npx ts-node
+#!/usr/bin/env -S TS_NODE_TRANSPILE_ONLY=true npx tsx
 
 import {
   build,

@@ -1,6 +1,7 @@
-@import "../scss/base";
-@import "../scss/scrollbar-chrome";
-@import "highlight.js/styles/github-dark.css";
+@use "../scss/base";
+@use "../scss/scrollbar-chrome";
+@use "highlight.js/styles/github-dark.css";
+@use "@blueprintjs/core/lib/scss/variables" as *;
 
 #options-ui {
   max-width: 1400px;
