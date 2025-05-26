@@ -331,6 +331,7 @@ it('should sort correctly', () => {
 describe('role_arn handling', () => {
   test.each([
     ['arn:aws:iam::123456789111:role/MyRole', 'MyRole'],
+    ['arn:aws-us-gov:iam::123456789111:role/MyRole', 'MyRole'],
     ['arn:aws:iam::123456789111:role/user-role-abc-xyz', 'user-role-abc-xyz'],
     ['arn:aws:iam::123456789111:role/user_role_abc_xyz', 'user_role_abc_xyz'],
     ['arn:aws:iam::123456789111:role/user=role', 'user=role'],
