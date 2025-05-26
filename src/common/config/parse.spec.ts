@@ -1,7 +1,4 @@
-import {
-  parseConfig,
-  parseConfigError,
-} from './parse';
+import {parseConfig, parseConfigError} from './parse';
 
 it('should parse file', () => {
   const file = `

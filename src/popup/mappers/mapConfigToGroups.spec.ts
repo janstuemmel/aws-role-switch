@@ -1,7 +1,7 @@
-import { mapConfigToGroups } from "./mapConfigToGroups";
+import {mapConfigToGroups} from './mapConfigToGroups';
 
 it('should map empty', () => {
-  expect(mapConfigToGroups([])).toMatchInlineSnapshot(`[]`);
+  expect(mapConfigToGroups([])).toMatchInlineSnapshot('[]');
 });
 
 it('should map', () => {
@@ -56,12 +56,30 @@ it('should map', () => {
 });
 
 it('should map with filter', () => {
-  const groups = mapConfigToGroups([
-    {title: 'item1', aws_account_id: 'foo', role_name: 'foo', group: 'group1'},
-    {title: 'item2', aws_account_id: 'bar', role_name: 'bar', group: 'group1'},
-    {title: 'item3', aws_account_id: 'baz', role_name: 'baz', group: 'group2'},
-    {title: 'item4', aws_account_id: 'bla', role_name: 'bla'},
-  ], 'foo');
+  const groups = mapConfigToGroups(
+    [
+      {
+        title: 'item1',
+        aws_account_id: 'foo',
+        role_name: 'foo',
+        group: 'group1',
+      },
+      {
+        title: 'item2',
+        aws_account_id: 'bar',
+        role_name: 'bar',
+        group: 'group1',
+      },
+      {
+        title: 'item3',
+        aws_account_id: 'baz',
+        role_name: 'baz',
+        group: 'group2',
+      },
+      {title: 'item4', aws_account_id: 'bla', role_name: 'bla'},
+    ],
+    'foo',
+  );
   expect(groups).toMatchInlineSnapshot(`
 [
   {

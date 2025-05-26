@@ -1,4 +1,4 @@
-import { getCssColor } from "./getCssColor";
+import {getCssColor} from './getCssColor';
 
 test.each([
   ['#ffffff1f', '#FFFFFF'],

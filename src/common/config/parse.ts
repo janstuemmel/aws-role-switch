@@ -1,9 +1,5 @@
-import {
-  stringify as stringifyIni,
-  parse as parseIni,
-  $Errors,
-} from 'js-ini';
-import { IIniObject } from 'js-ini/lib/interfaces/ini-object';
+import {$Errors, parse as parseIni, stringify as stringifyIni} from 'js-ini';
+import type {IIniObject} from 'js-ini/lib/interfaces/ini-object';
 
 const errorsSymbol = $Errors as unknown as string;
 
@@ -16,7 +12,7 @@ function parse(config: string) {
 }
 
 export function parseConfig(config: string | undefined): StoredConfig {
-  const { [errorsSymbol]: _, ...rest } = parse(config || '');
+  const {[errorsSymbol]: _, ...rest} = parse(config || '');
   return rest;
 }
 

@@ -1,32 +1,37 @@
 {
   "root": true,
   "parser": "@typescript-eslint/parser",
-  "plugins": [
-    "@typescript-eslint",
-    "newline",
-    "import"
-  ],
-  "extends": [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended"
-  ],
+  "plugins": ["@typescript-eslint", "newline", "import"],
+  "extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
   "rules": {
-    "@typescript-eslint/no-unused-vars": ["error", { "ignoreRestSiblings": true, "destructuredArrayIgnorePattern": "^_" }],
-    "@typescript-eslint/no-empty-function": ["error", { "allow": ["arrowFunctions"] }],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "ignoreRestSiblings": true, "destructuredArrayIgnorePattern": "^_" }
+    ],
+    "@typescript-eslint/no-empty-function": [
+      "error",
+      { "allow": ["arrowFunctions"] }
+    ],
     "eol-last": ["error", "always"],
     "semi": ["error", "always"],
     "max-len": ["error", { "code": 120 }],
     "newline/import-module": ["error", { "minItems": 2, "tab": 2 }],
-    "import/order": ["error", { "groups": [ "external", "internal" ], "newlines-between": "always"}],
-    "object-curly-newline": ["error", {
-      "ImportDeclaration": {
-        "multiline": false,
-        "minProperties": 2
-      }, 
-      "ExportDeclaration": {
-        "multiline": true,
-        "minProperties": 2
+    "import/order": [
+      "error",
+      { "groups": ["external", "internal"], "newlines-between": "always" }
+    ],
+    "object-curly-newline": [
+      "error",
+      {
+        "ImportDeclaration": {
+          "multiline": false,
+          "minProperties": 2
+        },
+        "ExportDeclaration": {
+          "multiline": true,
+          "minProperties": 2
+        }
       }
-    }]
+    ]
   }
 }

@@ -1,7 +1,7 @@
-import { updateTabUrl } from '../../common/browser/tabs';
-import { mapToSwitchForm } from '../../common/mappers';
-import { mock } from '../../test/helper';
-import { redirectListener } from './redirectListener';
+import {updateTabUrl} from '../../common/browser/tabs';
+import {mapToSwitchForm} from '../../common/mappers';
+import {mock} from '../../test/helper';
+import {redirectListener} from './redirectListener';
 
 jest.mock('../../common/mappers');
 jest.mock('../../common/browser/tabs');
@@ -12,12 +12,15 @@ beforeEach(() => {
 });
 
 it('should call updateUrl with params', () => {
-  mock(mapToSwitchForm).mockReturnValue({ foo: 'bar', bar: undefined } as unknown as SwitchRoleForm);
+  mock(mapToSwitchForm).mockReturnValue({
+    foo: 'bar',
+    bar: undefined,
+  } as unknown as SwitchRoleForm);
   redirectListener(
-    { type: 'redirect' } as Message & AWSConfigItem, 
-    { tab: { id: 1337 } } as chrome.runtime.MessageSender,
+    {type: 'redirect'} as Message & AWSConfigItem,
+    {tab: {id: 1337}} as chrome.runtime.MessageSender,
   );
   expect(updateTabUrl).toHaveBeenCalledWith(
-    'https://signin.aws.amazon.com/switchrole?foo=bar'
+    'https://signin.aws.amazon.com/switchrole?foo=bar',
   );
 });

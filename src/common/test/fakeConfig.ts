@@ -1,13 +1,19 @@
-import { faker } from '@faker-js/faker';
+import {faker} from '@faker-js/faker';
 
-import { sortByGroupIndex } from '../config/mapper';
-import { stringifyConfig } from '../config/parse';
+import {sortByGroupIndex} from '../config/mapper';
+import {stringifyConfig} from '../config/parse';
 
-export const generateConfigItems = (numEntries: number, numGroups: number): AWSConfigItem[] => {
+export const generateConfigItems = (
+  numEntries: number,
+  numGroups: number,
+): AWSConfigItem[] => {
   const groups = faker.word.words(numGroups).split(' ');
-  const items = Array.from({ length: numEntries }, (_, i) => ({
+  const items = Array.from({length: numEntries}, (_, i) => ({
     aws_account_id: faker.string.numeric(12),
-    role_name: faker.helpers.arrayElement(['AdminFullAccess', 'RestrictedAdmin']),
+    role_name: faker.helpers.arrayElement([
+      'AdminFullAccess',
+      'RestrictedAdmin',
+    ]),
     title: faker.helpers.fake(`{{lorem.word}}-{{lorem.word}}-project-${i}`),
     color: faker.color.human(),
     group: faker.helpers.arrayElement(groups),
@@ -17,7 +23,9 @@ export const generateConfigItems = (numEntries: number, numGroups: number): AWSC
 
 export const generate = (numEntries = 1000, numGroups = 100) => {
   const config = generateConfigItems(numEntries, numGroups);
-  const ini = config
-    .reduce((a, { title, ...rest }) => ({ ...a, [title]: rest}), {});
+  const ini = config.reduce(
+    (a, {title, ...rest}) => ({...a, [title]: rest}),
+    {},
+  );
   return stringifyConfig(ini);
 };

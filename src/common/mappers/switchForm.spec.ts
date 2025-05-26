@@ -1,14 +1,17 @@
-import { mapToSwitchForm } from "./switchForm";
+import {mapToSwitchForm} from './switchForm';
 
 it('map region to redirect url', () => {
-  const params = mapToSwitchForm({
-    aws_account_id: 'dummy',
-    role_name: 'DummyAdmin',
-    title: 'dummy-account',
-    region: 'eu-central-1',
-  }, {
-    redirect_uri: 'https://example.com?region=us-east-2'
-  });
+  const params = mapToSwitchForm(
+    {
+      aws_account_id: 'dummy',
+      role_name: 'DummyAdmin',
+      title: 'dummy-account',
+      region: 'eu-central-1',
+    },
+    {
+      redirect_uri: 'https://example.com?region=us-east-2',
+    },
+  );
 
   expect(params).toMatchInlineSnapshot(`
 {
@@ -24,13 +27,16 @@ it('map region to redirect url', () => {
 });
 
 it('keep region in redirect url', () => {
-  const params = mapToSwitchForm({
-    aws_account_id: 'dummy',
-    role_name: 'DummyAdmin',
-    title: 'dummy-account',
-  }, {
-    redirect_uri: 'https://example.com?region=us-east-2'
-  });
+  const params = mapToSwitchForm(
+    {
+      aws_account_id: 'dummy',
+      role_name: 'DummyAdmin',
+      title: 'dummy-account',
+    },
+    {
+      redirect_uri: 'https://example.com?region=us-east-2',
+    },
+  );
 
   expect(params).toMatchInlineSnapshot(`
 {
@@ -46,13 +52,16 @@ it('keep region in redirect url', () => {
 });
 
 it('take default (us-east-1) region in redirect url when not defined', () => {
-  const params = mapToSwitchForm({
-    aws_account_id: 'dummy',
-    role_name: 'DummyAdmin',
-    title: 'dummy-account',
-  }, {
-    redirect_uri: 'https://example.com'
-  });
+  const params = mapToSwitchForm(
+    {
+      aws_account_id: 'dummy',
+      role_name: 'DummyAdmin',
+      title: 'dummy-account',
+    },
+    {
+      redirect_uri: 'https://example.com',
+    },
+  );
 
   expect(params).toMatchInlineSnapshot(`
 {
@@ -68,13 +77,16 @@ it('take default (us-east-1) region in redirect url when not defined', () => {
 });
 
 it('keep invalid redirect url', () => {
-  const params = mapToSwitchForm({
-    aws_account_id: 'dummy',
-    role_name: 'DummyAdmin',
-    title: 'dummy-account',
-  }, {
-    redirect_uri: 'example.com?region=us-east-2'
-  });
+  const params = mapToSwitchForm(
+    {
+      aws_account_id: 'dummy',
+      role_name: 'DummyAdmin',
+      title: 'dummy-account',
+    },
+    {
+      redirect_uri: 'example.com?region=us-east-2',
+    },
+  );
 
   expect(params).toMatchInlineSnapshot(`
 {
@@ -90,14 +102,17 @@ it('keep invalid redirect url', () => {
 });
 
 it('region not written correctly', () => {
-  const params = mapToSwitchForm({
-    aws_account_id: 'dummy',
-    role_name: 'DummyAdmin',
-    title: 'dummy-account',
-    region: 'us-east-foooo',
-  }, {
-    redirect_uri: 'example.com?region=us-east-2'
-  });
+  const params = mapToSwitchForm(
+    {
+      aws_account_id: 'dummy',
+      role_name: 'DummyAdmin',
+      title: 'dummy-account',
+      region: 'us-east-foooo',
+    },
+    {
+      redirect_uri: 'example.com?region=us-east-2',
+    },
+  );
 
   expect(params).toMatchInlineSnapshot(`
 {

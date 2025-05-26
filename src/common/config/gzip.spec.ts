@@ -1,7 +1,4 @@
-import {
-  compressConfig,
-  decompressConfig,
-} from './gzip';
+import {compressConfig, decompressConfig} from './gzip';
 
 it('should compress/decompress config', () => {
   const config = `
@@ -20,10 +17,9 @@ baz = Hello World`;
   // compress
   const compressed = compressConfig(config);
   expect(compressed).toEqual(expect.any(String));
-  expect(compressed)
-    .toMatchInlineSnapshot(
-      `"eNrjik7Lz4/lSkosUrBVMDQyNjE1M7ewNDQwBApVAYU8UnNy8hXC84tyUri4ooHKSFBbRZxaACjLJDI="`
-    );
+  expect(compressed).toMatchInlineSnapshot(
+    `"eNrjik7Lz4/lSkosUrBVMDQyNjE1M7ewNDQwBApVAYU8UnNy8hXC84tyUri4ooHKSFBbRZxaACjLJDI="`,
+  );
 
   // decompress
   const decompressed = decompressConfig(compressed);

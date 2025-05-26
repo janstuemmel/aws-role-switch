@@ -1,6 +1,6 @@
-import { addMessageListener } from '../common/browser';
-import { getMappedConfig } from './handlers/getMappedConfig';
-import { redirectListener } from './handlers/redirectListener';
+import {addMessageListener} from '../common/browser';
+import {getMappedConfig} from './handlers/getMappedConfig';
+import {redirectListener} from './handlers/redirectListener';
 
 // return true to indicate a asyncronous sendResponse
 addMessageListener((msg, sender, sendResponse) => {

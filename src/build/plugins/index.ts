@@ -1,1 +1,1 @@
-export { writeManifest } from './writeManifest';
+export {writeManifest} from './writeManifest';

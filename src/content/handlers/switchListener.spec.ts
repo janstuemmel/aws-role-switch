@@ -1,9 +1,9 @@
 /* @jest-environment jsdom */
-import { sendMessage } from '../../common/browser/runtime';
-import { getCsrfFromPage } from '../util/getCsrfFromPage';
-import { createSigninForm } from '../util/createSigninForm';
-import { mock } from '../../test/helper';
-import { switchListener } from './switchListener';
+import {sendMessage} from '../../common/browser/runtime';
+import {mock} from '../../test/helper';
+import {createSigninForm} from '../util/createSigninForm';
+import {getCsrfFromPage} from '../util/getCsrfFromPage';
+import {switchListener} from './switchListener';
 
 jest.mock('../util/getCsrfFromPage');
 jest.mock('../util/createSigninForm');
@@ -23,11 +23,11 @@ it('should submit form when csrf set and form creation succeeded', () => {
   const submit = jest.fn();
   const form = document.createElement('form');
   form.submit = submit;
-  
+
   mock(getCsrfFromPage).mockReturnValue('dummy');
   mock(createSigninForm).mockReturnValue(form);
 
-  switchListener({ type: 'switch' } as Message);
+  switchListener({type: 'switch'} as Message);
   expect(document.body.appendChild).toHaveBeenCalled();
   expect(submit).toHaveBeenCalled();
 });
@@ -37,8 +37,8 @@ it('should send message to background script if csrf fails', () => {
   mock(getCsrfFromPage).mockImplementation(() => {
     throw testError;
   });
-  switchListener({ type: 'switch' } as Message);
-  expect(sendMessage).toHaveBeenCalledWith({ type: 'redirect' });
+  switchListener({type: 'switch'} as Message);
+  expect(sendMessage).toHaveBeenCalledWith({type: 'redirect'});
   expect(console.warn).toHaveBeenCalledWith(testError);
 });
 
@@ -48,7 +48,7 @@ it('should send message to background script if form creation fails', () => {
   mock(createSigninForm).mockImplementation(() => {
     throw testError;
   });
-  switchListener({ type: 'switch' } as Message);
-  expect(sendMessage).toHaveBeenCalledWith({ type: 'redirect' });
+  switchListener({type: 'switch'} as Message);
+  expect(sendMessage).toHaveBeenCalledWith({type: 'redirect'});
   expect(console.warn).toHaveBeenCalledWith(testError);
 });

@@ -1,13 +1,16 @@
 /* @jest-environment jsdom */
 
-import { createSigninForm } from "./createSigninForm";
+import {createSigninForm} from './createSigninForm';
 
 it('should create form correctly', () => {
-  const form = createSigninForm({
-    aws_account_id: 'dummy-id',
-    title: 'dummy-title',
-    role_name: 'dummy-role',
-  }, '1337');
+  const form = createSigninForm(
+    {
+      aws_account_id: 'dummy-id',
+      title: 'dummy-title',
+      role_name: 'dummy-role',
+    },
+    '1337',
+  );
 
   expect(form).toMatchInlineSnapshot(`
 <form
