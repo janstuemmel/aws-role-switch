@@ -1,13 +1,13 @@
-import { getAccountAlias } from '../../common/browser/cookies';
+import {getAccountAlias} from '../../common/browser/cookies';
 import {
+  filterBySourceAccountAlias,
   getConfig,
   mapConfig,
   parseConfig,
-  filterBySourceAccountAlias,
 } from '../../common/config';
 
 export const getMappedConfig = async (aliasUrl: string) => {
-  const alias = await getAccountAlias(aliasUrl) ?? '';
+  const alias = (await getAccountAlias(aliasUrl)) ?? '';
   return await getConfig()
     .then(parseConfig)
     .then(mapConfig)

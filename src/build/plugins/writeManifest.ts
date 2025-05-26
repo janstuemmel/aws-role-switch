@@ -1,7 +1,7 @@
-import { Plugin } from 'esbuild';
+import type {Plugin} from 'esbuild';
 
-import path from 'path';
-import fs from 'fs';
+import fs from 'node:fs';
+import path from 'node:path';
 
 export const writeManifest = (manifest: object): Plugin => ({
   name: 'writeManifest',
@@ -10,12 +10,12 @@ export const writeManifest = (manifest: object): Plugin => ({
       const json = JSON.stringify(manifest, null, 2);
       await fs.promises.writeFile(
         path.join(
-          process.cwd(), 
-          build.initialOptions.outdir ?? '', 
-          'manifest.json'
+          process.cwd(),
+          build.initialOptions.outdir ?? '',
+          'manifest.json',
         ),
         json,
-      );      
+      );
     });
   },
 });

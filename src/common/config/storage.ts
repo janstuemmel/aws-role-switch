@@ -1,12 +1,5 @@
-import {
-  getStorageItems,
-  setStorageItems,
-} from '../browser';
-import {
-  compressConfig,
-  decompressConfig,
-} from './gzip';
-
+import {getStorageItems, setStorageItems} from '../browser';
+import {compressConfig, decompressConfig} from './gzip';
 
 const CONFIG_KEYS = [
   'configFile', // for legacy reasons
@@ -23,15 +16,16 @@ const CONFIG_KEYS = [
 
 const splitEqual = (str: string, num: number) => {
   const parts = Math.ceil(str.length / num);
-  return Array(num).fill(null).map((_, i) => 
-    str.substring(i*parts, i*parts+parts));
+  return Array(num)
+    .fill(null)
+    .map((_, i) => str.substring(i * parts, i * parts + parts));
 };
 
 const splitConfigFile = (config: string) => {
   return splitEqual(config, CONFIG_KEYS.length).reduce((p, c, i) => {
     return {
       ...p,
-      [CONFIG_KEYS[i]]: c
+      [CONFIG_KEYS[i]]: c,
     };
   }, {});
 };

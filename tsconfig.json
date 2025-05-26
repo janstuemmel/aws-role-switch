@@ -4,16 +4,12 @@
   },
   "compilerOptions": {
     "strict": true,
-    "lib": [
-      "ES2017",
-      "DOM",
-      "DOM.Iterable"
-    ],
+    "lib": ["ES2017", "DOM", "DOM.Iterable"],
     "jsx": "react",
     "module": "CommonJS",
     "target": "es2017",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "skipLibCheck": true
-  },
+  }
 }

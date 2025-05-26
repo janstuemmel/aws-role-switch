@@ -1,14 +1,10 @@
-import {
-  useEffect,
-  useState,
-} from 'react';
+import {useEffect, useState} from 'react';
 
-import { useKeyPress } from '../../common/hooks';
+import {useKeyPress} from '../../common/hooks';
 
-export const useUpDown = (length: number): [
-  number | null, 
-  (l: number) => void,
-] => {
+export const useUpDown = (
+  length: number,
+): [number | null, (l: number) => void] => {
   const [idx, setIdx] = useState<number | null>(null);
   const [len, setLen] = useState<number>(length);
   const up = useKeyPress('ArrowUp');
@@ -20,8 +16,11 @@ export const useUpDown = (length: number): [
       setIdx(idx === null ? 0 : idx >= len - 1 ? idx : idx + 1);
     }
   }, [up, down]);
-  return [idx, (l: number) => {
-    setIdx(null);
-    setLen(l);
-  }];
+  return [
+    idx,
+    (l: number) => {
+      setIdx(null);
+      setLen(l);
+    },
+  ];
 };

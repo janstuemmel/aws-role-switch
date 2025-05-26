@@ -1,48 +1,41 @@
-import { Menu } from '@blueprintjs/core';
-import {
-  defaultRangeExtractor,
-  useVirtualizer,
-} from '@tanstack/react-virtual';
-import React, {
-  CSSProperties,
-  useEffect,
-  useRef,
-} from 'react';
+import {Menu} from '@blueprintjs/core';
+import {defaultRangeExtractor, useVirtualizer} from '@tanstack/react-virtual';
+import React, {type CSSProperties, useEffect, useRef} from 'react';
 
-import { useKeyPress } from '../../common/hooks';
-import { useUpDown } from '../hooks/useUpDown';
+import {useKeyPress} from '../../common/hooks';
+import {useUpDown} from '../hooks/useUpDown';
 
-type ListItem<T> = { type: 'item', item: T, idx: number }
-type ListSection = { type: 'section', title?: string }
-type ListEntry<T> = ListItem<T> | ListSection
-type SectionListData<T> = { title?: string, children: T[] }
-type ItemProps = { key: string | number, style: CSSProperties }
+type ListItem<T> = {type: 'item'; item: T; idx: number};
+type ListSection = {type: 'section'; title?: string};
+type ListEntry<T> = ListItem<T> | ListSection;
+type SectionListData<T> = {title?: string; children: T[]};
+type ItemProps = {key: string | number; style: CSSProperties};
 
 function mapToRows<T>(data: SectionListData<T>[]) {
   return data.reduce<ListEntry<T>[]>((prev, cur, i) => {
     const items: ListItem<T>[] = data[i].children.map((item, j) => ({
       item,
-      type: 'item', 
-      idx: prev.length-i+j
+      type: 'item',
+      idx: prev.length - i + j,
     }));
-    return [ ...prev, { type: 'section', title: cur.title }, ...items ];
+    return [...prev, {type: 'section', title: cur.title}, ...items];
   }, []);
 }
 
-export default <T, >({ 
+export default <T,>({
   data,
   itemHeight,
   sectionHeight,
-  renderSection, 
+  renderSection,
   renderItem,
-  onEnter = () => {}
+  onEnter = () => {},
 }: {
-  data: SectionListData<T>[]
-  itemHeight: number
-  sectionHeight: number
-  renderItem: (props: { item: T, selected: boolean } & ItemProps) => JSX.Element
-  renderSection: (props: { title: string } & ItemProps) => JSX.Element
-  onEnter?: (item: T) => void
+  data: SectionListData<T>[];
+  itemHeight: number;
+  sectionHeight: number;
+  renderItem: (props: {item: T; selected: boolean} & ItemProps) => JSX.Element;
+  renderSection: (props: {title: string} & ItemProps) => JSX.Element;
+  onEnter?: (item: T) => void;
 }) => {
   const enter = useKeyPress('Enter');
   const ref = useRef(null);
@@ -51,37 +44,46 @@ export default <T, >({
   const [idx, reset] = useUpDown(itemsLen);
 
   const activeStickyIndexRef = React.useRef<number | undefined>(0);
-  const stickyIndexes = React.useMemo(() => 
-    data.map((gn) => rows.findIndex((n) => n.type === 'section' && n.title === gn.title)), 
-  []);
+  const stickyIndexes = React.useMemo(
+    () =>
+      data.map((gn) =>
+        rows.findIndex((n) => n.type === 'section' && n.title === gn.title),
+      ),
+    [],
+  );
   const isSticky = (index: number) => stickyIndexes.includes(index);
-  const isActiveSticky = (index: number) => activeStickyIndexRef.current === index;
+  const isActiveSticky = (index: number) =>
+    activeStickyIndexRef.current === index;
 
   const virtual = useVirtualizer({
     count: rows.length,
     overscan: 10,
     getScrollElement: () => ref.current,
-    estimateSize: (i) => rows[i].type === 'section' ? sectionHeight : itemHeight,
-    rangeExtractor: React.useCallback((range) => {
-      activeStickyIndexRef.current = [...stickyIndexes]
-        .reverse()
-        .find((index) => range.startIndex >= index);
-      const next = new Set([
-        activeStickyIndexRef.current,
-        ...defaultRangeExtractor(range)
-      ]);
-      return [ ...next ] as number[];
-    }, [stickyIndexes, data])
+    estimateSize: (i) =>
+      rows[i].type === 'section' ? sectionHeight : itemHeight,
+    rangeExtractor: React.useCallback(
+      (range) => {
+        activeStickyIndexRef.current = [...stickyIndexes]
+          .reverse()
+          .find((index) => range.startIndex >= index);
+        const next = new Set([
+          activeStickyIndexRef.current,
+          ...defaultRangeExtractor(range),
+        ]);
+        return [...next] as number[];
+      },
+      [stickyIndexes, data],
+    ),
   });
 
   useEffect(() => {
     reset(itemsLen);
-    virtual.scrollToIndex(0, { behavior: 'auto' });
+    virtual.scrollToIndex(0, {behavior: 'auto'});
   }, [data]);
 
   useEffect(() => {
     const id = rows.findIndex((r) => r.type === 'item' && r.idx === idx);
-    virtual.scrollToIndex(id || 0, { align: 'center', behavior: 'smooth' });
+    virtual.scrollToIndex(id || 0, {align: 'center', behavior: 'smooth'});
   }, [idx]);
 
   useEffect(() => {
@@ -95,9 +97,12 @@ export default <T, >({
   const items = virtual.getVirtualItems().filter((i) => i);
 
   return (
-    <div ref={ref} style={{ flex: 1 }} className="sectionList" tabIndex={0}>
-      <Menu className="menu" style={{ height: virtual.getTotalSize(), position: 'relative' }}>
-        {items.map(({ size, start, index, key }) => {
+    <div ref={ref} style={{flex: 1}} className="sectionList">
+      <Menu
+        className="menu"
+        style={{height: virtual.getTotalSize(), position: 'relative'}}
+      >
+        {items.map(({size, start, index, key}) => {
           const item: ListEntry<T> = rows[index];
           const style: CSSProperties = {
             top: 0,
@@ -106,18 +111,22 @@ export default <T, >({
             height: size,
             zIndex: isSticky(index) ? 10 : undefined,
             position: isActiveSticky(index) ? 'sticky' : 'absolute',
-            transform: isActiveSticky(index) ? 'none' : `translateY(${start}px)`,
+            transform: isActiveSticky(index)
+              ? 'none'
+              : `translateY(${start}px)`,
           };
-          return item.type === 'section' ? renderSection({
-            key,
-            style,
-            title: item.title ? item.title : 'Ungrouped',
-          }) : renderItem({
-            key,
-            style,
-            selected: idx === item.idx,
-            item: item.item,
-          });
+          return item.type === 'section'
+            ? renderSection({
+                key,
+                style,
+                title: item.title ? item.title : 'Ungrouped',
+              })
+            : renderItem({
+                key,
+                style,
+                selected: idx === item.idx,
+                item: item.item,
+              });
         })}
       </Menu>
     </div>

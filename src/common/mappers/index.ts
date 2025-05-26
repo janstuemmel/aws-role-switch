@@ -1,1 +1,1 @@
-export { mapToSwitchForm } from './switchForm';
+export {mapToSwitchForm} from './switchForm';

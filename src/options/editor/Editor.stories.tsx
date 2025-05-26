@@ -1,7 +1,7 @@
-import * as React from "react";
-import { useLadleContext } from '@ladle/react';
+import {useLadleContext} from '@ladle/react';
+import * as React from 'react';
 
-import Editor from "./Editor";
+import Editor from './Editor';
 import '../options.scss';
 
 const TEST_VALUE = `[test]
@@ -10,17 +10,18 @@ color =
 region = `;
 
 export const EditorWithText = () => {
-  const { globalState } = useLadleContext();
+  const {globalState} = useLadleContext();
   return (
-    <Editor 
+    <Editor
       height="400px"
-      value={TEST_VALUE} 
-      theme={globalState.theme == 'dark' ? 'dark' : 'light'} 
+      value={TEST_VALUE}
+      theme={globalState.theme === 'dark' ? 'dark' : 'light'}
     />
   );
 };
 
-export const Scrollbar = () => 
-  <div style={{ overflow: 'auto', height: 300 }}>
-    <div style={{ height: 999, background: 'gray' }}></div>
-  </div>;
+export const Scrollbar = () => (
+  <div style={{overflow: 'auto', height: 300}}>
+    <div style={{height: 999, background: 'gray'}} />
+  </div>
+);

@@ -1,8 +1,8 @@
-import { mapToSwitchForm } from "../../common/mappers";
+import {mapToSwitchForm} from '../../common/mappers';
 
 export const createSigninForm = (configItem: AWSConfigItem, csrf: string) => {
   const redirect_uri = location.href;
-  const params = mapToSwitchForm(configItem, { csrf, redirect_uri });
+  const params = mapToSwitchForm(configItem, {csrf, redirect_uri});
 
   // create switch role form
   const form = document.createElement('form');

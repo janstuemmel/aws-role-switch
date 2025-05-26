@@ -1,6 +1,6 @@
 /* @jest-environment jsdom */
 
-import { getCsrfFromPage } from "./getCsrfFromPage";
+import {getCsrfFromPage} from './getCsrfFromPage';
 
 beforeEach(() => {
   // clear dom
@@ -9,7 +9,9 @@ beforeEach(() => {
 });
 
 it('should not find csrf and throw', () => {
-  expect(getCsrfFromPage).toThrowErrorMatchingInlineSnapshot(`"csrf not found"`);
+  expect(getCsrfFromPage).toThrowErrorMatchingInlineSnapshot(
+    `"csrf not found"`,
+  );
 });
 
 it('should get csrf from input element', () => {
@@ -30,5 +32,7 @@ it('should get csrf from window as string', () => {
 
 it('should get csrf from window', () => {
   window.wrappedJSObject = {};
-  expect(getCsrfFromPage).toThrowErrorMatchingInlineSnapshot(`"csrf not found"`);
+  expect(getCsrfFromPage).toThrowErrorMatchingInlineSnapshot(
+    `"csrf not found"`,
+  );
 });

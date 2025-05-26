@@ -5,10 +5,10 @@ export default [
   'https://*.console.amazonaws.cn/*',
 
   // lightsail
-  "https://lightsail.aws.amazon.com/*",
-  
-  // health dashboard 
-  "https://health.aws.amazon.com/*",
-  "https://phd.amazonaws-us-gov.com/*",
-  "https://phd.amazonaws.cn/*"
+  'https://lightsail.aws.amazon.com/*',
+
+  // health dashboard
+  'https://health.aws.amazon.com/*',
+  'https://phd.amazonaws-us-gov.com/*',
+  'https://phd.amazonaws.cn/*',
 ];

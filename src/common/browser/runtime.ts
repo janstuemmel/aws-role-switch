@@ -7,11 +7,13 @@ export const openOptions = async (cb: () => void = () => {}) => {
 // use callback style in sendMessage
 // https://github.com/mozilla/webextension-polyfill/issues/130#issuecomment-996926374
 
-export const addMessageListener = (cb: (
-  msg: Message, 
-  sender: chrome.runtime.MessageSender,
-  sendResponse: (res: unknown) => void
-) => void) => {
+export const addMessageListener = (
+  cb: (
+    msg: Message,
+    sender: chrome.runtime.MessageSender,
+    sendResponse: (res: unknown) => void,
+  ) => void,
+) => {
   chrome.runtime.onMessage.addListener(cb);
 };
 

@@ -1,13 +1,7 @@
-import {
-  getConfig,
-  setConfig,
-} from './storage';
-import {
-  getStorageItems,
-  setStorageItems,
-} from '../browser';
-import { compressConfig } from './gzip';
-import { mock } from '../../test/helper';
+import {mock} from '../../test/helper';
+import {getStorageItems, setStorageItems} from '../browser';
+import {compressConfig} from './gzip';
+import {getConfig, setConfig} from './storage';
 
 jest.mock('../browser');
 

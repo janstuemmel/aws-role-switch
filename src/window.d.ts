@@ -5,9 +5,9 @@ declare global {
     wrappedJSObject?: {
       AWSC?: {
         Auth: {
-          getMbtc: () => number
-        }
-      }
-    }
+          getMbtc: () => number;
+        };
+      };
+    };
   }
 }

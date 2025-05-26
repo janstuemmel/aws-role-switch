@@ -1,5 +1,7 @@
-import React, { FC } from 'react';
+import React, {type FC} from 'react';
 
-export const Icon: FC<{ src: string, size?: number }> = ({ src, size = 24 }) => {
-  return <img src={src} className="bp4-icon" width={size} height={size} />;
+export const Icon: FC<{src: string; size?: number}> = ({src, size = 24}) => {
+  return (
+    <img alt="" src={src} className="bp5-icon" width={size} height={size} />
+  );
 };

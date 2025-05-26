@@ -1,2 +1,2 @@
-export { groupBy } from './groupBy';
-export { removeUndefinedEntries } from './removeUndefinedEntries';
+export {groupBy} from './groupBy';
+export {removeUndefinedEntries} from './removeUndefinedEntries';
