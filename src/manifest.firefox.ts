@@ -27,7 +27,7 @@ export default {
   browser_specific_settings: {
     gecko: {
       id: '{31f7b254-7ac9-4f3a-ae3c-ef67ea153e4a}',
-      strict_min_version: '57.0',
+      strict_min_version: '58.0',
     },
   },
 };
