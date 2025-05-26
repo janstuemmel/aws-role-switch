@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "test": "jest --colors",
-    "lint": "eslint . --cache",
+    "lint": "biome check",
     "type-check": "tsc --noEmit",
     "clean": "rimraf dist",
     "ladle": "ladle serve",
