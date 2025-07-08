@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "@biomejs/biome": "^1.9.4",
-    "@blueprintjs/core": "^5.19.0",
+    "@blueprintjs/core": "^6.0.0",
     "@codemirror/autocomplete": "^6.3.4",
     "@codemirror/commands": "^6.1.2",
     "@codemirror/language": "^6.3.1",
