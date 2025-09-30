@@ -13,6 +13,7 @@ import SectionList from './SectionList';
 type PopupProps = {
   roles: AWSConfigItem[];
   executeSwitch?: (item: AWSConfigItem) => void;
+  onCopyAccountId?: (accountId: string) => void;
   headerRight?: JSX.Element | null;
 };
 
@@ -30,6 +31,7 @@ const EmptyList = ({emptyConfig}: {emptyConfig: boolean}) => (
 export const Popup = ({
   roles,
   executeSwitch = () => {},
+  onCopyAccountId = () => {},
   headerRight = null,
 }: PopupProps) => {
   const [filter, setFiler] = useState('');
@@ -58,6 +60,7 @@ export const Popup = ({
               {...props}
               {...item}
               onClick={() => executeSwitch(item)}
+              onCopyAccountId={() => onCopyAccountId(item.aws_account_id)}
             />
           )}
           renderSection={({title, ...props}) => (

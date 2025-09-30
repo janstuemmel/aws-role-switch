@@ -44,11 +44,22 @@ const App = () => {
     });
   }, []);
 
+  const handleCopyAccountId = (accountId: string) => {
+    navigator.clipboard.writeText(accountId);
+    Notification.show({
+      message: `Copied ${accountId}`,
+      intent: 'success',
+      timeout: 2000,
+      icon: 'tick',
+    });
+  };
+
   return (
     <div className={`bp5-${theme}`}>
       <Popup
         executeSwitch={executeSwitch}
         roles={roles}
+        onCopyAccountId={handleCopyAccountId}
         headerRight={
           <>
             <Button

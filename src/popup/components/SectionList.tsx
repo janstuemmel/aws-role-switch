@@ -49,7 +49,7 @@ export default <T,>({
       data.map((gn) =>
         rows.findIndex((n) => n.type === 'section' && n.title === gn.title),
       ),
-    [],
+    [data, rows],
   );
   const isSticky = (index: number) => stickyIndexes.includes(index);
   const isActiveSticky = (index: number) =>
