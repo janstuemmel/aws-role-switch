@@ -37,7 +37,7 @@
     "marked-highlight": "^2.0.4",
     "normalize.css": "^8.0.1",
     "outmatch": "^1.0.0",
-    "pako": "^2.0.4",
+    "pako": "^3.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -46,7 +46,7 @@
     "@types/chrome": "^0.0.332",
     "@ladle/react": "^5.0.3",
     "@types/jest": "^29.0.0",
-    "@types/pako": "^2.0.0",
+    "@types/pako": "^3.0.0",
     "@types/react": "^17.0.47",
     "@types/react-dom": "^17.0.17",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
