@@ -38,6 +38,20 @@ type AWSStoredConfigItem = {
 
 type StoredConfig = Record<string, AWSStoredConfigItem>;
 
+// config pushed by another extension, keyed by its extension id
+type ExternalConfig = {active: boolean; config: string; updatedAt: number};
+type ExternalConfigs = Record<string, ExternalConfig>;
+
+// same contract as aws-extend-switch-roles, so its config senders work as is
+type ExternalUpdateConfigMessage = {
+  action: 'updateConfig';
+  dataType: 'ini';
+  data: string;
+};
+type ExternalUpdateConfigResponse =
+  | {result: 'success'}
+  | {result: 'failure'; error: {message: string}};
+
 type SwitchRoleFormFromExtension = {_fromAWSRoleSwitchExtension?: 'true'};
 type SwitchRoleForm = {
   account: string;

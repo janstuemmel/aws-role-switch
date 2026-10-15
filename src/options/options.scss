@@ -48,6 +48,18 @@
       background: $dark-gray3;
     }
 
+    .external-sender {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      .bp5-switch {
+        flex: 1;
+        margin: 0;
+        overflow-wrap: anywhere;
+      }
+    }
+
     header {
       padding: 10px;
       background: $light-gray2;

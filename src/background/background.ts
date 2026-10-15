@@ -1,6 +1,10 @@
-import {addMessageListener} from '../common/browser';
+import {
+  addExternalMessageListener,
+  addMessageListener,
+} from '../common/browser';
 import {getMappedConfig} from './handlers/getMappedConfig';
 import {redirectListener} from './handlers/redirectListener';
+import {updateConfigFromExternal} from './handlers/updateConfigFromExternal';
 
 // return true to indicate a asyncronous sendResponse
 addMessageListener((msg, sender, sendResponse) => {
@@ -14,4 +18,9 @@ addMessageListener((msg, sender, sendResponse) => {
       });
       return true;
   }
+});
+
+addExternalMessageListener((msg, sender, sendResponse) => {
+  updateConfigFromExternal(msg, sender.id).then(sendResponse);
+  return true;
 });

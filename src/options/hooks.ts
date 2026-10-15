@@ -4,7 +4,11 @@ import {markedHighlight} from 'marked-highlight';
 import {type Dispatch, type SetStateAction, useEffect, useState} from 'react';
 
 import readme from '../../docs/usage.md';
-import {getConfig} from '../common/config';
+import {
+  getConfig,
+  getExternalConfigs,
+  onExternalConfigsChanged,
+} from '../common/config';
 
 marked.use(
   markedHighlight({
@@ -25,6 +29,16 @@ export const useDocs = () => {
       .then(setDocs);
   }, []);
   return docs;
+};
+
+export const useExternalConfigs = (): ExternalConfigs => {
+  const [configs, setConfigs] = useState<ExternalConfigs>({});
+  useEffect(() => {
+    const reload = () => getExternalConfigs().then(setConfigs);
+    reload();
+    return onExternalConfigsChanged(reload);
+  }, []);
+  return configs;
 };
 
 export const useConfigFile = (): [

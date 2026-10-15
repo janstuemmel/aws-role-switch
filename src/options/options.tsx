@@ -16,10 +16,15 @@ import {
   createTab,
   getStorageSize,
 } from '../common/browser';
-import {setConfig} from '../common/config';
+import {
+  removeExternalConfig,
+  setConfig,
+  setExternalConfigActive,
+} from '../common/config';
 import {useColorScheme} from '../common/hooks';
 import Editor from './editor/Editor';
-import {useConfigFile, useDocs} from './hooks';
+import ExternalSenders from './external/ExternalSenders';
+import {useConfigFile, useDocs, useExternalConfigs} from './hooks';
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
@@ -36,6 +41,7 @@ const NavLink = ({url, title}: {url: string; title: string}) => (
 
 const App = () => {
   const [configFile, setConfigFile] = useConfigFile();
+  const externalConfigs = useExternalConfigs();
   const [size, setSize] = useState(0);
   const docs = useDocs();
   const theme = useColorScheme();
@@ -64,6 +70,15 @@ const App = () => {
       .finally(getStorage);
     return true;
   };
+
+  // the list refreshes on storage changes, only failures need handling here
+  const updateExternalConfigs = (update: Promise<void>) =>
+    update.catch(() =>
+      Notification.show({
+        message: 'Could not update config senders',
+        intent: 'danger',
+      }),
+    );
 
   const syncSize = (size + 200) / (STORAGE_MAX_ITEM_SIZE * 10);
 
@@ -123,6 +138,15 @@ const App = () => {
           >
             Save config (Ctrl-s)
           </Button>
+          <ExternalSenders
+            configs={externalConfigs}
+            onToggle={(senderId, active) =>
+              updateExternalConfigs(setExternalConfigActive(senderId, active))
+            }
+            onRemove={(senderId) =>
+              updateExternalConfigs(removeExternalConfig(senderId))
+            }
+          />
         </header>
         <main>
           <p dangerouslySetInnerHTML={{__html: docs}} />
