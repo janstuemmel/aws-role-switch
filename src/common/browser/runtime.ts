@@ -17,6 +17,17 @@ export const addMessageListener = (
   chrome.runtime.onMessage.addListener(cb);
 };
 
+// messages from other extensions, web pages can't reach it without externally_connectable
+export const addExternalMessageListener = (
+  cb: (
+    msg: unknown,
+    sender: chrome.runtime.MessageSender,
+    sendResponse: (res: unknown) => void,
+  ) => void,
+) => {
+  chrome.runtime.onMessageExternal.addListener(cb);
+};
+
 export const sendMessage = async <T>(msg: Message) => {
   return new Promise<T>((res) => {
     chrome.runtime.sendMessage(msg, res);

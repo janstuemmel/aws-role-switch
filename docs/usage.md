@@ -88,6 +88,29 @@ aws_account_id = 123456789101
 source_profile = parent-readonly
 ```
 
+### External config
+
+Other extensions ("config senders") can push a config, e.g. one fetched from a company endpoint. The message format is the one of [aws-extend-switch-roles](https://github.com/tilfinltd/aws-extend-switch-roles/wiki/External-API), so its senders work by targeting this extension's id:
+
+| Browser | Extension id |
+| :---  |  :---  |
+| Chrome | `mjgccddjodbakimbncbmobdgpmoddalc` |
+| Firefox | `{31f7b254-7ac9-4f3a-ae3c-ef67ea153e4a}` |
+
+```js
+chrome.runtime.sendMessage(
+  'mjgccddjodbakimbncbmobdgpmoddalc',
+  {action: 'updateConfig', dataType: 'ini', data: iniConfig},
+  (res) => console.log(res), // {result: 'success'} or {result: 'failure', error: {message}}
+);
+```
+
+* Each push replaces the previous config of that sender, the config of this editor is left untouched
+* A new sender is listed under *Config senders* on this page and stays disabled until you switch it on, its pushes are answered with a failure until then
+* Roles of enabled senders are shown after the roles of this editor, a role of this editor wins when both define the same section
+* *Preview merged config* shows the config the popup reads, each section under a comment naming its source
+* Pushed configs are stored on this device only, they are not synced
+
 ## Usage
 
 After entering your config, roles will show up in the popup window. You can filter roles via the search input. 

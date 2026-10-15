@@ -1,0 +1,28 @@
+import {dedupeSections, mergeConfigs} from './merge';
+
+it('keeps sections of every config in order', () => {
+  expect(Object.keys(mergeConfigs({a: {}, b: {}}, {c: {}}, {d: {}}))).toEqual([
+    'a',
+    'b',
+    'c',
+    'd',
+  ]);
+});
+
+it('keeps the first section on a collision', () => {
+  expect(
+    mergeConfigs(
+      {role: {role_name: 'local'}},
+      {role: {role_name: 'external'}, other: {role_name: 'external'}},
+    ),
+  ).toEqual({
+    role: {role_name: 'local'},
+    other: {role_name: 'external'},
+  });
+});
+
+it('drops sections already defined by an earlier config', () => {
+  expect(
+    dedupeSections([{a: {}, b: {}}, {b: {role_name: 'x'}, c: {}}, {a: {}}]),
+  ).toEqual([{a: {}, b: {}}, {c: {}}, {}]);
+});

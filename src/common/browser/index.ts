@@ -7,11 +7,16 @@ export {
 export {
   openOptions,
   addMessageListener,
+  addExternalMessageListener,
 } from './runtime';
 
 export {
   getItems as getStorageItems,
   setItems as setStorageItems,
+  getLocalItems as getLocalStorageItems,
+  setLocalItems as setLocalStorageItems,
+  removeLocalItems as removeLocalStorageItems,
+  addLocalChangeListener as addLocalStorageChangeListener,
   getSize as getStorageSize,
   MAX_ITEM_COUNT as STORAGE_MAX_ITEM_COUNT,
   MAX_ITEM_SIZE as STORAGE_MAX_ITEM_SIZE,

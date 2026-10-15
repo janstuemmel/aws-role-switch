@@ -19,6 +19,7 @@ type EditorProps = {
   value?: string;
   onChange?: (val: string) => void;
   onSave?: () => boolean;
+  readOnly?: boolean;
 };
 
 export default ({
@@ -27,10 +28,13 @@ export default ({
   value = '',
   onChange = () => {},
   onSave = () => true,
+  readOnly = false,
 }: EditorProps) => (
   <CodeMirror
     value={value}
     height={height}
+    readOnly={readOnly}
+    editable={!readOnly}
     theme={theme === 'light' ? 'light' : oneDark}
     onChange={onChange}
     extensions={[
