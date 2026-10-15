@@ -60,6 +60,7 @@
     "release-it": "^19.0.2",
     "rimraf": "^5.0.0",
     "ts-jest": "^29.0.0",
+    "ts-node": "^10.9.2",
     "tsx": "^4.19.4",
     "typescript": "^5.0.0",
     "web-ext": "^8.7.0"
