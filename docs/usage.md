@@ -108,6 +108,7 @@ chrome.runtime.sendMessage(
 * Each push replaces the previous config of that sender, the config of this editor is left untouched
 * A new sender is listed under *Config senders* on this page and stays disabled until you switch it on, its pushes are answered with a failure until then
 * Roles of enabled senders are shown after the roles of this editor, a role of this editor wins when both define the same section
+* *Preview merged config* shows the config the popup reads, each section under a comment naming its source
 * Pushed configs are stored on this device only, they are not synced
 
 ## Usage

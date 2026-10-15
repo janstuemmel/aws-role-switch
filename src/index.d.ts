@@ -42,6 +42,9 @@ type StoredConfig = Record<string, AWSStoredConfigItem>;
 type ExternalConfig = {active: boolean; config: string; updatedAt: number};
 type ExternalConfigs = Record<string, ExternalConfig>;
 
+// a config the popup reads, senderId is unset for the editor config
+type ConfigSource = {senderId?: string; config: StoredConfig};
+
 // same contract as aws-extend-switch-roles, so its config senders work as is
 type ExternalUpdateConfigMessage = {
   action: 'updateConfig';

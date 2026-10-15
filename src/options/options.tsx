@@ -17,14 +17,17 @@ import {
   getStorageSize,
 } from '../common/browser';
 import {
+  getConfigSources,
   removeExternalConfig,
   setConfig,
   setExternalConfigActive,
+  stringifyConfigSources,
 } from '../common/config';
 import {useColorScheme} from '../common/hooks';
 import Editor from './editor/Editor';
 import ExternalSenders from './external/ExternalSenders';
 import {useConfigFile, useDocs, useExternalConfigs} from './hooks';
+import MergedConfigDialog from './preview/MergedConfigDialog';
 
 FocusStyleManager.onlyShowFocusOnTabs();
 
@@ -42,6 +45,7 @@ const NavLink = ({url, title}: {url: string; title: string}) => (
 const App = () => {
   const [configFile, setConfigFile] = useConfigFile();
   const externalConfigs = useExternalConfigs();
+  const [mergedConfig, setMergedConfig] = useState<string>();
   const [size, setSize] = useState(0);
   const docs = useDocs();
   const theme = useColorScheme();
@@ -79,6 +83,17 @@ const App = () => {
         intent: 'danger',
       }),
     );
+
+  const showMergedConfig = () =>
+    getConfigSources()
+      .then(stringifyConfigSources)
+      .then(setMergedConfig)
+      .catch(() =>
+        Notification.show({
+          message: 'Could not read the merged config',
+          intent: 'danger',
+        }),
+      );
 
   const syncSize = (size + 200) / (STORAGE_MAX_ITEM_SIZE * 10);
 
@@ -138,6 +153,19 @@ const App = () => {
           >
             Save config (Ctrl-s)
           </Button>
+          <Button
+            onClick={showMergedConfig}
+            icon="eye-open"
+            fill={true}
+            style={{marginTop: 10}}
+          >
+            Preview merged config
+          </Button>
+          <MergedConfigDialog
+            value={mergedConfig}
+            theme={theme}
+            onClose={() => setMergedConfig(undefined)}
+          />
           <ExternalSenders
             configs={externalConfigs}
             onToggle={(senderId, active) =>
